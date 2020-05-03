@@ -1,5 +1,9 @@
 package com.commando.game;
 
+import com.commando.game.states.GameStatesManager;
+import com.commando.game.util.KeyHandler;
+import com.commando.game.util.MouseHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +21,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     private BufferedImage img;
     private Graphics2D g;
+
+    private MouseHandler mouse;
+    private KeyHandler key;
+
+    private GameStatesManager gsm;
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -42,23 +51,26 @@ public class GamePanel extends JPanel implements Runnable{
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D)img.getGraphics();
-    }
 
-    private int x = 0;
+        mouse = new MouseHandler();
+        key = new KeyHandler();
 
-    public void input() {
-
+        gsm = new GameStatesManager();
     }
 
     public void update() {
-        x ++;
-        System.out.println(x);
+         gsm.update();
+    }
+
+    public void input(MouseHandler mouse, KeyHandler key) {
+        gsm.input(mouse, key);
     }
 
     public void render() {
         if( g!= null) {
             g.setColor(new Color(107, 213, 244));
             g.fillRect(0,0, width, height);
+            gsm.render(g);
         }
     }
 
@@ -88,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable{
             int updateCount = 0;
             while (( (now - lastUpdateTime) > TIME_BEFORE_UPDATE) && (updateCount < UPDATES_BEFORE_RENDER) ){
                 update();
-                input();
+                input(mouse, key);
                 lastUpdateTime += TIME_BEFORE_UPDATE;
                 updateCount++;
             }
@@ -97,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable{
                 lastUpdateTime = now - TIME_BEFORE_UPDATE;
             }
 
-            input();
+            input(mouse, key);
             render();
             draw();
 

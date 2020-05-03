@@ -20,7 +20,9 @@ public class PlayState extends GameState {
 
     @Override
     public void input(MouseHandler mouse, KeyHandler key) {
-
+        if(key.up._down) {
+            System.out.println("WAAAAAAAAA");
+        }
     }
 
     @Override

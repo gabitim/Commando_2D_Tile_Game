@@ -115,11 +115,10 @@ public class Sprite {
 
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) != 32)
-                graphics2D.drawImage(font.getFont(word.charAt(i)), (int) x, (int)y, width, height, null);
+                graphics2D.drawImage(font.getFont(word.charAt(i)), (int) x, (int) y, width, height, null);
+            x += xOffSet;
+            y += yOffSet;
         }
-
-        x += xOffSet;
-        y += yOffSet;
     }
 
 

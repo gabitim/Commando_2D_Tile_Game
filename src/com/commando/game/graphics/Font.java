@@ -2,6 +2,8 @@ package com.commando.game.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.Objects;
 
 /**
  * @author Timofti Gabriel
@@ -60,7 +62,8 @@ public class Font {
     private BufferedImage loadFont(String file) {
         BufferedImage sprite = null;
         try {
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
+            sprite = ImageIO.read(new File(file));  // modified ! Commit 10 for old
+            // System.out.println(sprite);
         } catch (Exception e) {
             System.out.println("ERROR: could not load file: " + file);
         }
@@ -85,11 +88,12 @@ public class Font {
     }
 
     public BufferedImage getFont(char letter) {
-        int value = letter;
+        int value = letter-65;
 
         int x = value % widthLetter;
-        int y = value / heightLetter;
+        int y = value / widthLetter;
+        System.out.println(x + ", " + y);
 
-        return FONTSHEET.getSubimage(x, y, width, height);
+        return getLetter(x,y);
     }
 }

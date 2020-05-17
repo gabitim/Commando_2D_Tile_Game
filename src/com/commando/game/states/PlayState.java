@@ -35,6 +35,7 @@ public class PlayState extends GameState {
 
     @Override
     public void render(Graphics2D g) {
+        // wirte words on the screen ! works only letters
         Sprite.drawArray(g, font, "Abcd01A", new Vector2d(100, 100), 16, 16, 16 ,  0);
     }
 }

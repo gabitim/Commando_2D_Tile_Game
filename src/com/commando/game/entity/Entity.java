@@ -22,7 +22,7 @@ public abstract class Entity {
     protected int currentAnimation;
 
     protected Animation animation;
-    protected Sprite sprite;
+     protected Sprite sprite;
     protected Vector2d position;
     protected int size;
 
@@ -50,6 +50,8 @@ public abstract class Entity {
         this.animation = new Animation();
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
     }
+
+    public int getSize() { return size; }
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;

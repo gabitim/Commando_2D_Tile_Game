@@ -5,6 +5,7 @@ import com.commando.game.graphics.Sprite;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.AABB;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,7 @@ public abstract class Entity {
     protected int currentAnimation;
 
     protected Animation animation;
-     protected Sprite sprite;
+    protected Sprite sprite;
     protected Vector2d position;
     protected int size;
 
@@ -35,12 +36,15 @@ public abstract class Entity {
     protected int attackSpeed;
     protected int attackDuration;
 
-    protected float dx;
-    protected float dy;
+    protected float speed_x;
+    protected float speed_y;
 
     protected float maxSpeed;
     protected float acceleration;
     protected float deceleration;
+
+    protected AABB hitBounds;
+    protected AABB bounds;
 
     public Entity(Sprite sprite, Vector2d origin, int size) {
         this.sprite = sprite;
@@ -49,9 +53,24 @@ public abstract class Entity {
 
         this.animation = new Animation();
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
+
+        bounds = new AABB(origin, size, size);
+        hitBounds = new AABB(new Vector2d(origin.x + (size / 2), origin.y), size, size);
     }
 
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public void setSize(int i ) { this.size = i; }
+    public void setMaxSpeed(float f) { maxSpeed = f; }
+    public void setAcceleration(float f) { acceleration = f; }
+    public void setDeceleration(float f) { deceleration = f; }
+
+    public AABB getBounds() { return bounds; }
+
     public int getSize() { return size; }
+    public Animation getAnimation() { return animation; }
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;
@@ -82,6 +101,25 @@ public abstract class Entity {
         }
         else {
             setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
+        }
+    }
+
+    private void setHitBoxDirection() {
+        if(up) {
+            hitBounds.setyOffSet(-size / 2);
+            hitBounds.setxOffSet(-size / 2);
+        }
+        else if(down) {
+            hitBounds.setyOffSet(size / 2);
+            hitBounds.setxOffSet(size / 2);
+        }
+        else if(left) {
+            hitBounds.setxOffSet(-size);
+            hitBounds.setyOffSet(0);
+        }
+        else if(right) {
+            hitBounds.setxOffSet(0);
+            hitBounds.setxOffSet(0);
         }
     }
 

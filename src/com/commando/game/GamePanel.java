@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static int width;
     public static int height;
+    public static int oldFrameCount;
 
     private Thread thread;
     private boolean running = false;
@@ -95,6 +96,10 @@ public class GamePanel extends JPanel implements Runnable{
         final double TARGET_FPS = 60;
         final double TOTAL_TIME_BEFORE_RENDER = 1_000_000_000 / TARGET_FPS;
 
+        int frameCount = 0;
+        int lastSecondTime = (int) (lastUpdateTime / 1_000_000_000);
+        oldFrameCount = 0;
+
         while (running) {
             double now = System.nanoTime();
             int updateCount = 0;
@@ -114,6 +119,16 @@ public class GamePanel extends JPanel implements Runnable{
             draw();
 
             lastRenderTime = now;
+            frameCount++;
+
+            int thisSecond = (int) (lastUpdateTime / 1_000_000_000);
+            if(thisSecond > lastSecondTime) {
+                if(frameCount != oldFrameCount) {
+                    oldFrameCount = frameCount;
+                }
+                frameCount = 0;
+                lastSecondTime = thisSecond;
+            }
 
             while (now - lastRenderTime < TOTAL_TIME_BEFORE_RENDER && now - lastUpdateTime < TIME_BEFORE_UPDATE) {
                 Thread.yield();

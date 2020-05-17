@@ -1,5 +1,6 @@
 package com.commando.game.states;
 
+import com.commando.game.GamePanel;
 import com.commando.game.entity.Hero;
 import com.commando.game.graphics.Font;
 import com.commando.game.graphics.Sprite;
@@ -19,7 +20,7 @@ public class PlayState extends GameState {
 
     public PlayState(GameStatesManager gameStatesManager) {
         super(gameStatesManager);
-        font = new Font("resources\\font\\ZeldaFont.png", 16, 16);
+        font = new Font("resources\\font\\font.png", 10, 10);
         hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(300, 300), 64);
     }
 
@@ -36,7 +37,7 @@ public class PlayState extends GameState {
     @Override
     public void render(Graphics2D graphics) {
         // write words on the screen ! works only letters
-        Sprite.drawArray(graphics, font, "AbcdA", new Vector2d(100, 100), 16, 16, 16 ,  0);
+        Sprite.drawArray(graphics, font, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12   , 12 ,  0);
 
         hero.render(graphics);
     }

@@ -45,7 +45,7 @@ public class Hero extends Entity{
 
         if(down) {
             speed_y += acceleration;
-            if(speed_y < maxSpeed) {
+            if(speed_y > maxSpeed) {
                 speed_y = maxSpeed;
             }
         } else {
@@ -87,8 +87,10 @@ public class Hero extends Entity{
     }
 
     public void input(MouseHandler mouse, KeyHandler key) {
-
-        if(mouse.getButton() == 1) {
+         // 1- left
+        // 2 - scroll button
+        //3 - right
+        if(mouse.getButton() == 2) {
             System.out.println("Player: " + position.x + ", " + position.y);
         }
 

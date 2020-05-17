@@ -92,7 +92,7 @@ public class Font {
 
         int x = value % widthLetter;
         int y = value / widthLetter;
-        System.out.println(x + ", " + y);
+        //System.out.println(x + ", " + y);
 
         return getLetter(x,y);
     }

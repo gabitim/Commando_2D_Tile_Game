@@ -5,6 +5,7 @@ import com.commando.game.util.Vector2d;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +65,7 @@ public class Sprite {
     private BufferedImage loadSprite(String file) {
         BufferedImage sprite = null;
         try {
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
+            sprite = ImageIO.read(new File(file));
         } catch (Exception e) {
             System.out.println("ERROR: could not load file: " + file);
         }
@@ -73,11 +74,11 @@ public class Sprite {
     }
 
     public void loadSpriteArray() {
-        spriteArray = new BufferedImage[widthSprite][heightSprite];
+        spriteArray = new BufferedImage[heightSprite][widthSprite];
 
-        for (int x = 0; x < widthSprite; x++) {
-            for (int y = 0; y < heightSprite; y++) {
-                spriteArray[x][y] = getSprite(x, y);
+        for (int y = 0; y < heightSprite; y++) {
+            for (int x = 0; x < widthSprite; x++) {
+                spriteArray[y][x] = getSprite(x, y);
             }
         }
     }

@@ -17,20 +17,29 @@ import java.awt.*;
  */
 public class PlayState extends GameState {
 
+    private static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
+    private static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
+
+
     private Font font;
     private Hero hero;
     private TileManager tileManager;
 
+    public static Vector2d map;
+
     public PlayState(GameStatesManager gameStatesManager) throws ParserConfigurationException {
         super(gameStatesManager);
+        map = new Vector2d(); //create the map
+        Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
-        tileManager = new TileManager("resources\\map\\map1_plains.xml");
-        font = new Font("resources\\font\\font.png", 10, 10);
-        hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(300, 300), 64);
+        tileManager = new TileManager("resources\\map\\map1_plains.xml"); // where is my map
+        font = new Font("resources\\font\\font.png", 10, 10); // where is my font
+        hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), 64); // the hero
     }
 
     @Override
     public void update() {
+        Vector2d.setWorldVar(map.x, map.y); //camera movement
         hero.update();
     }
 

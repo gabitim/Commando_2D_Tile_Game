@@ -24,7 +24,7 @@ public class SolidObjectBlock extends Block{
     @Override
     public void render(Graphics2D graphics) {
         super.render(graphics);
-        graphics.setColor(Color.WHITE);
+        graphics.setColor(Color.RED);
         graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width , height );
     }
 }

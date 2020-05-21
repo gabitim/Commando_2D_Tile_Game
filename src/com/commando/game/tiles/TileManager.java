@@ -71,7 +71,7 @@ public class TileManager {
                 }
 
                 data[i] = element.getElementsByTagName("data").item(0).getTextContent();
-                System.out.println("......................\n" + data[i]);
+                //System.out.println("......................\n" + data[i]);  // printing the data
 
                 if(i >= 1) {
                     tileMap.add(new TileMapNormal(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));

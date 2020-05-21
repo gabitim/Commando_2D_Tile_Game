@@ -1,6 +1,7 @@
 package com.commando.game.entity;
 
 import com.commando.game.graphics.Sprite;
+import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -14,18 +15,25 @@ public class Hero extends Entity{
 
     public Hero(Sprite sprite, Vector2d origin, int size) {
         super(sprite, origin, size);
+        acceleration = 2f;
+        deceleration = 0.3f;
+        maxSpeed = 3f;
     }
 
     public void update() {
         super.update();
         move();
+
+        PlayState.map.x += speed_x;
+        PlayState.map.y += speed_y;
+
         position.x += speed_x;
         position.y += speed_y;
     }
 
     @Override
     public void render(Graphics2D graphics) {
-        graphics.drawImage(animation.getImage(), (int)position.x, (int)position.y, size, size, null );
+        graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
     }
 
     public void move() {

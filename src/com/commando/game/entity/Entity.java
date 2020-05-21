@@ -39,9 +39,10 @@ public abstract class Entity {
     protected float speed_x;
     protected float speed_y;
 
-    protected float maxSpeed = 3f;
-    protected float acceleration = 2f;
-    protected float deceleration = 0.3f;
+    // to be set in each entity
+    protected float maxSpeed;
+    protected float acceleration;
+    protected float deceleration;
 
     protected AABB hitBounds;
     protected AABB bounds;

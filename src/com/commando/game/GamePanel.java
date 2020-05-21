@@ -5,6 +5,7 @@ import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-    public void init() {
+    public void init() throws ParserConfigurationException {
         running = true;
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -84,7 +85,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        init();
+        try {
+            init();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
 
         final double GAME_FPS = 60.0 ;
         final double TIME_BEFORE_UPDATE = 1_000_000_000 / GAME_FPS;

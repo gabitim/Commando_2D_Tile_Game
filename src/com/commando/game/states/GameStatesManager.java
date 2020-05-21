@@ -5,6 +5,7 @@ import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class GameStatesManager {
     public static final int WIN = 3;
     public static final int LOSE = 4;
 
-    public GameStatesManager() {
+    public GameStatesManager() throws ParserConfigurationException {
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
         states = new ArrayList<GameState>();
@@ -35,7 +36,7 @@ public class GameStatesManager {
         states.remove(state);
     }
 
-    public void add(int state) {
+    public void add(int state) throws ParserConfigurationException {
         if(state == PLAY) {
             states.add(new PlayState(this));
         }
@@ -54,7 +55,7 @@ public class GameStatesManager {
 
     }
 
-    public void addAndpop(int state) {
+    public void addAndpop(int state) throws ParserConfigurationException {
         states.remove(0);
         add(state);
     }

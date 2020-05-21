@@ -87,9 +87,9 @@ public class Hero extends Entity{
     }
 
     public void input(MouseHandler mouse, KeyHandler key) {
-         // 1- left
+         // 1- left mouse button
         // 2 - scroll button
-        //3 - right
+        //3 - right mouse button
         if(mouse.getButton() == 2) {
             System.out.println("Player: " + position.x + ", " + position.y);
         }

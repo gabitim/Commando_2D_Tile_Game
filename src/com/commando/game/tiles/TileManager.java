@@ -57,7 +57,7 @@ public class TileManager {
             tileHeight = Integer.parseInt(element.getAttribute("tileheight"));
             tileCount = Integer.parseInt(element.getAttribute("tilecount"));
             tileColumns = Integer.parseInt(element.getAttribute("columns"));
-            sprite = new Sprite("resources/tile/" + imagePath + ".png", tileWidth, tileHeight);
+            sprite = new Sprite("resources\\tile\\" + imagePath + ".png", tileWidth, tileHeight);
 
             list = document.getElementsByTagName("layer");
             nr_of_layers = list.getLength();
@@ -72,6 +72,13 @@ public class TileManager {
 
                 data[i] = element.getElementsByTagName("data").item(0).getTextContent();
                 System.out.println("......................\n" + data[i]);
+
+                if(i >= 1) {
+                    tileMap.add(new TileMapNormal(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                } else {
+                    tileMap.add(new TileMapSolid(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                }
+
             }
 
         }
@@ -81,6 +88,8 @@ public class TileManager {
     }
 
     public void render(Graphics2D graphics) {
-
+        for(int i = 0; i < tileMap.size(); i++) {
+            tileMap.get(i).render(graphics);
+        }
     }
 }

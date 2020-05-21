@@ -24,7 +24,7 @@ public class PlayState extends GameState {
     public PlayState(GameStatesManager gameStatesManager) throws ParserConfigurationException {
         super(gameStatesManager);
 
-        tileManager = new TileManager("resources/map/map1_plains.xml");
+        tileManager = new TileManager("resources\\map\\map1_plains.xml");
         font = new Font("resources\\font\\font.png", 10, 10);
         hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(300, 300), 64);
     }
@@ -41,9 +41,14 @@ public class PlayState extends GameState {
 
     @Override
     public void render(Graphics2D graphics) {
-        // write words on the screen ! works only letters
+
+        //render the map
+        tileManager.render(graphics);
+
+        //the FPS counter
         Sprite.drawArray(graphics, font, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12   , 12 ,  0);
 
+        //render the hero
         hero.render(graphics);
     }
 }

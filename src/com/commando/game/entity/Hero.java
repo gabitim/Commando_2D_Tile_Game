@@ -18,21 +18,33 @@ public class Hero extends Entity{
         acceleration = 2f;
         deceleration = 0.3f;
         maxSpeed = 3f;
+
     }
 
     public void update() {
         super.update();
         move();
 
-        PlayState.map.x += speed_x;
-        PlayState.map.y += speed_y;
-
-        position.x += speed_x;
-        position.y += speed_y;
+        if(!bounds.collisionTile(speed_x, 0)) {
+            PlayState.map.x += speed_x;
+            position.x += speed_x;
+        }
+        if (!bounds.collisionTile(0, speed_y)) {
+            PlayState.map.y += speed_y;
+            position.y += speed_y;
+        }
     }
 
     @Override
     public void render(Graphics2D graphics) {
+        graphics.setColor(Color.RED);
+        graphics.drawRect(
+                (int)(position.getWorldVar().x + bounds.getxOffSet()),
+                (int)(position.getWorldVar().y + bounds.getyOffSet()),
+                (int)bounds.getWidth(),
+                (int)bounds.getHeight()
+        );
+
         graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
     }
 

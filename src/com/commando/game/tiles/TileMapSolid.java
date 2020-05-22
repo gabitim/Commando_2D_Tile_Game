@@ -26,7 +26,7 @@ public class TileMapSolid extends TileMap {
         for(int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                if(temp == WATER) { // the borders (for collision)
+                if(temp != WATER) { // the borders (for collision)
                     tempBlock = new SolidCollideBlock(
                             sprite.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,

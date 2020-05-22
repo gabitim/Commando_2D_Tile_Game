@@ -1,6 +1,7 @@
 package com.commando.game.util.collision;
 
 import com.commando.game.entity.Entity;
+import com.commando.game.tiles.TileMapSolid;
 import com.commando.game.util.Vector2d;
 
 /**
@@ -60,6 +61,9 @@ public class AABB {
     public void setxOffSet(float f) { xOffSet = f; }
     public void setyOffSet(float f) { yOffSet = f; }
 
+    public float getxOffSet() { return xOffSet; }
+    public float getyOffSet() { return yOffSet; }
+
     // check collision method
     public boolean collides(AABB box) {
         float ax = ((position.getWorldVar().x + (xOffSet)) + (width / 2));  // this object
@@ -93,7 +97,20 @@ public class AABB {
         }
 
         return false;
+    }
 
+    // we check if the collision happens for tile Map
+    public boolean collisionTile(float ax, float ay) {
+        for (int c = 0; c < 4; c++) {
+            int xt = (int) ((position.x + ax) + (c % 2) * width + xOffSet) / 64;
+            int yt = (int) ((position.y + ay) + (c / 2) * height + yOffSet) / 64;
+
+            if(TileMapSolid.tilemapSolid_Blocks.containsKey(String.valueOf(xt) + "," + String.valueOf(yt))) {
+                return TileMapSolid.tilemapSolid_Blocks.get(String.valueOf(xt) + "," + String.valueOf(yt)).update(this);
+            }
+        }
+
+        return false;
     }
 }
 

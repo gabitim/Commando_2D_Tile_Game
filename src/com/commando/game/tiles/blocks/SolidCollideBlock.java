@@ -18,9 +18,9 @@ public class SolidCollideBlock extends Block {
 
     @Override
     public boolean update(AABB player) {
-        if(isInside(player)) {
-            System.out.println(" I am falling in water");
-        }
+
+        System.out.println(" I am falling in water");
+
         return false;
     }
 
@@ -31,7 +31,7 @@ public class SolidCollideBlock extends Block {
         graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width, height);
     }
 
-    private boolean isInside(AABB player) {
+    public boolean isInside(AABB player) {
         if ( player.getPosition().x + player.getxOffSet() < position.x) return false;
         if ( player.getPosition().y + player.getyOffSet() < position.y) return false;
 

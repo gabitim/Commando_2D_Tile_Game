@@ -17,8 +17,9 @@ import java.awt.*;
  */
 public class PlayState extends GameState {
 
-    private static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
-    private static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
+    public static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
+    public static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
+    public static final int HERO_SIZE = 64;
 
 
     private Font font;
@@ -34,7 +35,7 @@ public class PlayState extends GameState {
 
         tileManager = new TileManager("resources\\map\\map1_plains.xml"); // where is my map
         font = new Font("resources\\font\\font.png", 10, 10); // where is my font
-        hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), 64); // the hero
+        hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
     }
 
     @Override

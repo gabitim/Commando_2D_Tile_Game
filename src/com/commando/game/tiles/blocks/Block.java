@@ -23,10 +23,12 @@ public abstract class Block {
         this.height = height;
     }
 
-    public abstract boolean update(AABB aabb);
+    public abstract boolean update(AABB player);
 
     public void render(Graphics2D graphics) {
         graphics.drawImage(image, (int)position.getWorldVar().x, (int)position.getWorldVar().y, width, height, null);
     }
+
+    public abstract boolean isInside(AABB player);
 
 }

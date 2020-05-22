@@ -16,7 +16,7 @@ public class NormalBlock extends Block {
     }
 
     @Override
-    public boolean update(AABB aabb) {
+    public boolean update(AABB player) {
         return false;
     }
 
@@ -24,4 +24,11 @@ public class NormalBlock extends Block {
     public void render(Graphics2D graphics) {
         super.render(graphics);
     }
+
+    @Override
+    public boolean isInside(AABB player) {
+
+        return false;
+    }
+
 }

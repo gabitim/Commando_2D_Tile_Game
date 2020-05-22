@@ -11,13 +11,12 @@ import java.awt.image.BufferedImage;
  */
 public class SolidObjectBlock extends Block{
 
-
     public SolidObjectBlock(BufferedImage image, Vector2d position, int width, int height) {
         super(image, position, width, height);
     }
 
     @Override
-    public boolean update(AABB aabb) {
+    public boolean update(AABB player) {
         return true;
     }
 
@@ -26,5 +25,10 @@ public class SolidObjectBlock extends Block{
         super.render(graphics);
         graphics.setColor(Color.RED);
         graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width , height );
+    }
+
+    @Override
+    public boolean isInside(AABB player) {
+        return false;
     }
 }

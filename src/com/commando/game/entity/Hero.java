@@ -19,6 +19,12 @@ public class Hero extends Entity{
         deceleration = 0.3f;
         maxSpeed = 3f;
 
+        //modify the 'box' of the player
+        bounds.setWidth(42);
+        bounds.setHeight(20);
+        bounds.setxOffSet(12);
+        bounds.setyOffSet(40);
+
     }
 
     public void update() {

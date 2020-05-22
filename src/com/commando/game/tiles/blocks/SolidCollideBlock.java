@@ -3,6 +3,7 @@ package com.commando.game.tiles.blocks;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
+import javax.imageio.ImageTranscoder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -16,9 +17,11 @@ public class SolidCollideBlock extends Block {
     }
 
     @Override
-    public boolean update(AABB aabb) {
+    public boolean update(AABB player) {
+        if(isInside(player)) {
+            System.out.println(" I am falling in water");
+        }
         return false;
-        //yeah
     }
 
     @Override
@@ -27,4 +30,15 @@ public class SolidCollideBlock extends Block {
         graphics.setColor(Color.GREEN);
         graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width, height);
     }
+
+    private boolean isInside(AABB player) {
+        if ( player.getPosition().x + player.getxOffSet() < position.x) return false;
+        if ( player.getPosition().y + player.getyOffSet() < position.y) return false;
+
+        if ( width + position.x < player.getWidth() + (player.getPosition().x + player.getxOffSet()) ) return false;
+        if ( height + position.y < player.getHeight() + (player.getPosition().y + player.getyOffSet()) ) return false;
+
+        return true;
+    }
+
 }

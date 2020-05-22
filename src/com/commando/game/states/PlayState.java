@@ -35,7 +35,7 @@ public class PlayState extends GameState {
 
         tileManager = new TileManager("resources\\map\\map1_plains.xml"); // where is my map
         font = new Font("resources\\font\\font.png", 10, 10); // where is my font
-        hero = new Hero(new Sprite("resources\\entity\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
+        hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
     }
 
     @Override

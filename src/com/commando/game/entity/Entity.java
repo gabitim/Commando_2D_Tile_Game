@@ -6,6 +6,7 @@ import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
+import com.commando.game.util.collision.TileCollision;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,13 +16,16 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Entity {
 
-    private final int UP = 3;
-    private final int DOWN = 2;
-    private final int RIGHT = 0;
-    private final int LEFT = 1;
+    //for animations ( png my_hero)
+    protected final int FALLEN = 4;
+    protected final int UP = 3;
+    protected final int DOWN = 2;
+    protected final int RIGHT = 0;
+    protected final int LEFT = 1;
 
     protected int currentAnimation;
 
+    protected TileCollision tileCollision;
     protected Animation animation;
     protected Sprite sprite;
     protected Vector2d position;
@@ -35,6 +39,8 @@ public abstract class Entity {
     protected boolean attack;
     protected int attackSpeed;
     protected int attackDuration;
+
+    protected boolean fallen;
 
     protected float speed_x;
     protected float speed_y;
@@ -52,6 +58,7 @@ public abstract class Entity {
         this.position = origin;
         this.size = size;
 
+        this.tileCollision = new TileCollision(this);
         this.animation = new Animation();
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
 
@@ -62,14 +69,13 @@ public abstract class Entity {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
-
     public void setSize(int i ) { this.size = i; }
     public void setMaxSpeed(float f) { maxSpeed = f; }
     public void setAcceleration(float f) { acceleration = f; }
     public void setDeceleration(float f) { deceleration = f; }
+    public void setFallen(boolean b) { fallen = b; }
 
     public AABB getBounds() { return bounds; }
-
     public int getSize() { return size; }
     public Animation getAnimation() { return animation; }
 
@@ -100,10 +106,17 @@ public abstract class Entity {
                 setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
             }
         }
+        else if(fallen) {
+            if(currentAnimation != FALLEN || animation.getDelay() == -1) {
+                setAnimation(FALLEN, sprite.getSpriteArray(FALLEN), 15);
+            }
+        }
         else {
             setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
         }
+
     }
+
 
     private void setHitBoxDirection() {
         if(up) {
@@ -131,7 +144,7 @@ public abstract class Entity {
     }
 
     public abstract void render(Graphics2D g);
-    public void input(KeyHandler key, MouseHandler mouse) {  }
 
+    public void input(KeyHandler key, MouseHandler mouse) {  }
 
 }

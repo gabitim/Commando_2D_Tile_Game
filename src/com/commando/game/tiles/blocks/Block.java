@@ -23,6 +23,8 @@ public abstract class Block {
         this.height = height;
     }
 
+    public Vector2d getPosition() { return position; }
+
     public abstract boolean update(AABB player);
 
     public void render(Graphics2D graphics) {

@@ -104,42 +104,5 @@ public class AABB {
         return false;
     }
 
-    // we check if the collision happens for tile Map
-    public boolean collisionTile(float ax, float ay) {
-        for (int c = 0; c < 4; c++) {
-            int xt = (int) ((position.x + ax) + (c % 2) * width + xOffSet) / PlayState.HERO_SIZE;
-            int yt = (int) ((position.y + ay) + (c / 2) * height + yOffSet) / PlayState.HERO_SIZE;
-
-            if(TileMapSolid.tilemapSolid_Blocks.containsKey(String.valueOf(xt) + "," + String.valueOf(yt))) {
-                Block block = TileMapSolid.tilemapSolid_Blocks.get(String.valueOf(xt) + "," + String.valueOf(yt));
-                if (block instanceof SolidObjectBlock) {
-                    return collisionFalling(ax, ay, xt, yt, block);
-                }
-
-                return block.update(this);
-            }
-        }
-
-        return false;
-    }
-
-    private boolean collisionFalling(float ax, float ay, float xt, float yt, Block block) {
-        int nextXt = (int) ((((position.x + ax) + xOffSet) / PlayState.HERO_SIZE ) + width / PlayState.HERO_SIZE);
-        int nextYt = (int) ((((position.y + ay) + yOffSet) / PlayState.HERO_SIZE) + height / PlayState.HERO_SIZE);
-
-        if((nextXt == yt + 1 ) || (nextXt == xt + 1)) {
-            if(TileMapSolid.tilemapSolid_Blocks.containsKey(String.valueOf(nextXt) + "," + String.valueOf(nextYt))) {
-                Block blockNeighbor = TileMapSolid.tilemapSolid_Blocks.get(String.valueOf(nextXt) + "," + String.valueOf(nextYt));
-                return blockNeighbor.update(this);
-            }
-        }
-        else {
-            if (block.isInside(this) ) {
-                return block.update(this);
-            }
-        }
-
-        return false;
-    }
 }
 

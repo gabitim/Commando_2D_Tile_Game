@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class TileMapSolid extends TileMap {
 
     public static final int WATER = 392;
+    public static final int SPIKES = 583;
 
     public static HashMap<String, Block> tilemapSolid_Blocks;
 
@@ -26,14 +27,14 @@ public class TileMapSolid extends TileMap {
         for(int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                if(temp == WATER) { // the borders (for collision)
+                if(temp == SPIKES) { // the borders (for collision)
                     tempBlock = new SolidCollideBlock(
                             sprite.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,
                             tileHeight
                     );
-                } else {
+                } else  {
                     tempBlock = new SolidObjectBlock(
                             sprite.getSprite((int)((temp - 1) % tileColumns) , (int)((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,

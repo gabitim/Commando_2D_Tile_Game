@@ -52,7 +52,7 @@ public class Hero extends Entity{
 
     @Override
     public void render(Graphics2D graphics) {
-        graphics.setColor(Color.RED);
+        graphics.setColor(Color.GREEN);
         graphics.drawRect(
                 (int)(position.getWorldVar().x + bounds.getxOffSet()),
                 (int)(position.getWorldVar().y + bounds.getyOffSet()),

@@ -1,6 +1,7 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
+import com.commando.game.entity.Enemy;
 import com.commando.game.entity.Hero;
 import com.commando.game.graphics.Font;
 import com.commando.game.graphics.Sprite;
@@ -24,6 +25,7 @@ public class PlayState extends GameState {
 
     private Font font;
     private Hero hero;
+    private Enemy enemy;
     private TileManager tileManager;
 
     public static Vector2d map;
@@ -33,15 +35,17 @@ public class PlayState extends GameState {
         map = new Vector2d(); //create the map
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
-        tileManager = new TileManager("resources\\map\\map1_plains.xml"); // where is my map
-        font = new Font("resources\\font\\font.png", 10, 10); // where is my font
+        tileManager = new TileManager("resources\\map\\map1_plains.xml"); // my map
+        font = new Font("resources\\font\\font.png", 10, 10); //  my font
         hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
+        enemy = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 150, MIDDLE_OF_MAP_Y + 150), HERO_SIZE); // the enemy
     }
 
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
         hero.update();
+        enemy.update(hero.getBounds());
     }
 
     @Override
@@ -60,5 +64,8 @@ public class PlayState extends GameState {
 
         //render the hero
         hero.render(graphics);
+
+        //render the enemy
+        enemy.render(graphics);
     }
 }

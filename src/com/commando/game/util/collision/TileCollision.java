@@ -47,7 +47,7 @@ public class TileCollision {
             return false;
         }
         //when it at the border between 2 blocks but still fully in water
-        else if((nextXt == yt + 1 ) || (nextXt == xt + 1)) {
+        else if((nextXt == yt + 1 ) || (nextXt == xt + 1) || (nextYt == yt - 1) || (nextXt == xt - 1) ) {
             if(TileMapSolid.tilemapSolid_Blocks.containsKey(String.valueOf(nextXt) + "," + String.valueOf(nextYt))) {
                 if( entity.getBounds().getPosition().x > block.getPosition().x) {
                     entity.setFallen(true);

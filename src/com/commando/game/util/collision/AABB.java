@@ -1,13 +1,8 @@
 package com.commando.game.util.collision;
 
 import com.commando.game.entity.Entity;
-import com.commando.game.states.PlayState;
-import com.commando.game.tiles.TileMap;
-import com.commando.game.tiles.TileMapSolid;
-import com.commando.game.tiles.blocks.Block;
-import com.commando.game.tiles.blocks.SolidObjectBlock;
 import com.commando.game.util.Vector2d;
-import javafx.print.PageLayout;
+
 
 /**
  * @author Timofti Gabriel
@@ -20,6 +15,8 @@ public class AABB {
     private float radius;
     private int size;
     private Entity entity;
+
+    private float surfaceArea;
 
     private float xOffSet = 0;
     private float yOffSet = 0;
@@ -37,6 +34,13 @@ public class AABB {
         this.radius = radius;
         this.size = radius;
         this.entity = entity;
+    }
+
+    public AABB(Vector2d position, int radius) {
+        this.position = position;
+        this.radius = radius;
+        this.surfaceArea = (float) Math.PI * (radius * radius);
+        size = radius;
     }
 
     public Vector2d getPosition() { return position; }
@@ -87,6 +91,34 @@ public class AABB {
     }
 
     public boolean collisionCircleBox(AABB box) {
+        float dx = Math.max(
+                box.getPosition().getWorldVar().x + box.getxOffSet(),
+                Math.min(
+                        position.getWorldVar().x + (radius / 2 ),
+                        box.getPosition().getWorldVar().x + box.getxOffSet() + box.getWidth()
+                        )
+                            );
+
+        float dy = Math.max(
+                box.getPosition().getWorldVar().y + box.getyOffSet(),
+                Math.min(
+                        position.getWorldVar().y + (radius / 2 ),
+                        box.getPosition().getWorldVar().y + box.getyOffSet() + box.getHeight()
+                )
+        );
+
+        dx = position.getWorldVar().x + (radius / 2) - dx;
+        dy = position.getWorldVar().y + (radius / 2) - dy;
+
+        if( Math.sqrt(dx * dx + dy * dy) < radius / 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+   /* public boolean collisionCircleBox(AABB box) {
         //this object
         float cx = (float) (position.getWorldVar().x + radius / Math.sqrt(2) - entity.getSize() / Math.sqrt(2));
         float cy = (float) (position.getWorldVar().y + radius / Math.sqrt(2) - entity.getSize() / Math.sqrt(2));
@@ -102,7 +134,7 @@ public class AABB {
         }
 
         return false;
-    }
+    }*/
 
 }
 

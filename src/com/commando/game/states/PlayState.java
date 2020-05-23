@@ -26,6 +26,7 @@ public class PlayState extends GameState {
     private Font font;
     private Hero hero;
     private Enemy enemy;
+    //private Enemy enemy1;
     private TileManager tileManager;
 
     public static Vector2d map;
@@ -39,13 +40,16 @@ public class PlayState extends GameState {
         font = new Font("resources\\font\\font.png", 10, 10); //  my font
         hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
         enemy = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 150, MIDDLE_OF_MAP_Y + 150), HERO_SIZE); // the enemy
+        //enemy1 = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 200, MIDDLE_OF_MAP_Y + 200), HERO_SIZE); // the enemy
+
     }
 
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
         hero.update();
-        enemy.update(hero.getBounds());
+        enemy.update(hero);
+        //enemy1.update(hero.getBounds());
     }
 
     @Override
@@ -60,12 +64,13 @@ public class PlayState extends GameState {
         tileManager.render(graphics);
 
         //the FPS counter
-        Sprite.drawArray(graphics, font, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12   , 12 ,  0);
+        Sprite.drawArray(graphics, font, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12,  12 );
 
         //render the hero
         hero.render(graphics);
 
         //render the enemy
         enemy.render(graphics);
+        //enemy1.render(graphics);
     }
 }

@@ -46,6 +46,7 @@ public class Hero extends Entity{
                 resetPosition();
 
                 fallen = false;
+
             }
         }
     }
@@ -63,7 +64,7 @@ public class Hero extends Entity{
         graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
     }
 
-    public void move() {
+    private void move() {
         if(up) {
             speed_y -= acceleration;
             if(speed_y < -maxSpeed) {

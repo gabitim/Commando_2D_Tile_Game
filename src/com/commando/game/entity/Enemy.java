@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public class Enemy extends Entity{
 
+
+
     private AABB detect;
     private int radius;
 
@@ -19,22 +21,38 @@ public class Enemy extends Entity{
 
         acceleration = 1f;
         deceleration = 0.3f;
-        maxSpeed = 3f;
+        maxSpeed = 2f;
 
-        radius = 135;
+        radius = 300;
 
         bounds.setWidth(42);
         bounds.setHeight(20);
         bounds.setxOffSet(12);
         bounds.setyOffSet(40);
 
-        detect = new AABB(new Vector2d(origin.x - size / 2, origin.y - size / 2), radius);
+        detect = new AABB(new Vector2d(origin.x + size / 2 - radius / 2, origin.y + size / 2 - radius / 2), radius);
     }
 
-    public void update(AABB player) {
-        if (detect.collisionCircleBox(player)) {
-            System.out.println("yee");
+    public void update(Hero hero) {
+        super.update();
+        move(hero);
+        if(!fallen) {
+            System.out.println("Still alive");
+            if (!tileCollision.collisionTile(speed_x, 0)) {
+                detect.getPosition().x += speed_x;
+                position.x += speed_x;
+            }
+
+            if (!tileCollision.collisionTile(0, speed_y)) {
+                detect.getPosition().y += speed_y;
+                position.y += speed_y;
+            }
         }
+        else {
+            System.out.println("Now dead ");
+            destroy();
+        }
+
     }
 
     @Override
@@ -52,4 +70,64 @@ public class Enemy extends Entity{
         graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null);
     }
 
+    private void move(Hero hero) {
+        if (detect.collisionCircleBox(hero.getBounds())) {
+            if (position.y > hero.position.y + 1) {
+                speed_y -= acceleration;
+
+                up = true;
+                down = false;
+                if (speed_y < -maxSpeed) {
+                    speed_y = -maxSpeed;
+                }
+            } else if (position.y < hero.position.y) {
+                speed_y += acceleration;
+
+                down = true;
+                up = false;
+                if (speed_y > maxSpeed) {
+                    speed_y = maxSpeed;
+                }
+            } else {
+                speed_y = 0;
+                up = false;
+                down = false;
+            }
+
+            if (position.x > hero.position.x + 1) {
+                speed_x -= acceleration;
+
+                left = true;
+                right = false;
+                if (speed_x < -maxSpeed) {
+                    speed_x = -maxSpeed;
+                }
+            } else if (position.x < hero.position.x - 1) {
+                speed_x += acceleration;
+                right = true;
+                left = false;
+                if (speed_x > maxSpeed) {
+                    speed_x = maxSpeed;
+                }
+            } else {
+                speed_x = 0;
+                right = false;
+                left = false;
+            }
+        }
+        else {
+            up = false;
+            down = false;
+            left = false;
+            right = false;
+
+            speed_x = 0;
+            speed_y = 0;
+        }
+    }
+
+    private void destroy() {
+
+    }
 }
+

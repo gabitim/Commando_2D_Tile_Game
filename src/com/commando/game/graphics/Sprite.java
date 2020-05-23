@@ -12,6 +12,9 @@ import java.util.ArrayList;
  * @author Timofti Gabriel
  */
 public class Sprite {
+
+    private static Font currentFont;
+
     private BufferedImage SPRITESHEET = null;
     private BufferedImage[][] spriteArray;
     private final int TILE_SIZE = 32;
@@ -111,6 +114,9 @@ public class Sprite {
     }
 
     public static void drawArray(Graphics2D graphics2D, Font font, String word, Vector2d position, int width, int height, int xOffSet, int yOffSet) {
+
+        currentFont = font;
+
         float x = position.x;
         float y = position.y;
 
@@ -120,6 +126,22 @@ public class Sprite {
             x += xOffSet;
             y += yOffSet;
         }
+    }
+
+    public static void drawArray(Graphics2D graphics, String word, Vector2d position, int size) {
+        drawArray(graphics, currentFont, word, position, size, size, size, 0);
+    }
+
+    public static void drawArray(Graphics2D graphics, String word, Vector2d position, int size, int xOffset) {
+        drawArray(graphics, currentFont, word, position, size, size, xOffset, 0);
+    }
+
+    public static void drawArray(Graphics2D graphics, String word, Vector2d position, int width, int height, int xOffset) {
+        drawArray(graphics, currentFont, word, position, width, height, xOffset, 0);
+    }
+
+    public static void drawArray(Graphics2D graphics, Font font, String word, Vector2d position, int size, int xOffset) {
+        drawArray(graphics, font, word, position, size, size, xOffset, 0);
     }
 
 

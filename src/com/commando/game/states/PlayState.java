@@ -47,7 +47,7 @@ public class PlayState extends GameState {
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
-        hero.update();
+        hero.update(enemy);
         enemy.update(hero);
         //enemy1.update(hero.getBounds());
     }

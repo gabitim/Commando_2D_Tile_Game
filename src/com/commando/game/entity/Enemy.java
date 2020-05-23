@@ -38,7 +38,7 @@ public class Enemy extends Entity{
 
     public void update(Hero hero) {
         super.update();
-        move(hero);
+        //move(hero);
         if(!fallen) {
             //System.out.println("Still alive");
             if (!tileCollision.collisionTile(speed_x, 0)) {

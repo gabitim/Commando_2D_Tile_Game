@@ -28,11 +28,15 @@ public class Hero extends Entity{
 
     }
 
-    public void update() {
+    public void update(Enemy enemy) {
         super.update();
-        move();
+
+        if(attack && hitBounds.collides(enemy.getBounds())) {
+            System.out.println("I've been hit");
+        }
 
         if(!fallen) {
+            move();
             if (!tileCollision.collisionTile(speed_x, 0)) {
                 PlayState.map.x += speed_x;
                 position.x += speed_x;
@@ -45,7 +49,8 @@ public class Hero extends Entity{
         else {
             if (animation.hasPLayedOnce()) {
                 resetPosition();
-
+                speed_x = 0;
+                speed_y = 0;
                 fallen = false;
 
             }

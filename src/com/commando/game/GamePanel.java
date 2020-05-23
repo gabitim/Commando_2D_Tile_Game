@@ -14,12 +14,13 @@ import java.awt.image.BufferedImage;
  */
 public class GamePanel extends JPanel implements Runnable{
 
+
     public static int width;
     public static int height;
     public static int oldFrameCount;
 
     private Thread thread;
-    private boolean running = false;
+    public static boolean running = false;
 
     private BufferedImage img;
     private Graphics2D g;
@@ -49,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void init() throws ParserConfigurationException {
+
+
         running = true;
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);

@@ -1,5 +1,6 @@
 package com.commando.game.entity;
 
+import com.commando.game.GamePanel;
 import com.commando.game.graphics.Sprite;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
@@ -60,6 +61,16 @@ public class Hero extends Entity{
                 (int)bounds.getWidth(),
                 (int)bounds.getHeight()
         );
+
+        if (attack) {
+            graphics.setColor(Color.CYAN);
+            graphics.drawRect(
+                    (int)(hitBounds.getPosition().getWorldVar().x + hitBounds.getxOffSet()),
+                    (int)(hitBounds.getPosition().getWorldVar().y + hitBounds.getyOffSet()),
+                    (int)hitBounds.getWidth(),
+                    (int)hitBounds.getHeight()
+            ) ;
+        }
 
         graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
     }
@@ -123,14 +134,18 @@ public class Hero extends Entity{
     }
 
     public void input(MouseHandler mouse, KeyHandler key) {
-         // 1- left mouse button
-        // 2 - scroll button
-        //3 - right mouse button
-        if(mouse.getButton() == 2) {
-            System.out.println("Player: " + position.x + ", " + position.y);
-        }
 
         if(!fallen) {
+            // 1- left mouse button
+            // 2 - scroll button
+            //3 - right mouse button
+            if(mouse.getButton() == 1) {
+                //System.out.println("Player: " + position.x + ", " + position.y);
+                this.attack = true;
+            } else {
+                this.attack = false;
+            }
+
             if (key.up._down) {
                 this.up = true; // extends
             } else {
@@ -151,17 +166,18 @@ public class Hero extends Entity{
             } else {
                 this.right = false;
             }
-            if (key.attack._down) {
-                this.attack = true; // extends
-            } else {
-                this.attack = false;
+            if (key.escape._down) {
+                System.out.println("Escape");
+                GamePanel.running = false;
             }
+
         }
         else {
             up = false;
             down = false;
             right = false;
             left = false;
+            attack = false;
         }
     }
 

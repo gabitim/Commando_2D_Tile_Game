@@ -6,6 +6,9 @@ import com.commando.game.util.collision.AABB;
 
 import java.awt.*;
 
+import static com.commando.game.states.PlayState.MIDDLE_OF_MAP_X;
+import static com.commando.game.states.PlayState.MIDDLE_OF_MAP_Y;
+
 /**
  * @author Timofti Gabriel
  */
@@ -37,7 +40,7 @@ public class Enemy extends Entity{
         super.update();
         move(hero);
         if(!fallen) {
-            System.out.println("Still alive");
+            //System.out.println("Still alive");
             if (!tileCollision.collisionTile(speed_x, 0)) {
                 detect.getPosition().x += speed_x;
                 position.x += speed_x;
@@ -49,7 +52,7 @@ public class Enemy extends Entity{
             }
         }
         else {
-            System.out.println("Now dead ");
+            //System.out.println("Now dead ");
             destroy();
         }
 
@@ -127,7 +130,6 @@ public class Enemy extends Entity{
     }
 
     private void destroy() {
-
     }
 }
 

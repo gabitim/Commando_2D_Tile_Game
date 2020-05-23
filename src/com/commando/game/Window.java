@@ -8,6 +8,8 @@ import javax.swing.*;
 
 public class Window extends JFrame{
 
+    JButton button = new JButton("Click to Close!");
+
     public Window() {
         setTitle("Commando");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,5 +17,9 @@ public class Window extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+        /*this.add(button);
+        button.addActionListener(e -> {this.dispose();});*/
+
     }
 }

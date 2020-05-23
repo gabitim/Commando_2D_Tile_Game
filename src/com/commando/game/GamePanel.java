@@ -73,8 +73,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void render() {
         if( g!= null) {
-            g.setColor(new Color(107, 213, 244));
-            g.fillRect(0,0, width, height);
+           // g.setColor(new Color(107, 213, 244));
+            //g.fillRect(0,0, width, height);
             gsm.render(g);
         }
     }
@@ -84,8 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawImage(img, 0, 0, width, height, null);
         g2.dispose();
     }
-
-
+    
     @Override
     public void run() {
         try {

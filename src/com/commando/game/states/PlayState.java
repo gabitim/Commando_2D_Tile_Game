@@ -18,9 +18,15 @@ import java.awt.*;
  */
 public class PlayState extends GameState {
 
+    public static final int SPAWN_POSITION_OFFSET_X = 350;
+    public static final int SPAWN_POSITION_OFFSET_Y = 550;
+
     public static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
     public static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
     public static final int HERO_SIZE = 64;
+
+    public static final int ENEMY_POSITION_X = MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X +  250;
+    public static final int ENEMY_POSITION_Y = MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y +  250;
 
 
     private Font font;
@@ -36,10 +42,10 @@ public class PlayState extends GameState {
         map = new Vector2d(); //create the map
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
-        tileManager = new TileManager("resources\\map\\map1_plains.xml"); // my map
+        tileManager = new TileManager("resources\\map\\map1v2_plains.xml"); // my map
         font = new Font("resources\\font\\font.png", 10, 10); //  my font
-        hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X, MIDDLE_OF_MAP_Y), HERO_SIZE); // the hero
-        enemy = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 150, MIDDLE_OF_MAP_Y + 150), HERO_SIZE); // the enemy
+        hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X, MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y), HERO_SIZE); // the hero
+        enemy = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
         //enemy1 = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 200, MIDDLE_OF_MAP_Y + 200), HERO_SIZE); // the enemy
 
     }

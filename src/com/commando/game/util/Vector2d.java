@@ -1,5 +1,8 @@
 package com.commando.game.util;
 
+import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_X;
+import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_Y;
+
 /**
  * @author Timofti Gabriel
  */
@@ -40,8 +43,8 @@ public class Vector2d {
     }
 
     public static void setWorldVar(float x, float y) {
-         worldX = x;
-         worldY = y;
+         worldX = x + SPAWN_POSITION_OFFSET_X;
+         worldY = y + SPAWN_POSITION_OFFSET_Y;
     }
 
     public Vector2d getWorldVar() {

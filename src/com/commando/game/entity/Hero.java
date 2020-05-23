@@ -9,6 +9,9 @@ import com.commando.game.util.Vector2d;
 
 import java.awt.*;
 
+import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_X;
+import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_Y;
+
 /**
  * @author Timofti Gabriel
  */
@@ -189,10 +192,10 @@ public class Hero extends Entity{
     public void resetPosition() {
         System.out.println("Reseting Player... ");
 
-        position.x = PlayState.MIDDLE_OF_MAP_X;
+        position.x = PlayState.MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X;
         PlayState.map.x = 0;
 
-        position.y = PlayState.MIDDLE_OF_MAP_Y;
+        position.y = PlayState.MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y;
         PlayState.map.y = 0;
 
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);

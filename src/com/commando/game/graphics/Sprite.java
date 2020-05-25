@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Sprite {
 
-    private static Font currentFont;
+    public static Font currentFont;
 
     private BufferedImage SPRITESHEET = null;
     private BufferedImage[][] spriteArray;

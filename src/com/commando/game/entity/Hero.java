@@ -174,9 +174,18 @@ public class Hero extends Entity{
             } else {
                 this.right = false;
             }
+            if (up && down) {
+                up = false;
+                down = false;
+            }
+            if (right && left) {
+                right = false;
+                left = false;
+            }
+
             if (key.escape._down) {
                 System.out.println("Escape");
-                GamePanel.running = false;
+                //GamePanel.running = false;
             }
 
         }

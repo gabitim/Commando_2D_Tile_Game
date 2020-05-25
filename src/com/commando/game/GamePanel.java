@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     private MouseHandler mouse;
     private KeyHandler key;
 
-    private GameStatesManager gsm;
+    private GameStatesManager gameStatesManager;
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -60,22 +60,22 @@ public class GamePanel extends JPanel implements Runnable{
         mouse = new MouseHandler(this);
         key = new KeyHandler(this);
 
-        gsm = new GameStatesManager();
+        gameStatesManager = new GameStatesManager();
     }
 
     public void update() {
-         gsm.update();
+         gameStatesManager.update();
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) {
-        gsm.input(mouse, key);
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+        gameStatesManager.input(mouse, key);
     }
 
     public void render() {
         if( g!= null) {
            // g.setColor(new Color(107, 213, 244));
             //g.fillRect(0,0, width, height);
-            gsm.render(g);
+            gameStatesManager.render(g);
         }
     }
 
@@ -112,7 +112,13 @@ public class GamePanel extends JPanel implements Runnable{
             int updateCount = 0;
             while (( (now - lastUpdateTime) > TIME_BEFORE_UPDATE) && (updateCount < UPDATES_BEFORE_RENDER) ){
                 update();
-                input(mouse, key);
+
+                try {
+                    input(mouse, key);
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }
+
                 lastUpdateTime += TIME_BEFORE_UPDATE;
                 updateCount++;
             }
@@ -121,7 +127,11 @@ public class GamePanel extends JPanel implements Runnable{
                 lastUpdateTime = now - TIME_BEFORE_UPDATE;
             }
 
-            input(mouse, key);
+            try {
+                input(mouse, key);
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
             render();
             draw();
 
@@ -147,7 +157,6 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 now = System.nanoTime();
             }
-
         }
     }
 }

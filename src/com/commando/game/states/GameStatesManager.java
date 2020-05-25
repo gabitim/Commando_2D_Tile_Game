@@ -40,6 +40,10 @@ public class GameStatesManager {
         states[PLAY] = new PlayState(this);
     }
 
+    public boolean getState(int state) {
+        return states[state] != null;
+    }
+
     public void pop(int state) {
         states[state] = null;
     }
@@ -82,12 +86,14 @@ public class GameStatesManager {
         }
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].input(mouse, key);
             }
         }
+
+
     }
 
     public void render(Graphics2D graphics) {

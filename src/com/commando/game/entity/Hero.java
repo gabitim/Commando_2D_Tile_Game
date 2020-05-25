@@ -182,12 +182,6 @@ public class Hero extends Entity{
                 right = false;
                 left = false;
             }
-
-            if (key.escape._down) {
-                System.out.println("Escape");
-                //GamePanel.running = false;
-            }
-
         }
         else {
             up = false;

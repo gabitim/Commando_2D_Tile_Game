@@ -15,7 +15,7 @@ public class PauseState extends GameState {
 
     @Override
     public void update() {
-
+        System.out.println("PAUSEd");
     }
 
     @Override

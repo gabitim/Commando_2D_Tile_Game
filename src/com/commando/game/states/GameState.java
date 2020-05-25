@@ -3,6 +3,7 @@ package com.commando.game.states;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 /**
@@ -10,13 +11,13 @@ import java.awt.*;
  */
 public abstract class GameState {
 
-    private GameStatesManager gsm;
+    protected GameStatesManager gameStatesManager;
 
-    public GameState(GameStatesManager gsm) {
-        this.gsm = gsm;
+    public GameState(GameStatesManager gameStatesManager) {
+        this.gameStatesManager = gameStatesManager;
     }
 
     public abstract void update();
-    public abstract void input(MouseHandler mouse, KeyHandler key);
+    public abstract void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException;
     public abstract void render(Graphics2D g);
 }

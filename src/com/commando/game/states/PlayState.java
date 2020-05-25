@@ -13,6 +13,8 @@ import com.commando.game.util.Vector2d;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
+import static com.commando.game.states.GameStatesManager.PAUSE;
+
 /**
  * @author Timofti Gabriel
  */
@@ -58,8 +60,20 @@ public class PlayState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+        key.escape.tick();
+
         hero.input(mouse, key);
+
+        if(key.escape.clicked) {
+            System.out.println("PPP");
+            if (gameStatesManager.getState(PAUSE)) {
+                gameStatesManager.pop(PAUSE);
+            }
+            else {
+                gameStatesManager.add(PAUSE);
+            }
+        }
     }
 
     @Override

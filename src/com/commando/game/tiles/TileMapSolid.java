@@ -1,6 +1,6 @@
 package com.commando.game.tiles;
 
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.tiles.blocks.Block;
 import com.commando.game.tiles.blocks.SolidObjectBlock;
 import com.commando.game.tiles.blocks.SolidCollideBlock;
@@ -19,7 +19,7 @@ public class TileMapSolid extends TileMap {
 
     public static HashMap<String, Block> tilemapSolid_Blocks;
 
-    public TileMapSolid(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
+    public TileMapSolid(String data, SpriteSheet spriteSheet, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
         Block tempBlock;
         tilemapSolid_Blocks = new HashMap<String, Block>();
 
@@ -29,14 +29,14 @@ public class TileMapSolid extends TileMap {
             if (temp != 0) {
                 if(temp == SPIKES) { // the borders (for collision)
                     tempBlock = new SolidCollideBlock(
-                            sprite.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
+                            spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,
                             tileHeight
                     );
                 } else  {
                     tempBlock = new SolidObjectBlock(
-                            sprite.getSprite((int)((temp - 1) % tileColumns) , (int)((temp - 1) / tileColumns) ) ,
+                            spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int)((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,
                             tileHeight

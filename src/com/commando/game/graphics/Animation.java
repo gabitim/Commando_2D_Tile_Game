@@ -1,12 +1,14 @@
 package com.commando.game.graphics;
 
-import java.awt.image.BufferedImage;
 
 /**
  * @author Timofti Gabriel
  */
 public class Animation {
-    private BufferedImage[] frames;
+    private Sprite[] frames;
+
+    private int[] states;
+
     private int currentFrame;
     private int numFrames;
 
@@ -15,25 +17,33 @@ public class Animation {
 
     private int timesPlayed;
 
-    public Animation(BufferedImage[] frames) {
+    public Animation(Sprite[] frames) {
         timesPlayed = 0;
-        setFrames(frames);
+        states = new int[10];
+        setFrames(0, frames);
     }
 
     public Animation() {
         timesPlayed = 0;
+        states = new int[10];
     }
 
-    public void setFrames(BufferedImage[] frames) {
+    public void setFrames(int state, Sprite[] frames) {
         this.frames = frames;
         currentFrame = 0;
         count = 0;
         timesPlayed = 0;
         delay = 2;
-        numFrames = frames.length;
+
+        if(states[state] == 0) {
+            numFrames = frames.length;
+        }
+        else {
+            numFrames = states[state];
+        }
     }
 
-    public void setDelay(int i) { delay  =i; }
+    public void setDelay(int i) { delay  = i; }
     public void setFrame(int i) { currentFrame = i; }
     public void setNumeFrames(int i) { numFrames = i; }
 
@@ -56,7 +66,7 @@ public class Animation {
     public int getDelay() { return delay; }
     public int getFrame() { return currentFrame; }
     public int getCount() { return count; }
-    public BufferedImage getImage() { return frames[currentFrame]; }
+    public Sprite getImage() { return frames[currentFrame]; }
     public boolean hasPLayedOnce() { return timesPlayed > 0; }
     public boolean hasPlayed(int i) { return timesPlayed == i; }
 

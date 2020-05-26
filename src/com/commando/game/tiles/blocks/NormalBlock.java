@@ -1,5 +1,6 @@
 package com.commando.game.tiles.blocks;
 
+import com.commando.game.graphics.Sprite;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
@@ -11,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class NormalBlock extends Block {
 
-    public NormalBlock(BufferedImage image, Vector2d position, int width, int height) {
+    public NormalBlock(Sprite image, Vector2d position, int width, int height) {
         super(image, position, width, height);
     }
 

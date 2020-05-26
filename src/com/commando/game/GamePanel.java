@@ -1,6 +1,6 @@
 package com.commando.game;
 
-import com.commando.game.states.GameStatesManager;
+import com.commando.game.states.GameStateManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 
@@ -22,13 +22,13 @@ public class GamePanel extends JPanel implements Runnable{
     private Thread thread;
     public static boolean running = false;
 
-    private BufferedImage img;
-    private Graphics2D g;
+    private BufferedImage image;
+    private Graphics2D graphics;
 
     private MouseHandler mouse;
     private KeyHandler key;
 
-    private GameStatesManager gameStatesManager;
+    private GameStateManager gameStateManager;
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -49,39 +49,41 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    public void initGraphics() {
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        graphics = (Graphics2D)image.getGraphics();
+    }
+
     public void init() throws ParserConfigurationException {
-
-
         running = true;
 
-        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        g = (Graphics2D)img.getGraphics();
+        initGraphics();
 
         mouse = new MouseHandler(this);
         key = new KeyHandler(this);
 
-        gameStatesManager = new GameStatesManager();
+        gameStateManager = new GameStateManager(graphics);
     }
 
     public void update() {
-         gameStatesManager.update();
+         gameStateManager.update();
     }
 
     public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
-        gameStatesManager.input(mouse, key);
+        gameStateManager.input(mouse, key);
     }
 
     public void render() {
-        if( g!= null) {
+        if( graphics!= null) {
            // g.setColor(new Color(107, 213, 244));
             //g.fillRect(0,0, width, height);
-            gameStatesManager.render(g);
+            gameStateManager.render(graphics);
         }
     }
 
     public void draw() {
         Graphics g2 = (Graphics)this.getGraphics();
-        g2.drawImage(img, 0, 0, width, height, null);
+        g2.drawImage(image, 0, 0, width, height, null);
         g2.dispose();
     }
     

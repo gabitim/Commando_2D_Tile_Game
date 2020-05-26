@@ -2,6 +2,7 @@ package com.commando.game.entity;
 
 import com.commando.game.graphics.Animation;
 import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -20,14 +21,14 @@ public abstract class Entity {
     protected final int FALLEN = 4;
     protected final int UP = 3;
     protected final int DOWN = 2;
-    protected final int RIGHT = 0;
     protected final int LEFT = 1;
+    protected final int RIGHT = 0;
 
     protected int currentAnimation;
 
     protected TileCollision tileCollision;
     protected Animation animation;
-    protected Sprite sprite;
+    protected SpriteSheet spriteSheet;
     protected Vector2d position;
     protected int size;
 
@@ -53,22 +54,22 @@ public abstract class Entity {
     protected AABB hitBounds;
     protected AABB bounds;
 
-    public Entity(Sprite sprite, Vector2d origin, int size) {
-        this.sprite = sprite;
+    public Entity(SpriteSheet spriteSheet, Vector2d origin, int size) {
+        this.spriteSheet = spriteSheet;
         this.position = origin;
         this.size = size;
 
         this.tileCollision = new TileCollision(this);
         this.animation = new Animation();
-        setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
+        setAnimation(RIGHT, spriteSheet.getSpriteArray(RIGHT), 10);
 
         bounds = new AABB(origin, size, size);
         hitBounds = new AABB(origin, size, size);
         hitBounds.setxOffSet(size / 2);
     }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
+    public void setSpriteSheet(SpriteSheet spriteSheet) {
+        this.spriteSheet = spriteSheet;
     }
     public void setSize(int i ) { this.size = i; }
     public void setMaxSpeed(float f) { maxSpeed = f; }
@@ -80,40 +81,40 @@ public abstract class Entity {
     public int getSize() { return size; }
     public Animation getAnimation() { return animation; }
 
-    public void setAnimation(int i, BufferedImage[] frames, int delay) {
+    public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
-        animation.setFrames(frames);
+        animation.setFrames(i, frames);
         animation.setDelay(delay);
     }
 
     public void animate() {
         if(up) {
             if(currentAnimation != UP || animation.getDelay() == -1) {
-                setAnimation(UP, sprite.getSpriteArray(UP), 5);
+                setAnimation(UP, spriteSheet.getSpriteArray(UP), 5);
             }
         }
         else if(down) {
             if(currentAnimation != DOWN || animation.getDelay() == -1) {
-                setAnimation(DOWN, sprite.getSpriteArray(DOWN), 5);
+                setAnimation(DOWN, spriteSheet.getSpriteArray(DOWN), 5);
             }
         }
         else if(left) {
             if(currentAnimation != LEFT || animation.getDelay() == -1) {
-                setAnimation(LEFT, sprite.getSpriteArray(LEFT), 5);
+                setAnimation(LEFT, spriteSheet.getSpriteArray(LEFT), 5);
             }
         }
         else if(right) {
             if(currentAnimation != RIGHT || animation.getDelay() == -1) {
-                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
+                setAnimation(RIGHT, spriteSheet.getSpriteArray(RIGHT), 5);
             }
         }
         else if(fallen) {
             if(currentAnimation != FALLEN || animation.getDelay() == -1) {
-                setAnimation(FALLEN, sprite.getSpriteArray(FALLEN), 15);
+                setAnimation(FALLEN, spriteSheet.getSpriteArray(FALLEN), 15);
             }
         }
         else {
-            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
+            setAnimation(currentAnimation, spriteSheet.getSpriteArray(currentAnimation), -1);
         }
 
     }

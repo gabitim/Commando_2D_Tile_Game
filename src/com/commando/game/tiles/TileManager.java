@@ -1,6 +1,6 @@
 package com.commando.game.tiles;
 
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -37,7 +37,7 @@ public class TileManager {
         int tileCount;
         int tileColumns;
         int nr_of_layers = 0;
-        Sprite sprite;
+        SpriteSheet spriteSheet;
 
         String[] data = new String[4];
 
@@ -57,7 +57,7 @@ public class TileManager {
             tileHeight = Integer.parseInt(element.getAttribute("tileheight"));
             tileCount = Integer.parseInt(element.getAttribute("tilecount"));
             tileColumns = Integer.parseInt(element.getAttribute("columns"));
-            sprite = new Sprite("resources\\tile\\" + imagePath + ".png", tileWidth, tileHeight);
+            spriteSheet = new SpriteSheet("resources\\tile\\" + imagePath + ".png", tileWidth, tileHeight);
 
             list = document.getElementsByTagName("layer");
             nr_of_layers = list.getLength();
@@ -74,9 +74,9 @@ public class TileManager {
                 //System.out.println("......................\n" + data[i]);  // printing the data
 
                 if(i >= 1) {
-                    tileMap.add(new TileMapNormal(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                    tileMap.add(new TileMapNormal(data[i], spriteSheet, width, height, blockWidth, blockHeight, tileColumns));
                 } else {
-                    tileMap.add(new TileMapSolid(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
+                    tileMap.add(new TileMapSolid(data[i], spriteSheet, width, height, blockWidth, blockHeight, tileColumns));
                 }
 
             }

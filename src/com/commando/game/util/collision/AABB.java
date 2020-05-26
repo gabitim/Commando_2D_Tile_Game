@@ -44,7 +44,6 @@ public class AABB {
     }
 
     public Vector2d getPosition() { return position; }
-
     public float getRadius() { return radius; }
     public float getWidth() { return width; }
     public float getHeight() { return height; }
@@ -115,6 +114,21 @@ public class AABB {
         }
 
         return false;
+    }
+
+    //for button
+    public boolean inside(int xPosition, int yPosition) {
+        if (xPosition == -1 || yPosition == -1) return false;
+
+        int widthTemp = (int)this.width;
+        int heightTemp = (int)this.height;
+        int x = (int)this.position.x;
+        int y = (int)this.position.y;
+
+        widthTemp += x;
+        heightTemp += y;
+
+        return ((widthTemp < x || widthTemp > xPosition) && (heightTemp < y || heightTemp > yPosition));
     }
 }
 

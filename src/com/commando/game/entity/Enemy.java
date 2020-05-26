@@ -1,13 +1,10 @@
 package com.commando.game.entity;
 
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
 import java.awt.*;
-
-import static com.commando.game.states.PlayState.MIDDLE_OF_MAP_X;
-import static com.commando.game.states.PlayState.MIDDLE_OF_MAP_Y;
 
 /**
  * @author Timofti Gabriel
@@ -19,8 +16,8 @@ public class Enemy extends Entity{
     private AABB detect;
     private int radius;
 
-    public Enemy(Sprite sprite, Vector2d origin, int size) {
-        super(sprite, origin, size);
+    public Enemy(SpriteSheet spriteSheet, Vector2d origin, int size) {
+        super(spriteSheet, origin, size);
 
         acceleration = 1f;
         deceleration = 0.3f;
@@ -70,7 +67,7 @@ public class Enemy extends Entity{
         graphics.setColor(Color.RED);
         graphics.drawOval((int)(detect.getPosition().getWorldVar().x), (int)(detect.getPosition().getWorldVar().y), radius, radius );
 
-        graphics.drawImage(animation.getImage(), (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null);
+        graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null);
     }
 
     private void move(Hero hero) {

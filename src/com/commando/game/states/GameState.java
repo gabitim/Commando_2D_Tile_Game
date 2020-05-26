@@ -11,10 +11,10 @@ import java.awt.*;
  */
 public abstract class GameState {
 
-    protected GameStatesManager gameStatesManager;
+    protected GameStateManager gameStateManager;
 
-    public GameState(GameStatesManager gameStatesManager) {
-        this.gameStatesManager = gameStatesManager;
+    public GameState(GameStateManager gameStateManager) {
+        this.gameStateManager = gameStateManager;
     }
 
     public abstract void update();

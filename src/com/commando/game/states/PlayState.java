@@ -4,7 +4,7 @@ import com.commando.game.GamePanel;
 import com.commando.game.entity.Enemy;
 import com.commando.game.entity.Hero;
 import com.commando.game.graphics.Font;
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
@@ -13,7 +13,7 @@ import com.commando.game.util.Vector2d;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
-import static com.commando.game.states.GameStatesManager.PAUSE;
+import static com.commando.game.states.GameStateManager.PAUSE;
 
 /**
  * @author Timofti Gabriel
@@ -39,14 +39,14 @@ public class PlayState extends GameState {
 
     public static Vector2d map;
 
-    public PlayState(GameStatesManager gameStatesManager) throws ParserConfigurationException {
-        super(gameStatesManager);
+    public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
+        super(gameStateManager);
         map = new Vector2d(); //create the map
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
         tileManager = new TileManager("resources\\map\\map1v2_plains.xml"); // my map
-        hero = new Hero(new Sprite("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X, MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y), HERO_SIZE); // the hero
-        enemy = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
+        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X, MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y), HERO_SIZE); // the hero
+        enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
         //enemy1 = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 200, MIDDLE_OF_MAP_Y + 200), HERO_SIZE); // the enemy
 
     }
@@ -67,11 +67,11 @@ public class PlayState extends GameState {
 
         if(key.escape.clicked) {
             System.out.println("PPP");
-            if (gameStatesManager.getState(PAUSE)) {
-                gameStatesManager.pop(PAUSE);
+            if (gameStateManager.isStateActive(PAUSE)) {
+                gameStateManager.pop(PAUSE);
             }
             else {
-                gameStatesManager.add(PAUSE);
+                gameStateManager.add(PAUSE);
             }
         }
     }
@@ -83,7 +83,7 @@ public class PlayState extends GameState {
         tileManager.render(graphics);
 
         //the FPS counter
-        Sprite.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12,  12 );
+        SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12,  12 );
 
         //render the hero
         hero.render(graphics);

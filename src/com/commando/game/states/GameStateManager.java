@@ -1,7 +1,7 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * @author Timofti Gabriel
  */
-public class GameStatesManager {
+public class GameStateManager {
 
     private GameState states[];
 
@@ -24,23 +24,30 @@ public class GameStatesManager {
     public static final int WIN = 3;
     public static final int LOSE = 4;
 
-    public int onTopState = 0;
-
     public static com.commando.game.graphics.Font font;
+    public static SpriteSheet button;
+    public static Graphics2D graphics;
 
-    public GameStatesManager() throws ParserConfigurationException {
+    public GameStateManager(Graphics2D graphics) throws ParserConfigurationException {
+        GameStateManager.graphics = graphics;
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
 
         states = new GameState[5];
 
         font = new com.commando.game.graphics.Font("resources\\font\\font.png", 10, 10); //  my font
-        Sprite.currentFont = font;
+        SpriteSheet.currentFont = font;
+
+        button = new SpriteSheet("resources\\gui\\buttons.png", 122, 57);
 
         states[PLAY] = new PlayState(this);
     }
 
-    public boolean getState(int state) {
+    public GameState getState(int state) {
+        return states[state];
+    }
+
+    public boolean isStateActive(int state) {
         return states[state] != null;
     }
 

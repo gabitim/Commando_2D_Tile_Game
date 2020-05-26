@@ -9,8 +9,8 @@ import java.awt.*;
  * @author Timofti Gabriel
  */
 public class WinState extends GameState {
-    public WinState(GameStatesManager gameStatesManager) {
-        super(gameStatesManager);
+    public WinState(GameStateManager gameStateManager) {
+        super(gameStateManager);
     }
 
     @Override

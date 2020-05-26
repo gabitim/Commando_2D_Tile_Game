@@ -5,14 +5,14 @@ import com.commando.game.util.MouseHandler;
 
 import java.awt.*;
 
-import static com.commando.game.states.GameStatesManager.PAUSE;
+import static com.commando.game.states.GameStateManager.PAUSE;
 
 /**
  * @author Timofti Gabriel
  */
 public class LoseState extends GameState {
-    public LoseState(GameStatesManager gameStatesManager) {
-        super(gameStatesManager);
+    public LoseState(GameStateManager gameStateManager) {
+        super(gameStateManager);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class LoseState extends GameState {
         key.escape.tick();
 
         if(key.escape._down) {
-            gameStatesManager.pop(PAUSE);
+            gameStateManager.pop(PAUSE);
         }
     }
 

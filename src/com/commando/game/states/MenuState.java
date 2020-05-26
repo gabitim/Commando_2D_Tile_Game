@@ -9,8 +9,8 @@ import java.awt.*;
  * @author Timofti Gabriel
  */
 public class MenuState extends GameState {
-    public MenuState(GameStatesManager gameStatesManager) {
-        super(gameStatesManager);
+    public MenuState(GameStateManager gameStateManager) {
+        super(gameStateManager);
     }
 
     @Override

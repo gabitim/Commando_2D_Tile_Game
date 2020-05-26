@@ -1,6 +1,6 @@
 package com.commando.game.tiles;
 
-import com.commando.game.graphics.Sprite;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.tiles.blocks.Block;
 import com.commando.game.tiles.blocks.NormalBlock;
 import com.commando.game.util.Vector2d;
@@ -15,7 +15,7 @@ public class TileMapNormal extends TileMap {
 
     private ArrayList<Block> blocks;
 
-    public TileMapNormal(String data, Sprite sprite, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
+    public TileMapNormal(String data, SpriteSheet spriteSheet, int width, int height, int tileWidth, int tileHeight, int tileColumns) {
         blocks = new ArrayList<Block>();
 
         String[] block = data.split(",");
@@ -23,7 +23,7 @@ public class TileMapNormal extends TileMap {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
                 blocks.add(new NormalBlock(
-                        sprite.getSprite((int)((temp - 1) % tileColumns ), (int) ((temp - 1) / tileColumns) ) ,
+                        spriteSheet.getNewSprite((int)((temp - 1) % tileColumns ), (int) ((temp - 1) / tileColumns) ) ,
                         new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight)) ,
                         tileWidth,
                         tileHeight

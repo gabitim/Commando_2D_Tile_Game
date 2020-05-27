@@ -13,8 +13,7 @@ import com.commando.game.util.Vector2d;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
-import static com.commando.game.states.GameStateManager.PAUSE;
-import static com.commando.game.states.GameStateManager.PLAY;
+import static com.commando.game.states.GameStateManager.*;
 
 /**
  * @author Timofti Gabriel
@@ -82,18 +81,20 @@ public class PlayState extends GameState {
 
     @Override
     public void render(Graphics2D graphics) {
+        if(!pause) {
+            System.out.println("aaa");
+            //render the map
+            tileManager.render(graphics);
 
-        //render the map
-        tileManager.render(graphics);
+            //the FPS counter
+            SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
 
-        //the FPS counter
-        SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12,  12 );
+            //render the hero
+            hero.render(graphics);
 
-        //render the hero
-        hero.render(graphics);
-
-        //render the enemy
-        enemy.render(graphics);
-        //enemy1.render(graphics);
+            //render the enemy
+            enemy.render(graphics);
+            //enemy1.render(graphics);
+        }
     }
 }

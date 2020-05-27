@@ -19,6 +19,7 @@ import static com.commando.game.states.GameStateManager.*;
 public class PauseState extends GameState {
 
     private Button buttonResume;
+    private Button buttonSaveGame;
     private Button buttonMenu;
     private Button buttonExit;
     private Font font;
@@ -30,18 +31,21 @@ public class PauseState extends GameState {
         BufferedImage imageHover = GameStateManager.button.getSubImage(0, 29, 122, 28);
 
         font = new Font("resources\\font\\font.png", Font.BOLD, 48);
-        buttonResume = new Button("RESUME", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 - 48), 32, 16);
-        buttonExit = new Button("EXIT", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 136), 32, 16);
-        buttonMenu = new Button("MENU", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 48), 32, 16);
-
+        buttonResume = new Button("RESUME", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 - 96), 32, 16);
+        buttonSaveGame = new Button("SAVE GAME", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 0), 32, 16);
+        buttonMenu = new Button("MENU", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 96), 32, 16);
+        buttonExit = new Button("EXIT", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 192), 32, 16);
 
 
         buttonResume.addHoverImage(buttonResume.createButton("RESUME", imageHover, font, buttonResume.getWidth(), buttonResume.getHeight(), 32, 20));
-        buttonExit.addHoverImage(buttonExit.createButton("EXIT", imageHover, font, buttonExit.getWidth(), buttonExit.getHeight(), 32, 20));
+        buttonSaveGame.addHoverImage(buttonSaveGame.createButton("SAVE GAME", imageHover, font, buttonSaveGame.getWidth(), buttonSaveGame.getHeight(), 32, 20));
         buttonMenu.addHoverImage(buttonMenu.createButton("MENU", imageHover, font, buttonMenu.getWidth(), buttonMenu.getHeight(), 32, 20));
+        buttonExit.addHoverImage(buttonExit.createButton("EXIT", imageHover, font, buttonExit.getWidth(), buttonExit.getHeight(), 32, 20));
+
 
         buttonResume.addEvent(event -> { PlayState.pause = false; gameStateManager.pop(PAUSE);  } );
-        buttonMenu.addEvent( event -> { gameStateManager.pop(PLAY); gameStateManager.add(MENU);} );
+        buttonMenu.addEvent( event -> { gameStateManager.pop(PLAY); gameStateManager.pop(PAUSE); gameStateManager.add(MENU); } );
+        buttonSaveGame.addEvent(event -> {  });
         buttonExit.addEvent(event -> { System.exit(0); } );
     }
 
@@ -53,6 +57,7 @@ public class PauseState extends GameState {
     @Override
     public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
         buttonResume.input(mouse, key);
+        buttonSaveGame.input(mouse, key);
         buttonExit.input(mouse, key);
         buttonMenu.input(mouse, key);
     }
@@ -60,7 +65,9 @@ public class PauseState extends GameState {
     @Override
     public void render(Graphics2D graphics) {
         buttonResume.render(graphics);
-        buttonExit.render(graphics);
+        buttonSaveGame.render(graphics);
         buttonMenu.render(graphics);
+        buttonExit.render(graphics);
+
     }
 }

@@ -40,7 +40,7 @@ public class GameStateManager {
 
         button = new SpriteSheet("resources\\gui\\buttons.png", 122, 57);
 
-        states[PLAY] = new PlayState(this);
+        states[MENU] = new MenuState(this);
     }
 
     public GameState getState(int state) {

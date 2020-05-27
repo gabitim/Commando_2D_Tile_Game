@@ -6,10 +6,12 @@ import com.commando.game.util.MouseHandler;
 import com.commando.game.graphics.GUI.Button;
 import com.commando.game.util.Vector2d;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.security.cert.CertPathValidatorException;
 
-import static com.commando.game.states.GameStateManager.PAUSE;
+import static com.commando.game.states.GameStateManager.*;
 
 /**
  * @author Timofti Gabriel
@@ -32,11 +34,14 @@ public class PauseState extends GameState {
         buttonExit = new Button("EXIT", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 136), 32, 16);
         buttonMenu = new Button("MENU", imageButton, font, new Vector2d(GamePanel.width / 2, GamePanel.height / 2 + 48), 32, 16);
 
+
+
         buttonResume.addHoverImage(buttonResume.createButton("RESUME", imageHover, font, buttonResume.getWidth(), buttonResume.getHeight(), 32, 20));
         buttonExit.addHoverImage(buttonExit.createButton("EXIT", imageHover, font, buttonExit.getWidth(), buttonExit.getHeight(), 32, 20));
         buttonMenu.addHoverImage(buttonMenu.createButton("MENU", imageHover, font, buttonMenu.getWidth(), buttonMenu.getHeight(), 32, 20));
 
-        buttonResume.addEvent(event -> { gameStateManager.pop(PAUSE); } );
+        buttonResume.addEvent(event -> { PlayState.pause = false; gameStateManager.pop(PAUSE);  } );
+        buttonMenu.addEvent( event -> { gameStateManager.pop(PLAY); gameStateManager.add(MENU);} );
         buttonExit.addEvent(event -> { System.exit(0); } );
     }
 
@@ -46,7 +51,7 @@ public class PauseState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
         buttonResume.input(mouse, key);
         buttonExit.input(mouse, key);
         buttonMenu.input(mouse, key);

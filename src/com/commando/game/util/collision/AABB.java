@@ -25,6 +25,7 @@ public class AABB {
         this.position = position;
         this.width = width;
         this.height = height;
+        this.surfaceArea = width * height;
 
         size = Math.max(width, height);
     }
@@ -118,16 +119,19 @@ public class AABB {
 
     //for button
     public boolean inside(int xPosition, int yPosition) {
-        if (xPosition == -1 || yPosition == -1) return false;
+        if(xPosition == -1 || yPosition == - 1) return false;
 
-        int widthTemp = (int)this.width;
-        int heightTemp = (int)this.height;
-        int x = (int)this.position.x;
-        int y = (int)this.position.y;
+        int widthTemp = (int) this.width;
+        int heightTemp = (int) this.height;
+        int x = (int) this.position.x;
+        int y = (int) this.position.y;
+
+        if(xPosition < x || yPosition < y) {
+            return false;
+        }
 
         widthTemp += x;
         heightTemp += y;
-
         return ((widthTemp < x || widthTemp > xPosition) && (heightTemp < y || heightTemp > yPosition));
     }
 }

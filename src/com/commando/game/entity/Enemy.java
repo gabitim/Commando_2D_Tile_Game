@@ -33,26 +33,28 @@ public class Enemy extends Entity{
         detect = new AABB(new Vector2d(origin.x + size / 2 - radius / 2, origin.y + size / 2 - radius / 2), radius);
     }
 
-    public void update(Hero hero) {
-        super.update();
-        move(hero);
-        if(!fallen) {
-            //System.out.println("Still alive");
-            if (!tileCollision.collisionTile(speed_x, 0)) {
-                detect.getPosition().x += speed_x;
-                position.x += speed_x;
-            }
+    public void update(Hero hero, boolean pause) {
 
-            if (!tileCollision.collisionTile(0, speed_y)) {
-                detect.getPosition().y += speed_y;
-                position.y += speed_y;
+        if(!pause) {
+            move(hero);
+            super.update();
+            if(!fallen) {
+                //System.out.println("Still alive");
+                if (!tileCollision.collisionTile(speed_x, 0)) {
+                    detect.getPosition().x += speed_x;
+                    position.x += speed_x;
+                }
+
+                if (!tileCollision.collisionTile(0, speed_y)) {
+                    detect.getPosition().y += speed_y;
+                    position.y += speed_y;
+                }
+            }
+            else {
+                //System.out.println("Now dead ");
+                destroy();
             }
         }
-        else {
-            //System.out.println("Now dead ");
-            destroy();
-        }
-
     }
 
     @Override

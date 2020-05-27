@@ -7,11 +7,13 @@ package com.commando.game.graphics.GUI;
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.GameStateManager;
+import com.commando.game.util.ClickedEvent;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -203,9 +205,9 @@ public class Button {
     public Vector2d getPos() { return bounds.getPosition(); }
 
     public void update() {
-       /* if(pressedImage != null && pressed && pressedtime + 300 < time / 1000000) {
+        if(pressedImage != null && pressed ) {
             pressed = false;
-        }*/
+        }
     }
 
     private void hover(int value) {
@@ -226,8 +228,9 @@ public class Button {
         hovering = true;
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
         if(bounds.inside(mouse.getX(), mouse.getY())) {
+            //System.out.println("isInside" + mouse.getX() + " " + mouse.getY());
             if(canHover && !hovering) {
                 hover(hoverSize);
             }
@@ -268,9 +271,9 @@ public class Button {
 
     }
 
-    public interface ClickedEvent {
+   /* public interface ClickedEvent {
         void action(int mouseButton);
-    }
+    }*/
 
     public interface SlotEvent {
         void action(Slots slot);

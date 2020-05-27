@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 import static com.commando.game.states.GameStateManager.PAUSE;
+import static com.commando.game.states.GameStateManager.PLAY;
 
 /**
  * @author Timofti Gabriel
@@ -38,6 +39,7 @@ public class PlayState extends GameState {
     private TileManager tileManager;
 
     public static Vector2d map;
+    public static boolean pause = false;
 
     public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
@@ -54,8 +56,8 @@ public class PlayState extends GameState {
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
-        hero.update(enemy);
-        enemy.update(hero);
+        hero.update(enemy, pause);
+        enemy.update(hero, pause);
         //enemy1.update(hero.getBounds());
     }
 
@@ -69,9 +71,11 @@ public class PlayState extends GameState {
             System.out.println("PPP");
             if (gameStateManager.isStateActive(PAUSE)) {
                 gameStateManager.pop(PAUSE);
+                pause = false;
             }
             else {
                 gameStateManager.add(PAUSE);
+                pause = true;
             }
         }
     }

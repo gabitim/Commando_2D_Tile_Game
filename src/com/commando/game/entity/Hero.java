@@ -8,8 +8,7 @@ import com.commando.game.util.Vector2d;
 
 import java.awt.*;
 
-import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_X;
-import static com.commando.game.states.PlayState.SPAWN_POSITION_OFFSET_Y;
+import static com.commando.game.states.PlayState.*;
 
 /**
  * @author Timofti Gabriel
@@ -30,31 +29,32 @@ public class Hero extends Entity{
 
     }
 
-    public void update(Enemy enemy) {
-        super.update();
+    public void update(Enemy enemy, boolean pause) {
+        if (!pause) {
+            super.update();
 
-        if(attack && hitBounds.collides(enemy.getBounds())) {
-            System.out.println("I've been hit");
-        }
-
-        if(!fallen) {
-            move();
-            if (!tileCollision.collisionTile(speed_x, 0)) {
-                PlayState.map.x += speed_x;
-                position.x += speed_x;
+            if (attack && hitBounds.collides(enemy.getBounds())) {
+                System.out.println("I've been hit");
             }
-            if (!tileCollision.collisionTile(0, speed_y)) {
-                PlayState.map.y += speed_y;
-                position.y += speed_y;
-            }
-        }
-        else {
-            if (animation.hasPLayedOnce()) {
-                resetPosition();
-                speed_x = 0;
-                speed_y = 0;
-                fallen = false;
 
+            if (!fallen) {
+                move();
+                if (!tileCollision.collisionTile(speed_x, 0)) {
+                    PlayState.map.x += speed_x;
+                    position.x += speed_x;
+                }
+                if (!tileCollision.collisionTile(0, speed_y)) {
+                    PlayState.map.y += speed_y;
+                    position.y += speed_y;
+                }
+            } else {
+                if (animation.hasPLayedOnce()) {
+                    resetPosition();
+                    speed_x = 0;
+                    speed_y = 0;
+                    fallen = false;
+
+                }
             }
         }
     }
@@ -142,52 +142,53 @@ public class Hero extends Entity{
 
     public void input(MouseHandler mouse, KeyHandler key) {
 
-        if(!fallen) {
-            // 1- left mouse button
-            // 2 - scroll button
-            //3 - right mouse button
-            if(mouse.getButton() == 1) {
-                //System.out.println("Player: " + position.x + ", " + position.y);
-                this.attack = true;
-            } else {
-                this.attack = false;
-            }
+        if (!pause) {
+            if (!fallen) {
+                // 1- left mouse button
+                // 2 - scroll button
+                //3 - right mouse button
+                if (mouse.getButton() == 1) {
+                    //System.out.println("Player: " + position.x + ", " + position.y);
+                    this.attack = true;
+                } else {
+                    this.attack = false;
+                }
 
-            if (key.up._down) {
-                this.up = true; // extends
+                if (key.up._down) {
+                    this.up = true; // extends
+                } else {
+                    this.up = false;
+                }
+                if (key.down._down) {
+                    this.down = true; // extends
+                } else {
+                    this.down = false;
+                }
+                if (key.left._down) {
+                    this.left = true; // extends
+                } else {
+                    this.left = false;
+                }
+                if (key.right._down) {
+                    this.right = true; // extends
+                } else {
+                    this.right = false;
+                }
+                if (up && down) {
+                    up = false;
+                    down = false;
+                }
+                if (right && left) {
+                    right = false;
+                    left = false;
+                }
             } else {
-                this.up = false;
-            }
-            if (key.down._down) {
-                this.down = true; // extends
-            } else {
-                this.down = false;
-            }
-            if (key.left._down) {
-                this.left = true; // extends
-            } else {
-                this.left = false;
-            }
-            if (key.right._down) {
-                this.right = true; // extends
-            } else {
-                this.right = false;
-            }
-            if (up && down) {
                 up = false;
                 down = false;
-            }
-            if (right && left) {
                 right = false;
                 left = false;
+                attack = false;
             }
-        }
-        else {
-            up = false;
-            down = false;
-            right = false;
-            left = false;
-            attack = false;
         }
     }
 

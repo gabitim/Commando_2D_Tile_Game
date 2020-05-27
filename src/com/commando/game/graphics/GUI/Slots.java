@@ -5,6 +5,7 @@ import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -74,7 +75,7 @@ public class Slots {
         }
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
         button.input(mouse, key);
 
         if(showChildren) {

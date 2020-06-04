@@ -27,15 +27,15 @@ public class TileMapSolid extends TileMap {
         for(int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                if(temp == SPIKES) { // the borders (for collision)
-                    tempBlock = new SolidCollideBlock(
+                if(temp == SPIKES) {
+                    tempBlock = new SolidCollideBlock(  // first collision type ( will produce death block )
                             spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,
                             tileHeight
                     );
                 } else  {
-                    tempBlock = new SolidObjectBlock(
+                    tempBlock = new SolidObjectBlock( // second collision type ( cant pass block )
                             spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int)((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,

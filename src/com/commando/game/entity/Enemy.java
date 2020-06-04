@@ -11,8 +11,6 @@ import java.awt.*;
  */
 public class Enemy extends Entity{
 
-
-
     private AABB detect;
     private int radius;
 

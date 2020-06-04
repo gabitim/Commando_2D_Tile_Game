@@ -2,6 +2,9 @@ package com.commando.game.states;
 
 import com.commando.game.GamePanel;
 import com.commando.game.entity.Enemy;
+import com.commando.game.entity.GameObject.Bullet;
+import com.commando.game.entity.GameObject.GameObject;
+import com.commando.game.entity.GameObject.Projectile;
 import com.commando.game.entity.Hero;
 import com.commando.game.graphics.Font;
 import com.commando.game.graphics.SpriteSheet;
@@ -31,7 +34,6 @@ public class PlayState extends GameState {
     public static final int ENEMY_POSITION_Y = MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y +  250;
 
 
-    private Font font;
     private Hero hero;
     private Enemy enemy;
     //private Enemy enemy1;
@@ -48,20 +50,21 @@ public class PlayState extends GameState {
         tileManager = new TileManager("resources\\map\\map1v2_plains.xml"); // my map
         hero = new Hero(new SpriteSheet("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X, MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y), HERO_SIZE); // the hero
         enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
-        //enemy1 = new Enemy(new Sprite("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(MIDDLE_OF_MAP_X + 200, MIDDLE_OF_MAP_Y + 200), HERO_SIZE); // the enemy
 
     }
+
 
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
         hero.update(enemy, pause);
         enemy.update(hero, pause);
-        //enemy1.update(hero.getBounds());
     }
 
     @Override
     public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+        //System.out.println( mouse.getX() + ", " + mouse.getY());
+
         key.escape.tick();
 
         hero.input(mouse, key);
@@ -82,7 +85,7 @@ public class PlayState extends GameState {
     @Override
     public void render(Graphics2D graphics) {
         if(!pause) {
-            System.out.println("aaa");
+
             //render the map
             tileManager.render(graphics);
 

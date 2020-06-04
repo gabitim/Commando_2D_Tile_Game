@@ -1,5 +1,6 @@
 package com.commando.game.entity;
 
+import com.commando.game.entity.GameObject.Projectile;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
@@ -14,6 +15,9 @@ import static com.commando.game.states.PlayState.*;
  * @author Timofti Gabriel
  */
 public class Hero extends Entity{
+
+    private Projectile bullet;
+    private static boolean fired = false;
 
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
@@ -39,6 +43,10 @@ public class Hero extends Entity{
 
             if (!fallen) {
                 move();
+                if (fired) {
+                    bullet.update();
+                }
+
                 if (!tileCollision.collisionTile(speed_x, 0)) {
                     PlayState.map.x += speed_x;
                     position.x += speed_x;
@@ -80,6 +88,9 @@ public class Hero extends Entity{
         }
 
         graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
+        if(fired) {
+            bullet.render(graphics);
+        }
     }
 
     private void move() {
@@ -148,7 +159,9 @@ public class Hero extends Entity{
                 // 2 - scroll button
                 //3 - right mouse button
                 if (mouse.getButton() == 1) {
-                    //System.out.println("Player: " + position.x + ", " + position.y);
+                    bullet = new Projectile(new Vector2d(10,10), new Vector2d(position.x + 40 , position.y + 32 ), new Vector2d(mouse.getX() + 350, mouse.getY() + 550));
+                    fired = true;
+
                     this.attack = true;
                 } else {
                     this.attack = false;

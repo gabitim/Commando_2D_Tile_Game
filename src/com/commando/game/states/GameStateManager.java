@@ -103,6 +103,7 @@ public class GameStateManager {
 
     }
 
+
     public void render(Graphics2D graphics) {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {

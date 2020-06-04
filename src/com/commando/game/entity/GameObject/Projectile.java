@@ -5,6 +5,9 @@ import com.commando.game.util.Vector2d;
 
 import java.awt.*;
 
+import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_X;
+import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_Y;
+
 /**
  * @author Timofti Gabriel
  */
@@ -12,16 +15,30 @@ public class Projectile extends GameObject {
 
     public static final int BULLET_SPEED = 10;
 
+    private Vector2d HERO_MOVEMENT_OFFSET = new Vector2d(0, 0);
+
     protected SpriteSheet spriteSheet;
 
+    protected Vector2d source;
+    protected Vector2d destination;
     protected Vector2d speed;
     protected Vector2d direction;
 
+
     public Projectile(Vector2d size, Vector2d source, Vector2d destination) {
+
+        HERO_MOVEMENT_OFFSET.x = source.x - HERO_SPAWN_POSITION_X;
+        HERO_MOVEMENT_OFFSET.y  = source.y - HERO_SPAWN_POSITION_Y;
+
+        destination.x += HERO_MOVEMENT_OFFSET.x;
+        destination.y += HERO_MOVEMENT_OFFSET.y;
+
         System.out.println("Player: " + source.x + ", " + source.y);
         System.out.println("Mouse: " + destination.x + ", "+ destination.y);
         //this.spriteSheet = spriteSheet;
 
+        this.source = source;
+        this.destination = destination;
         this.size = size;
         this.position = source;
         direction = GameObject.minus(destination, source);

@@ -15,6 +15,7 @@ import com.commando.game.util.Vector2d;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.security.PublicKey;
 
 import static com.commando.game.states.GameStateManager.*;
 
@@ -29,6 +30,9 @@ public class PlayState extends GameState {
     public static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
     public static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
     public static final int HERO_SIZE = 64;
+
+    public static final int HERO_SPAWN_POSITION_X = MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X;
+    public static final int HERO_SPAWN_POSITION_Y = MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y;
 
     public static final int ENEMY_POSITION_X = MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X +  250;
     public static final int ENEMY_POSITION_Y = MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y +  250;
@@ -48,7 +52,7 @@ public class PlayState extends GameState {
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
         tileManager = new TileManager("resources\\map\\map1v2_plains.xml"); // my map
-        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\Hero1.png"), new Vector2d(MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X, MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y), HERO_SIZE); // the hero
+        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\Hero1.png"), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
         enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
 
     }

@@ -2,11 +2,7 @@ package com.commando.game.states;
 
 import com.commando.game.GamePanel;
 import com.commando.game.entity.Enemy;
-import com.commando.game.entity.GameObject.Bullet;
-import com.commando.game.entity.GameObject.GameObject;
-import com.commando.game.entity.GameObject.Projectile;
 import com.commando.game.entity.Hero;
-import com.commando.game.graphics.Font;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
@@ -15,7 +11,6 @@ import com.commando.game.util.Vector2d;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.security.PublicKey;
 
 import static com.commando.game.states.GameStateManager.*;
 

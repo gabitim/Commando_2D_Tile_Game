@@ -1,5 +1,6 @@
 package com.commando.game.entity;
 
+import com.commando.game.entity.GameObject.GameObject;
 import com.commando.game.graphics.Animation;
 import com.commando.game.graphics.Sprite;
 import com.commando.game.graphics.SpriteSheet;
@@ -10,27 +11,19 @@ import com.commando.game.util.collision.AABB;
 import com.commando.game.util.collision.TileCollision;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * @author Timofti Gabriel
  */
-public abstract class Entity {
+public abstract class Entity extends GameObject {
 
-    //for animations ( png my_hero)
+    //for animations
     protected final int FALLEN = 4;
     protected final int UP = 3;
     protected final int DOWN = 2;
     protected final int LEFT = 1;
     protected final int RIGHT = 0;
 
-    protected int currentAnimation;
-
-    protected TileCollision tileCollision;
-    protected Animation animation;
-    protected SpriteSheet spriteSheet;
-    protected Vector2d position;
-    protected int size;
 
     protected boolean up;
     protected boolean down;
@@ -78,8 +71,6 @@ public abstract class Entity {
     public void setFallen(boolean b) { fallen = b; }
 
     public AABB getBounds() { return bounds; }
-    public int getSize() { return size; }
-    public Animation getAnimation() { return animation; }
 
     public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
@@ -118,7 +109,6 @@ public abstract class Entity {
         }
 
     }
-
 
     private void setHitBoxDirection() {
         if(up) {

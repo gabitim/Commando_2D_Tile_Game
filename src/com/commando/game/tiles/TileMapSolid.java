@@ -43,7 +43,6 @@ public class TileMapSolid extends TileMap {
                     );
                 }
                 tilemapSolid_Blocks.put(String.valueOf((int)(i % width)) + "," + String.valueOf((int)(i / height)), tempBlock);
-
             }
         }
     }

@@ -1,30 +1,27 @@
 package com.commando.game.entity.GameObject;
 
+import com.commando.game.graphics.Animation;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.TileCollision;
 
 import java.awt.*;
 
-/**
- * @author Timofti Gabriel
- */
-
-enum GameObjectID {
-    Player,
-    Monster,
-    Gun,
-    Bullet
-}
-
 public abstract class GameObject {
+
+    protected int currentAnimation;
+    protected int size;
+
+    protected TileCollision tileCollision;
+    protected Animation animation;
+    public Vector2d position;
     protected SpriteSheet spriteSheet;
     protected GameObjectID id;
-    protected Vector2d position;
-    protected Vector2d size;
 
     public abstract GameObjectID getId();
     public abstract Vector2d getPosition();
-    public abstract Vector2d getSize();
+    public int getSize() { return size; };
+    public Animation getAnimation() { return animation; }
 
     public abstract void update();
     public abstract void render(Graphics2D graphics);

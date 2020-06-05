@@ -1,5 +1,6 @@
 package com.commando.game.entity;
 
+import com.commando.game.entity.GameObject.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
@@ -29,6 +30,16 @@ public class Enemy extends Entity{
         bounds.setyOffSet(40);
 
         detect = new AABB(new Vector2d(origin.x + size / 2 - radius / 2, origin.y + size / 2 - radius / 2), radius);
+    }
+
+    @Override
+    public GameObjectID getId() {
+        return null;
+    }
+
+    @Override
+    public Vector2d getPosition() {
+        return null;
     }
 
     public void update(Hero hero, boolean pause) {

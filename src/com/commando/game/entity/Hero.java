@@ -1,6 +1,6 @@
 package com.commando.game.entity;
 
-import com.commando.game.entity.GameObject.Projectile;
+import com.commando.game.entity.GameObject.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
@@ -25,12 +25,21 @@ public class Hero extends Entity{
         deceleration = 0.3f;
         maxSpeed = 3f;
 
-        //modify the 'box' of the player
+        //initialize the box of the player
         bounds.setWidth(42);
         bounds.setHeight(20);
         bounds.setxOffSet(12);
         bounds.setyOffSet(40);
+    }
 
+    @Override
+    public GameObjectID getId() {
+        return GameObjectID.Hero;
+    }
+
+    @Override
+    public Vector2d getPosition() {
+        return position;
     }
 
     public void update(Enemy enemy, boolean pause) {
@@ -159,7 +168,7 @@ public class Hero extends Entity{
                 // 2 - scroll button
                 //3 - right mouse button
                 if (mouse.getButton() == 1) {
-                    bullet = new Projectile(new Vector2d(10,10), new Vector2d(position.x + 40 , position.y + 32 ), new Vector2d(mouse.getX() + 350, mouse.getY() + 550));
+                    bullet = new Projectile(new SpriteSheet("resources\\weapons\\fire_arrow.png"), 10,  new Vector2d(position.x + 40 , position.y + 32 ), new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X, mouse.getY() + SPAWN_POSITION_OFFSET_Y));
                     fired = true;
 
                     this.attack = true;

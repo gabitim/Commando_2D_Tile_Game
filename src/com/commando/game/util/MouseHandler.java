@@ -2,7 +2,6 @@ package com.commando.game.util;
 
 import com.commando.game.GamePanel;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -34,7 +33,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        //mouseB = mouseEvent.getButton();
     }
 
     @Override

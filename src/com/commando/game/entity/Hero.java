@@ -8,6 +8,7 @@ import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static com.commando.game.states.PlayState.*;
 
@@ -16,7 +17,11 @@ import static com.commando.game.states.PlayState.*;
  */
 public class Hero extends Entity{
 
-    private Projectile bullet;
+    double currentTime;
+    double oldTime = 0;
+
+
+    private ArrayList<Projectile> bullets = new ArrayList<>();
     private static boolean fired = false;
 
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
@@ -53,7 +58,9 @@ public class Hero extends Entity{
             if (!fallen) {
                 move();
                 if (fired) {
-                    bullet.update();
+                    for(Projectile bullet : bullets) {
+                        bullet.update();
+                    }
                 }
 
                 if (!tileCollision.collisionTile(speed_x, 0)) {
@@ -98,7 +105,9 @@ public class Hero extends Entity{
 
         graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
         if(fired) {
-            bullet.render(graphics);
+            for(Projectile bullet : bullets) {
+                bullet.render(graphics);
+            }
         }
     }
 
@@ -168,8 +177,15 @@ public class Hero extends Entity{
                 // 2 - scroll button
                 //3 - right mouse button
                 if (mouse.getButton() == 1) {
-                    bullet = new Projectile(new SpriteSheet("resources\\weapons\\fire_arrow.png"), 10,  new Vector2d(position.x + 40 , position.y + 32 ), new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X, mouse.getY() + SPAWN_POSITION_OFFSET_Y));
-                    fired = true;
+                    currentTime = System.currentTimeMillis();
+
+                    if ( currentTime - oldTime > 100) {
+                        bullets.add(new Projectile(10, new Vector2d(position.x + 40, position.y + 32),
+                                new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X, mouse.getY() + SPAWN_POSITION_OFFSET_Y)));
+                        fired = true;
+
+                        oldTime = System.currentTimeMillis();
+                    }
 
                     this.attack = true;
                 } else {

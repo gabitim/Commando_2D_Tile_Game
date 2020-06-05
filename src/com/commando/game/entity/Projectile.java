@@ -24,9 +24,9 @@ public class Projectile extends GameObject {
     protected Vector2d direction;
 
 
-    public Projectile(SpriteSheet spriteSheet, int size, Vector2d source, Vector2d destination) {
+    public Projectile(int size, Vector2d source, Vector2d destination) {
 
-        this.spriteSheet = spriteSheet;
+        //this.spriteSheet = spriteSheet;
 
         Vector2d HERO_MOVEMENT_OFFSET = new Vector2d(0, 0);
         HERO_MOVEMENT_OFFSET.x = source.x - HERO_SPAWN_POSITION_X;

@@ -2,6 +2,7 @@ package com.commando.game.entity;
 
 import com.commando.game.entity.GameObject.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
+import com.commando.game.graphics.playerUI.PlayerUI;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
@@ -20,7 +21,6 @@ public class Hero extends Entity{
     double currentTime;
     double oldTime = 0;
 
-
     private ArrayList<Projectile> bullets = new ArrayList<>();
     private static boolean fired = false;
 
@@ -35,6 +35,9 @@ public class Hero extends Entity{
         bounds.setHeight(20);
         bounds.setxOffSet(12);
         bounds.setyOffSet(40);
+
+        health = 500;
+        maxHealth = 500;
     }
 
     @Override
@@ -55,7 +58,11 @@ public class Hero extends Entity{
                 System.out.println("I've been hit");
             }
 
-            if (!fallen) {
+            setHealth(health , 0);
+            if (health < 0) fallen = true;
+
+            if (!fallen ) {
+                //System.out.println(health);
                 move();
                 if (fired) {
                     for(Projectile bullet : bullets) {
@@ -73,6 +80,7 @@ public class Hero extends Entity{
                 }
             } else {
                 if (animation.hasPLayedOnce()) {
+                    health = 500;
                     resetPosition();
                     speed_x = 0;
                     speed_y = 0;

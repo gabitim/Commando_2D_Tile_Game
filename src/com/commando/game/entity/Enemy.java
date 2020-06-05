@@ -22,14 +22,17 @@ public class Enemy extends Entity{
         deceleration = 0.3f;
         maxSpeed = 2f;
 
-        radius = 300;
+        radius = 1000;
 
-        bounds.setWidth(42);
-        bounds.setHeight(20);
-        bounds.setxOffSet(12);
-        bounds.setyOffSet(40);
+        bounds.setWidth(160);
+        bounds.setHeight(160);
+        bounds.setxOffSet(-40);
+        bounds.setyOffSet(-40);
 
         detect = new AABB(new Vector2d(origin.x + size / 2 - radius / 2, origin.y + size / 2 - radius / 2), radius);
+
+        health = 300;
+        maxHealth = 300;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class Enemy extends Entity{
     public void update(Hero hero, boolean pause) {
 
         if(!pause) {
-            move(hero);
+            //move(hero);
             super.update();
             if(!fallen) {
                 //System.out.println("Still alive");
@@ -58,6 +61,12 @@ public class Enemy extends Entity{
                     detect.getPosition().y += speed_y;
                     position.y += speed_y;
                 }
+                if (bounds.collides(hero.getBounds())) {
+                    if ( !hero.fallen) {
+                        hero.health -= 1.5;
+                    }
+                }
+
             }
             else {
                 //System.out.println("Now dead ");
@@ -83,6 +92,7 @@ public class Enemy extends Entity{
 
     private void move(Hero hero) {
         if (detect.collisionCircleBox(hero.getBounds())) {
+            System.out.println("inside");
             if (position.y > hero.position.y + 1) {
                 speed_y -= acceleration;
 

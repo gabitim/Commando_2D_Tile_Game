@@ -33,8 +33,11 @@ public abstract class Entity extends GameObject {
     protected boolean attack;
     protected int attackSpeed;
     protected int attackDuration;
+    protected int invincibleTime;
 
     protected boolean fallen;
+    protected boolean dead = false;
+    protected boolean isInvincible = false;
 
     protected float speed_x;
     protected float speed_y;
@@ -46,6 +49,12 @@ public abstract class Entity extends GameObject {
 
     protected AABB hitBounds;
     protected AABB bounds;
+
+    protected int health;
+    protected int maxHealth;
+    protected float healthPercent = 1;
+    protected int defense = 100;
+    protected int damage = 25;
 
     public Entity(SpriteSheet spriteSheet, Vector2d origin, int size) {
         this.spriteSheet = spriteSheet;
@@ -70,13 +79,50 @@ public abstract class Entity extends GameObject {
     public void setDeceleration(float f) { deceleration = f; }
     public void setFallen(boolean b) { fallen = b; }
 
-    public AABB getBounds() { return bounds; }
-
     public void setAnimation(int i, Sprite[] frames, int delay) {
         currentAnimation = i;
         animation.setFrames(i, frames);
         animation.setDelay(delay);
     }
+
+    private void setHitBoxDirection() {
+        if(up) {
+            hitBounds.setyOffSet(-size / 2);
+            hitBounds.setxOffSet(0);
+        }
+        else if(down) {
+            hitBounds.setyOffSet(size / 2);
+            hitBounds.setxOffSet(0);
+        }
+        else if(left) {
+            hitBounds.setxOffSet(-size / 2);
+            hitBounds.setyOffSet(0);
+        }
+        else if(right) {
+            hitBounds.setxOffSet(size / 2);
+            hitBounds.setyOffSet(0);
+        }
+    }
+
+    public void setHealth(int life, int force ) {
+        health = life;
+        if ( health <= 0) {
+            dead = true;
+        }
+
+        damage += force;
+
+        healthPercent = (float)health / (float)maxHealth;
+    }
+
+    public boolean getDeath() { return dead; }
+    public int getHealth() { return health; }
+    public float getHealthPercent() { return healthPercent; }
+    public int getDefense() { return defense; }
+
+    public Animation getAnimation() { return animation; }
+    public AABB getHitBounds() { return hitBounds; }
+    public AABB getBounds() { return bounds; }
 
     public void animate() {
         if(up) {
@@ -108,25 +154,6 @@ public abstract class Entity extends GameObject {
             setAnimation(currentAnimation, spriteSheet.getSpriteArray(currentAnimation), -1);
         }
 
-    }
-
-    private void setHitBoxDirection() {
-        if(up) {
-            hitBounds.setyOffSet(-size / 2);
-            hitBounds.setxOffSet(0);
-        }
-        else if(down) {
-            hitBounds.setyOffSet(size / 2);
-            hitBounds.setxOffSet(0);
-        }
-        else if(left) {
-            hitBounds.setxOffSet(-size / 2);
-            hitBounds.setyOffSet(0);
-        }
-        else if(right) {
-            hitBounds.setxOffSet(size / 2);
-            hitBounds.setyOffSet(0);
-        }
     }
 
     public void update() {

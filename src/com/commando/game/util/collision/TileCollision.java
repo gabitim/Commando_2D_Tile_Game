@@ -1,6 +1,6 @@
 package com.commando.game.util.collision;
 
-import com.commando.game.entity.Entity;
+import com.commando.game.entity.caracters.Entity;
 import com.commando.game.states.PlayState;
 import com.commando.game.tiles.TileMapSolid;
 import com.commando.game.tiles.blocks.Block;

@@ -1,8 +1,9 @@
-package com.commando.game.entity;
+package com.commando.game.entity.caracters;
 
-import com.commando.game.entity.GameObject.GameObjectID;
+import com.commando.game.entity.heroItems.Bullet;
+import com.commando.game.entity.heroItems.Projectile;
+import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
-import com.commando.game.graphics.playerUI.PlayerUI;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
@@ -12,16 +13,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.commando.game.states.PlayState.*;
+import static com.commando.game.util.Define.HERO_LIFE;
 
 /**
  * @author Timofti Gabriel
  */
-public class Hero extends Entity{
+public class Hero extends Entity {
 
     double currentTime;
     double oldTime = 0;
 
-    private ArrayList<Projectile> bullets = new ArrayList<>();
+    private ArrayList<Bullet> bullets = new ArrayList<>();
     private static boolean fired = false;
 
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
@@ -36,8 +38,8 @@ public class Hero extends Entity{
         bounds.setxOffSet(12);
         bounds.setyOffSet(40);
 
-        health = 500;
-        maxHealth = 500;
+        health = HERO_LIFE;
+        maxHealth = HERO_LIFE;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class Hero extends Entity{
         if (!pause) {
             super.update();
 
-            if (attack && hitBounds.collides(enemy.getBounds())) {
+            if (attack && directHitBounds.collides(enemy.getBounds())) {
                 System.out.println("I've been hit");
             }
 
@@ -65,8 +67,9 @@ public class Hero extends Entity{
                 //System.out.println(health);
                 move();
                 if (fired) {
-                    for(Projectile bullet : bullets) {
-                        bullet.update();
+                    for(Bullet bullet : bullets) {
+                        if(!bullet.isHit())
+                            bullet.update(enemy);
                     }
                 }
 
@@ -104,17 +107,18 @@ public class Hero extends Entity{
         if (attack) {
             graphics.setColor(Color.CYAN);
             graphics.drawRect(
-                    (int)(hitBounds.getPosition().getWorldVar().x + hitBounds.getxOffSet()),
-                    (int)(hitBounds.getPosition().getWorldVar().y + hitBounds.getyOffSet()),
-                    (int)hitBounds.getWidth(),
-                    (int)hitBounds.getHeight()
+                    (int)(directHitBounds.getPosition().getWorldVar().x + directHitBounds.getxOffSet()),
+                    (int)(directHitBounds.getPosition().getWorldVar().y + directHitBounds.getyOffSet()),
+                    (int) directHitBounds.getWidth(),
+                    (int) directHitBounds.getHeight()
             ) ;
         }
 
         graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
         if(fired) {
-            for(Projectile bullet : bullets) {
-                bullet.render(graphics);
+            for(Bullet bullet : bullets) {
+                if(!bullet.isHit())
+                    bullet.render(graphics);
             }
         }
     }
@@ -188,38 +192,19 @@ public class Hero extends Entity{
                     currentTime = System.currentTimeMillis();
 
                     if ( currentTime - oldTime > 100) {
-                        bullets.add(new Projectile(10, new Vector2d(position.x + 40, position.y + 32),
+                        bullets.add(new Bullet(10, new Vector2d(position.x + 40, position.y + 32),
                                 new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X, mouse.getY() + SPAWN_POSITION_OFFSET_Y)));
                         fired = true;
 
                         oldTime = System.currentTimeMillis();
                     }
-
-                    this.attack = true;
-                } else {
-                    this.attack = false;
                 }
 
-                if (key.up._down) {
-                    this.up = true; // extends
-                } else {
-                    this.up = false;
-                }
-                if (key.down._down) {
-                    this.down = true; // extends
-                } else {
-                    this.down = false;
-                }
-                if (key.left._down) {
-                    this.left = true; // extends
-                } else {
-                    this.left = false;
-                }
-                if (key.right._down) {
-                    this.right = true; // extends
-                } else {
-                    this.right = false;
-                }
+                this.attack = key.attack._down;
+                this.up = key.up._down; // extends
+                this.down = key.down._down; // extends
+                this.left = key.left._down; // extends
+                this.right = key.right._down; // extends
                 if (up && down) {
                     up = false;
                     down = false;

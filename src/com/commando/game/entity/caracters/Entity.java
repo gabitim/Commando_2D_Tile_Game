@@ -1,6 +1,6 @@
-package com.commando.game.entity;
+package com.commando.game.entity.caracters;
 
-import com.commando.game.entity.GameObject.GameObject;
+import com.commando.game.entity.GameObject;
 import com.commando.game.graphics.Animation;
 import com.commando.game.graphics.Sprite;
 import com.commando.game.graphics.SpriteSheet;
@@ -9,6 +9,9 @@ import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 import com.commando.game.util.collision.TileCollision;
+
+import static com.commando.game.util.Define.BASIC_DAMAGE;
+import static com.commando.game.util.Define.BASIC_DEFENSE;
 
 import java.awt.*;
 
@@ -47,14 +50,14 @@ public abstract class Entity extends GameObject {
     protected float acceleration;
     protected float deceleration;
 
-    protected AABB hitBounds;
+    protected AABB directHitBounds;
     protected AABB bounds;
 
     protected int health;
     protected int maxHealth;
     protected float healthPercent = 1;
-    protected int defense = 100;
-    protected int damage = 25;
+    protected int defense = BASIC_DEFENSE;
+    protected int damage = BASIC_DAMAGE;
 
     public Entity(SpriteSheet spriteSheet, Vector2d origin, int size) {
         this.spriteSheet = spriteSheet;
@@ -66,8 +69,8 @@ public abstract class Entity extends GameObject {
         setAnimation(RIGHT, spriteSheet.getSpriteArray(RIGHT), 10);
 
         bounds = new AABB(origin, size, size);
-        hitBounds = new AABB(origin, size, size);
-        hitBounds.setxOffSet(size / 2);
+        directHitBounds = new AABB(origin, size, size);
+        directHitBounds.setxOffSet(size / 2);
     }
 
     public void setSpriteSheet(SpriteSheet spriteSheet) {
@@ -87,21 +90,25 @@ public abstract class Entity extends GameObject {
 
     private void setHitBoxDirection() {
         if(up) {
-            hitBounds.setyOffSet(-size / 2);
-            hitBounds.setxOffSet(0);
+            directHitBounds.setyOffSet(-size / 2);
+            directHitBounds.setxOffSet(0);
         }
         else if(down) {
-            hitBounds.setyOffSet(size / 2);
-            hitBounds.setxOffSet(0);
+            directHitBounds.setyOffSet(size / 2);
+            directHitBounds.setxOffSet(0);
         }
         else if(left) {
-            hitBounds.setxOffSet(-size / 2);
-            hitBounds.setyOffSet(0);
+            directHitBounds.setxOffSet(-size / 2);
+            directHitBounds.setyOffSet(0);
         }
         else if(right) {
-            hitBounds.setxOffSet(size / 2);
-            hitBounds.setyOffSet(0);
+            directHitBounds.setxOffSet(size / 2);
+            directHitBounds.setyOffSet(0);
         }
+    }
+
+    public void setHealth(int life) {
+        health += life;
     }
 
     public void setHealth(int life, int force ) {
@@ -121,7 +128,7 @@ public abstract class Entity extends GameObject {
     public int getDefense() { return defense; }
 
     public Animation getAnimation() { return animation; }
-    public AABB getHitBounds() { return hitBounds; }
+    public AABB getDirectHitBounds() { return directHitBounds; }
     public AABB getBounds() { return bounds; }
 
     public void animate() {

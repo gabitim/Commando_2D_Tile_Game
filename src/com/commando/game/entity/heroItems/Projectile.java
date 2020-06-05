@@ -1,28 +1,30 @@
-package com.commando.game.entity;
+package com.commando.game.entity.heroItems;
 
-import com.commando.game.entity.GameObject.*;
+import com.commando.game.entity.GameObject;
+import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.AABB;
 
 import java.awt.*;
 
 import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_X;
 import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_Y;
+import static com.commando.game.util.Define.*;
 
 /**
  * @author Timofti Gabriel
  */
-public class Projectile extends GameObject {
-
-    public static final int BULLET_SPEED = 10;
-
-    protected SpriteSheet spriteSheet;
+public abstract class Projectile extends GameObject {
 
     protected Vector2d source;
     protected Vector2d destination;
     protected Vector2d speed;
     protected Vector2d direction;
 
+    protected AABB bounds;
+
+    protected boolean hit = false;
 
     public Projectile(int size, Vector2d source, Vector2d destination) {
 
@@ -48,8 +50,10 @@ public class Projectile extends GameObject {
         direction.x = direction.x / directionLength;
         direction.y = direction.y / directionLength;
 
-        speed = new Vector2d(BULLET_SPEED, BULLET_SPEED); //bullet speed
+        speed = new Vector2d(BASIC_PROJECTILE_SPEED, BASIC_PROJECTILE_SPEED);
     }
+
+    public boolean isHit() { return hit; }
 
     @Override
     public GameObjectID getId() {
@@ -61,19 +65,19 @@ public class Projectile extends GameObject {
         return position;
     }
 
-    @Override
-    public void update() {
-        Vector2d auxSpeed = new Vector2d(direction.x * speed.x , direction.y * speed.y );
-        position = GameObject.add(position,auxSpeed);
+   public void update() {
+        Vector2d auxSpeed = new Vector2d(direction.x * speed.x, direction.y * speed.y);
+        position = GameObject.add(position, auxSpeed);
     }
 
     @Override
     public void render(Graphics2D graphics) {
-        Vector2d positionAux = GameObject.add(position, speed);
-        //System.out.println("Road" + positionAux.x + ", " + positionAux.y);
-        graphics.setColor(Color.YELLOW);
-        graphics.fillOval (
-                (int)(positionAux.getWorldVar().x), (int)(positionAux.getWorldVar().y), (size), (size) );
+        if(!hit) { //
+            Vector2d positionAux = GameObject.add(position, speed);
+            graphics.setColor(Color.YELLOW);
+            graphics.fillOval(
+                    (int) (positionAux.getWorldVar().x), (int) (positionAux.getWorldVar().y), (size), (size));
+        }
     }
 
 }

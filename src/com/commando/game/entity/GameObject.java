@@ -1,4 +1,4 @@
-package com.commando.game.entity.GameObject;
+package com.commando.game.entity;
 
 import com.commando.game.graphics.Animation;
 import com.commando.game.graphics.SpriteSheet;

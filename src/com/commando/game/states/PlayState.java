@@ -1,8 +1,8 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
-import com.commando.game.entity.Enemy;
-import com.commando.game.entity.Hero;
+import com.commando.game.entity.caracters.Enemy;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.graphics.playerUI.PlayerUI;
 import com.commando.game.tiles.TileManager;
@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 import static com.commando.game.states.GameStateManager.*;
+import static com.commando.game.util.Define.*;
 
 /**
  * @author Timofti Gabriel
@@ -48,8 +49,8 @@ public class PlayState extends GameState {
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
         tileManager = new TileManager("resources\\map\\map1v2_plains.xml"); // my map
-        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\Hero1.png"), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
-        enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\littlegirl.png", 48, 48), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
+        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\wizardHero.png", WIZARD_HERO_SPRITE_SIZE, WIZARD_HERO_SPRITE_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
+        enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\Skeleton.png", 32, 32), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
         heroUI = new PlayerUI(hero);
     }
 
@@ -58,7 +59,9 @@ public class PlayState extends GameState {
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
         hero.update(enemy, pause);
-        enemy.update(hero, pause);
+
+        if (!enemy.getDeath())
+            enemy.update(hero, pause);
         heroUI.update();
     }
 
@@ -93,7 +96,8 @@ public class PlayState extends GameState {
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
 
             hero.render(graphics);
-            enemy.render(graphics);
+            if (!enemy.getDeath())
+                enemy.render(graphics);
             heroUI.render(graphics);
         }
     }

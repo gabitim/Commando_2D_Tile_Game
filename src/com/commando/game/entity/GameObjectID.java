@@ -1,4 +1,4 @@
-package com.commando.game.entity.GameObject;
+package com.commando.game.entity;
 
 /**
  * @author Timofti Gabriel

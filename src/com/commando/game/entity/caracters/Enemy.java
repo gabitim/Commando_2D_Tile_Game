@@ -1,56 +1,67 @@
-package com.commando.game.entity;
+package com.commando.game.entity.caracters;
 
-import com.commando.game.entity.GameObject.GameObjectID;
+import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
+
+import static com.commando.game.util.Define.*;
 
 import java.awt.*;
 
 /**
  * @author Timofti Gabriel
  */
-public class Enemy extends Entity{
+public class Enemy extends Entity {
 
+    private AABB damageBounds;
     private AABB detect;
     private int radius;
 
     public Enemy(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
 
-        acceleration = 1f;
-        deceleration = 0.3f;
-        maxSpeed = 2f;
+        acceleration = BASIC_ENEMY_ACCELERATION;
+        deceleration = BASIC_ENEMY_DECELERATION;
+        maxSpeed = BASIC_ENEMY_MAX_SPEED;
 
-        radius = 1000;
+        radius = DETECTION_RADIUS;
 
-        bounds.setWidth(160);
-        bounds.setHeight(160);
-        bounds.setxOffSet(-40);
-        bounds.setyOffSet(-40);
+        bounds.setWidth(40);
+        bounds.setHeight(80);
+        bounds.setxOffSet(12);
+        bounds.setyOffSet(0);
+
+        damageBounds = new AABB(origin, size, size);
+        damageBounds.setWidth(DAMAGE_WIDTH);
+        damageBounds.setHeight(DAMAGE_HEIGHT);
+        damageBounds.setxOffSet(DAMAGE_OFFSET_X);
+        damageBounds.setyOffSet(DAMAGE_OFFSET_Y);
 
         detect = new AABB(new Vector2d(origin.x + size / 2 - radius / 2, origin.y + size / 2 - radius / 2), radius);
 
-        health = 300;
-        maxHealth = 300;
+        health = BASIC_ENEMY_MAX_HEALTH;
+        maxHealth = BASIC_ENEMY_MAX_HEALTH;
     }
 
     @Override
     public GameObjectID getId() {
-        return null;
+        return GameObjectID.Monster;
     }
 
     @Override
     public Vector2d getPosition() {
-        return null;
+        return position;
     }
 
     public void update(Hero hero, boolean pause) {
 
         if(!pause) {
-            //move(hero);
+            move(hero);
             super.update();
+
             if(!fallen) {
+                setHealth(health, 0);
                 //System.out.println("Still alive");
                 if (!tileCollision.collisionTile(speed_x, 0)) {
                     detect.getPosition().x += speed_x;
@@ -61,15 +72,15 @@ public class Enemy extends Entity{
                     detect.getPosition().y += speed_y;
                     position.y += speed_y;
                 }
-                if (bounds.collides(hero.getBounds())) {
+                if (damageBounds.collides(hero.getBounds())) {
                     if ( !hero.fallen) {
-                        hero.health -= 1.5;
+                        hero.health -= LEVEL1_SKELETON_DAMAGE;
                     }
                 }
 
             }
             else {
-                //System.out.println("Now dead ");
+                System.out.println("Now dead ");
                 destroy();
             }
         }
@@ -77,22 +88,30 @@ public class Enemy extends Entity{
 
     @Override
     public void render(Graphics2D graphics) {
-        graphics.setColor(Color.RED);
-        graphics.drawRect((int)(position.getWorldVar().x + bounds.getxOffSet()),
-                (int)(position.getWorldVar().y + bounds.getyOffSet()),
-                (int)bounds.getWidth(),
-                (int)bounds.getHeight()
-        );
+        if(!getDeath()) {
+            graphics.setColor(Color.RED);
+            graphics.drawRect((int) (position.getWorldVar().x + bounds.getxOffSet()),
+                    (int) (position.getWorldVar().y + bounds.getyOffSet()),
+                    (int) bounds.getWidth(),
+                    (int) bounds.getHeight()
+            );
 
-        graphics.setColor(Color.RED);
-        graphics.drawOval((int)(detect.getPosition().getWorldVar().x), (int)(detect.getPosition().getWorldVar().y), radius, radius );
+            graphics.setColor(Color.YELLOW);
+            graphics.drawOval((int) (position.getWorldVar().x + damageBounds.getxOffSet()),
+                    (int) (position.getWorldVar().y + damageBounds.getyOffSet()),
+                    (int) damageBounds.getWidth(),
+                    (int) damageBounds.getHeight()
+            );
 
-        graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null);
+            graphics.setColor(Color.RED);
+            graphics.drawOval((int) (detect.getPosition().getWorldVar().x), (int) (detect.getPosition().getWorldVar().y), radius, radius);
+
+            graphics.drawImage(animation.getImage().image, (int) (position.getWorldVar().x), (int) (position.getWorldVar().y), size, size, null);
+        }
     }
 
     private void move(Hero hero) {
         if (detect.collisionCircleBox(hero.getBounds())) {
-            System.out.println("inside");
             if (position.y > hero.position.y + 1) {
                 speed_y -= acceleration;
 
@@ -148,6 +167,7 @@ public class Enemy extends Entity{
     }
 
     private void destroy() {
+        dead = true;
     }
 }
 

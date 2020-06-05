@@ -1,6 +1,6 @@
 package com.commando.game.util.collision;
 
-import com.commando.game.entity.Entity;
+import com.commando.game.entity.caracters.Entity;
 import com.commando.game.util.Vector2d;
 
 

@@ -1,8 +1,7 @@
 package com.commando.game.graphics.playerUI;
 
 import com.commando.game.GamePanel;
-import com.commando.game.entity.GameObject.GameObject;
-import com.commando.game.entity.Hero;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.GUI.FillBars;
 import com.commando.game.graphics.GUI.Slots;
 import com.commando.game.graphics.SpriteSheet;

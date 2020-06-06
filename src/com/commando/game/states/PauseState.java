@@ -45,7 +45,7 @@ public class PauseState extends GameState {
 
         buttonResume.addEvent(event -> { PlayState.pause = false; gameStateManager.pop(PAUSE);  } );
         buttonMenu.addEvent( event -> { gameStateManager.pop(PLAY); gameStateManager.pop(PAUSE); gameStateManager.add(MENU); } );
-        buttonSaveGame.addEvent(event -> {  });
+        //buttonSaveGame.addEvent(event -> { gameStateManager.add(SAVE);  });
         buttonExit.addEvent(event -> { System.exit(0); } );
     }
 

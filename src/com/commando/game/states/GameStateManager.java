@@ -24,6 +24,13 @@ public class GameStateManager {
     public static final int WIN = 3;
     public static final int LOSE = 4;
 
+    //Options
+    public static final int LOAD  = 5;
+    public static final int SETTINGS = 6;
+    public static final int HELP = 7;
+    public static final int SAVE = 8;
+
+
     public static com.commando.game.graphics.Font font;
     public static SpriteSheet button;
     public static Graphics2D graphics;
@@ -33,7 +40,7 @@ public class GameStateManager {
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
 
-        states = new GameState[5];
+        states = new GameState[8];
 
         font = new com.commando.game.graphics.Font("resources\\font\\font.png", 10, 10); //  my font
         SpriteSheet.currentFont = font;
@@ -74,6 +81,18 @@ public class GameStateManager {
             states[LOSE] = new LoseState(this);
         }
 
+        if(state == LOAD) {
+            states[LOAD] = new LoseState(this);
+        }
+        if(state == SETTINGS) {
+            states[SETTINGS] = new LoseState(this);
+        }
+        if(state == HELP) {
+            states[HELP] = new LoseState(this);
+        }
+        if(state == SAVE) {
+            states[SAVE] = new LoseState(this);
+        }
     }
 
     public void addAndpop(int state) throws ParserConfigurationException {

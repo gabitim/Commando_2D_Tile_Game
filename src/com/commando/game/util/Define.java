@@ -20,7 +20,7 @@ public class Define {
 
     //enemy
     public static final double LEVEL1_SKELETON_DAMAGE = 1.5;
-    public static final int DETECTION_RADIUS = 300;
+    public static final int DETECTION_RADIUS = 1000;
 
     public static final int DAMAGE_WIDTH = 160;
     public static final int DAMAGE_HEIGHT = 160;
@@ -31,6 +31,10 @@ public class Define {
     public static final float BASIC_ENEMY_DECELERATION = 0.3f;
     public static final float BASIC_ENEMY_MAX_SPEED = 2f;
     public static final int BASIC_ENEMY_MAX_HEALTH = 300;
+
+    //map
+    public static final int WATER = 392;
+    public static final int DEATH = 122;
 
 
 

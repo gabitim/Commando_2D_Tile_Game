@@ -6,6 +6,8 @@ import com.commando.game.tiles.blocks.SolidObjectBlock;
 import com.commando.game.tiles.blocks.SolidCollideBlock;
 import com.commando.game.util.Vector2d;
 
+import static com.commando.game.util.Define.*;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -13,9 +15,6 @@ import java.util.HashMap;
  * @author Timofti Gabriel
  */
 public class TileMapSolid extends TileMap {
-
-    public static final int WATER = 392;
-    public static final int SPIKES = 583;
 
     public static HashMap<String, Block> tilemapSolid_Blocks;
 
@@ -27,7 +26,7 @@ public class TileMapSolid extends TileMap {
         for(int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                if(temp == SPIKES) {
+                if(temp == DEATH) {
                     tempBlock = new SolidCollideBlock(  // first collision type ( will produce death block )
                             spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,

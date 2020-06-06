@@ -10,8 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.commando.game.states.GameStateManager.MENU;
-import static com.commando.game.states.GameStateManager.PLAY;
+import static com.commando.game.states.GameStateManager.*;
 
 /**
  * @author Timofti Gabriel
@@ -46,7 +45,10 @@ public class MenuState extends GameState {
 
         buttonStart.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(PLAY); PlayState.pause = false; } );
 
-        //add all the events
+        //buttonLoadGame.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(LOAD); } );
+        //buttonSettings.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(SETTINGS); } );
+        //buttonHelp.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(HELP); });
+
         buttonQuit.addEvent(event -> { System.exit(0); } );
     }
 

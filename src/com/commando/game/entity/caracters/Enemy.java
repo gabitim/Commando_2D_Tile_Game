@@ -57,7 +57,7 @@ public class Enemy extends Entity {
     public void update(Hero hero, boolean pause) {
 
         if(!pause) {
-            move(hero);
+            //move(hero);
             super.update();
 
             if(!fallen) {

@@ -1,4 +1,4 @@
-package com.commando.game.util;
+package com.commando.game.util.hub;
 
 /**
  * @author Timofti Gabriel

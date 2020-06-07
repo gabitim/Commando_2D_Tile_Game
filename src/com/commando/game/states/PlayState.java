@@ -5,7 +5,6 @@ import com.commando.game.entity.caracters.Enemy;
 import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.graphics.playerUI.PlayerUI;
-import com.commando.game.tiles.MapTypes;
 import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
@@ -15,12 +14,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 import static com.commando.game.states.GameStateManager.*;
-import static com.commando.game.util.Define.*;
 
 /**
  * @author Timofti Gabriel
  */
 public class PlayState extends GameState {
+
+    public static String CURRENT_MAP;
+    public static String CURRENT_HERO;
+    public static int CURRENT_HERO_SIZE;
 
     public static final int SPAWN_POSITION_OFFSET_X = 350;
     public static final int SPAWN_POSITION_OFFSET_Y = 550;
@@ -49,8 +51,8 @@ public class PlayState extends GameState {
         map = new Vector2d(); //create the map
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
-        tileManager = new TileManager(MapTypes.MAP_PLAINS); // my map
-        hero = new Hero(new SpriteSheet("resources\\entity\\hero\\wizardHero.png", WIZARD_HERO_SPRITE_SIZE, WIZARD_HERO_SPRITE_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
+        tileManager = new TileManager(CURRENT_MAP); // my map
+        hero = new Hero(new SpriteSheet(CURRENT_HERO, CURRENT_HERO_SIZE, CURRENT_HERO_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
         enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\Skeleton.png", 32, 32), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
         heroUI = new PlayerUI(hero);
     }

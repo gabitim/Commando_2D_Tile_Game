@@ -6,7 +6,7 @@ import com.commando.game.tiles.blocks.SolidObjectBlock;
 import com.commando.game.tiles.blocks.SolidCollideBlock;
 import com.commando.game.util.Vector2d;
 
-import static com.commando.game.util.Define.*;
+import static com.commando.game.util.hub.Define.*;
 
 import java.awt.*;
 import java.util.HashMap;

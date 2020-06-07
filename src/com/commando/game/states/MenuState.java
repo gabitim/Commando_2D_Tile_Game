@@ -1,6 +1,7 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
+import com.commando.game.states.MenuOptions.Settings;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -24,6 +25,8 @@ public class MenuState extends GameState {
     private Button buttonQuit;
     private Font font;
 
+
+
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
 
@@ -43,13 +46,21 @@ public class MenuState extends GameState {
         buttonHelp.addHoverImage(buttonHelp.createButton("HELP", imageHover, font, buttonHelp.getWidth(), buttonHelp.getHeight(), 32, 20));
         buttonQuit.addHoverImage(buttonQuit.createButton("QUIT", imageHover, font, buttonQuit.getWidth(), buttonQuit.getHeight(), 32, 20));
 
-        buttonStart.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(PLAY); PlayState.pause = false; } );
+        buttonStart.addEvent(event ->
+        { gameStateManager.pop(MENU);
+
+        gameStateManager.add(PLAY);
+        PlayState.pause = false; } );
 
         //buttonLoadGame.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(LOAD); } );
-        //buttonSettings.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(SETTINGS); } );
-        //buttonHelp.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(HELP); });
+        buttonSettings.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(SETTINGS); } );
+        buttonHelp.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(HELP); });
 
         buttonQuit.addEvent(event -> { System.exit(0); } );
+
+        PlayState.CURRENT_MAP = Settings.SELECTED_MAP;
+        PlayState.CURRENT_HERO = Settings.SELECTED_CHARACTER;
+        PlayState.CURRENT_HERO_SIZE = Settings.SELECTED_CHARACTER_SIZE;
     }
 
     @Override

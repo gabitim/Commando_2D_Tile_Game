@@ -5,7 +5,7 @@ import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
-import static com.commando.game.util.Define.*;
+import static com.commando.game.util.hub.Define.*;
 
 import java.awt.*;
 

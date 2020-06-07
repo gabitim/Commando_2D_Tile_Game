@@ -10,8 +10,8 @@ import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 import com.commando.game.util.collision.TileCollision;
 
-import static com.commando.game.util.Define.BASIC_DAMAGE;
-import static com.commando.game.util.Define.BASIC_DEFENSE;
+import static com.commando.game.util.hub.Define.BASIC_DAMAGE;
+import static com.commando.game.util.hub.Define.BASIC_DEFENSE;
 
 import java.awt.*;
 

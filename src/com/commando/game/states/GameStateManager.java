@@ -2,6 +2,10 @@ package com.commando.game.states;
 
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.SpriteSheet;
+import com.commando.game.states.MenuOptions.Help;
+import com.commando.game.states.MenuOptions.LoadGame;
+import com.commando.game.states.MenuOptions.SaveGame;
+import com.commando.game.states.MenuOptions.Settings;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -35,12 +39,15 @@ public class GameStateManager {
     public static SpriteSheet button;
     public static Graphics2D graphics;
 
+    public double currentTime;
+    public double oldTime = 0;
+
     public GameStateManager(Graphics2D graphics) throws ParserConfigurationException {
         GameStateManager.graphics = graphics;
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
 
-        states = new GameState[8];
+        states = new GameState[9];
 
         font = new com.commando.game.graphics.Font("resources\\font\\font.png", 10, 10); //  my font
         SpriteSheet.currentFont = font;
@@ -82,16 +89,16 @@ public class GameStateManager {
         }
 
         if(state == LOAD) {
-            states[LOAD] = new LoseState(this);
+            states[LOAD] = new LoadGame(this);
         }
         if(state == SETTINGS) {
-            states[SETTINGS] = new LoseState(this);
+            states[SETTINGS] = new Settings(this);
         }
         if(state == HELP) {
-            states[HELP] = new LoseState(this);
+            states[HELP] = new Help(this);
         }
         if(state == SAVE) {
-            states[SAVE] = new LoseState(this);
+            states[SAVE] = new SaveGame(this);
         }
     }
 

@@ -2,7 +2,6 @@ package com.commando.game.entity.heroItems;
 
 import com.commando.game.entity.GameObject;
 import com.commando.game.entity.GameObjectID;
-import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
@@ -10,7 +9,7 @@ import java.awt.*;
 
 import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_X;
 import static com.commando.game.states.PlayState.HERO_SPAWN_POSITION_Y;
-import static com.commando.game.util.Define.*;
+import static com.commando.game.util.hub.Define.*;
 
 /**
  * @author Timofti Gabriel

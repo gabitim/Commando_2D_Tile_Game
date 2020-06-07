@@ -1,7 +1,6 @@
 package com.commando.game.entity.caracters;
 
 import com.commando.game.entity.heroItems.Bullet;
-import com.commando.game.entity.heroItems.Projectile;
 import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.PlayState;
@@ -13,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.commando.game.states.PlayState.*;
-import static com.commando.game.util.Define.HERO_LIFE;
+import static com.commando.game.util.hub.Define.HERO_LIFE;
 
 /**
  * @author Timofti Gabriel

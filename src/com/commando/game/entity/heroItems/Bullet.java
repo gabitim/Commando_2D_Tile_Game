@@ -5,10 +5,9 @@ import com.commando.game.entity.caracters.Enemy;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
-import static com.commando.game.util.Define.*;
+import static com.commando.game.util.hub.Define.*;
 
 import java.awt.*;
-import java.lang.reflect.GenericArrayType;
 
 /**
  * @author Timofti Gabriel

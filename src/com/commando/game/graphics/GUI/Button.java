@@ -49,6 +49,9 @@ public class Button {
     private float pressedtime;
     private Slots slot; // temp fix
 
+    private static double currentTime;
+    private static double oldTime = 0;
+
     // ******************************************** ICON CUSTOM POS *******************************************
 
     public Button(BufferedImage icon, BufferedImage image, Vector2d pos, int width, int height, int iconsize) {
@@ -228,17 +231,23 @@ public class Button {
         hovering = true;
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException{
         if(bounds.inside(mouse.getX(), mouse.getY())) {
             //System.out.println("isInside" + mouse.getX() + " " + mouse.getY());
             if(canHover && !hovering) {
                 hover(hoverSize);
             }
-            if(mouse.getButton() == 1 && !clicked) {
+
+            currentTime = System.currentTimeMillis();
+
+            if(mouse.getButton() == 1 && !clicked && (currentTime - oldTime > 500)) {
+
+                oldTime = System.currentTimeMillis();
+                System.out.println("aaa");
+
                 clicked = true;
                 pressed = true;
 
-                pressedtime = System.nanoTime() / 1000000;
 
                 for(int i = 0; i < events.size(); i++) {
                     events.get(i).action(1);
@@ -270,10 +279,6 @@ public class Button {
         }
 
     }
-
-   /* public interface ClickedEvent {
-        void action(int mouseButton);
-    }*/
 
     public interface SlotEvent {
         void action(Slots slot);

@@ -6,6 +6,7 @@ import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.graphics.GUI.Button;
+import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;

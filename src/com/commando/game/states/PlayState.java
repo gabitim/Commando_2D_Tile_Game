@@ -9,6 +9,7 @@ import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
@@ -48,6 +49,7 @@ public class PlayState extends GameState {
 
     public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
+
         map = new Vector2d(); //create the map
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
 
@@ -77,7 +79,7 @@ public class PlayState extends GameState {
         hero.input(mouse, key);
         heroUI.input(mouse, key);
         if(key.escape.clicked) {
-            System.out.println("PPP");
+            System.out.println("ESC Pressed");
             if (gameStateManager.isStateActive(PAUSE)) {
                 gameStateManager.pop(PAUSE);
                 pause = false;

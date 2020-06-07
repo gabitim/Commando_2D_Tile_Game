@@ -243,7 +243,7 @@ public class Button {
             if(mouse.getButton() == 1 && !clicked && (currentTime - oldTime > 500)) {
 
                 oldTime = System.currentTimeMillis();
-                System.out.println("aaa");
+                System.out.println("Button Pressed");
 
                 clicked = true;
                 pressed = true;

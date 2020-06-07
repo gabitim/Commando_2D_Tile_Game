@@ -9,6 +9,7 @@ import com.commando.game.states.MenuOptions.Settings;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
@@ -49,6 +50,7 @@ public class GameStateManager {
 
         states = new GameState[9];
 
+        Types.loadPaths(); // we load all the paths
         font = new com.commando.game.graphics.Font("resources\\font\\font.png", 10, 10); //  my font
         SpriteSheet.currentFont = font;
 

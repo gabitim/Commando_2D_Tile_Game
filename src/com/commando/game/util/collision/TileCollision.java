@@ -1,10 +1,10 @@
 package com.commando.game.util.collision;
 
 import com.commando.game.entity.caracters.Entity;
-import com.commando.game.states.PlayState;
 import com.commando.game.tiles.TileMapSolid;
 import com.commando.game.tiles.blocks.Block;
 import com.commando.game.tiles.blocks.SolidCollideBlock;
+import static com.commando.game.util.hub.Define.*;
 
 /**
  * @author Timofti Gabriel
@@ -21,8 +21,8 @@ public class TileCollision {
     // we check if the collision happens for tile Map
     public boolean collisionTile(float ax, float ay) {
         for (int c = 0; c < 4; c++) {
-            int xt = (int) ((entity.getBounds().getPosition().x + ax) + (c % 2) * entity.getBounds().getWidth() + entity.getBounds().getxOffSet()) / PlayState.HERO_SIZE;
-            int yt = (int) ((entity.getBounds().getPosition().y + ay) + (c / 2) * entity.getBounds().getHeight() + entity.getBounds().getyOffSet()) / PlayState.HERO_SIZE;
+            int xt = (int) ((entity.getBounds().getPosition().x + ax) + (c % 2) * entity.getBounds().getWidth() + entity.getBounds().getxOffSet()) / ENTITY_SIZE;
+            int yt = (int) ((entity.getBounds().getPosition().y + ay) + (c / 2) * entity.getBounds().getHeight() + entity.getBounds().getyOffSet()) / ENTITY_SIZE;
 
             if(TileMapSolid.tilemapSolid_Blocks.containsKey(String.valueOf(xt) + "," + String.valueOf(yt))) {
                 Block block = TileMapSolid.tilemapSolid_Blocks.get(String.valueOf(xt) + "," + String.valueOf(yt));
@@ -38,8 +38,8 @@ public class TileCollision {
     }
 
     private boolean collisionFalling(float ax, float ay, float xt, float yt, Block block) {
-        int nextXt = (int) ((( (entity.getBounds().getPosition().x + ax) + entity.getBounds().getxOffSet() ) / PlayState.HERO_SIZE ) + entity.getBounds().getWidth() / PlayState.HERO_SIZE);
-        int nextYt = (int) ((((entity.getBounds().getPosition().y + ay) + entity.getBounds().getyOffSet() ) / PlayState.HERO_SIZE) + entity.getBounds().getHeight() / PlayState.HERO_SIZE);
+        int nextXt = (int) ((( (entity.getBounds().getPosition().x + ax) + entity.getBounds().getxOffSet() ) / ENTITY_SIZE ) + entity.getBounds().getWidth() / ENTITY_SIZE);
+        int nextYt = (int) ((((entity.getBounds().getPosition().y + ay) + entity.getBounds().getyOffSet() ) / ENTITY_SIZE) + entity.getBounds().getHeight() / ENTITY_SIZE);
 
         //when it is fully inside only one block
         if(block.isInside(entity.getBounds())) {

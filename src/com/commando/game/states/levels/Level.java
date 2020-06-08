@@ -1,6 +1,6 @@
 package com.commando.game.states.levels;
 
-import com.commando.game.states.GameStateManager;
+import com.commando.game.entity.caracters.Enemy;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 
@@ -18,6 +18,8 @@ public abstract class Level {
         this.levelManager = levelManager;
     }
 
+    public abstract void init();
+    public abstract Enemy initOneEnemy();
     public abstract void update();
     public abstract void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException;
     public abstract void render(Graphics2D graphics);

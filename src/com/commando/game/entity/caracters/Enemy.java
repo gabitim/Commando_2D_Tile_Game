@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * @author Timofti Gabriel
  */
-public class Enemy extends Entity {
+public abstract class Enemy extends Entity {
 
     private AABB damageBounds;
     private AABB detect;
@@ -42,6 +42,7 @@ public class Enemy extends Entity {
 
         health = BASIC_ENEMY_MAX_HEALTH;
         maxHealth = BASIC_ENEMY_MAX_HEALTH;
+        damage = SKELETON_DAMAGE;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class Enemy extends Entity {
                 }
                 if (damageBounds.collides(hero.getBounds())) {
                     if ( !hero.fallen) {
-                        hero.health -= LEVEL1_SKELETON_DAMAGE;
+                        hero.health -= damage;
                     }
                 }
 

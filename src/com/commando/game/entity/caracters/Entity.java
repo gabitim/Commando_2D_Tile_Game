@@ -57,7 +57,7 @@ public abstract class Entity extends GameObject {
     protected int maxHealth;
     protected float healthPercent = 1;
     protected int defense = BASIC_DEFENSE;
-    protected int damage = BASIC_DAMAGE;
+    protected double damage = BASIC_DAMAGE;
 
     public Entity(SpriteSheet spriteSheet, Vector2d origin, int size) {
         this.spriteSheet = spriteSheet;

@@ -2,6 +2,7 @@ package com.commando.game.states;
 
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.SpriteSheet;
+import com.commando.game.states.levels.LevelManager;
 import com.commando.game.states.menuOptions.Help;
 import com.commando.game.states.menuOptions.LoadGame;
 import com.commando.game.states.menuOptions.SaveGame;
@@ -23,7 +24,7 @@ public class GameStateManager {
 
     public static Vector2d map;
 
-    public static final int PLAY = 0;
+    public static final int LEVELS = 0;
     public static final int MENU = 1;
     public static final int PAUSE = 2;
     public static final int WIN = 3;
@@ -74,8 +75,8 @@ public class GameStateManager {
     public void add(int state) throws ParserConfigurationException {
         if(states[state] != null) return;
 
-        if(state == PLAY) {
-            states[PLAY] = new PlayState(this);
+        if(state == LEVELS) {
+            states[LEVELS] = new LevelManager(this);
         }
         if(state == MENU) {
             states[MENU] = new MenuState(this);
@@ -109,7 +110,7 @@ public class GameStateManager {
     }
 
     public void addAndpop(int state, int remove) throws ParserConfigurationException {
-        pop(state);
+        pop(remove);
         add(state);
     }
 

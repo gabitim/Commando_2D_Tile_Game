@@ -75,8 +75,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void render() {
         if( graphics!= null) {
-           // g.setColor(new Color(107, 213, 244));
-            //g.fillRect(0,0, width, height);
             gameStateManager.render(graphics);
         }
     }

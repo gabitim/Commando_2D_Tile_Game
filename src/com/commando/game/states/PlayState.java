@@ -60,8 +60,8 @@ public class PlayState extends GameState {
 
         tileManager = new TileManager(CURRENT_MAP); // my map
         hero = new Hero(new SpriteSheet(CURRENT_HERO, CURRENT_HERO_SIZE, CURRENT_HERO_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
-        enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE)); // the enemy
-        enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X + 200, ENEMY_POSITION_Y + 300), HERO_SIZE)); // the enemy
+        enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X + 1000, ENEMY_POSITION_Y + 950), HERO_SIZE)); // the enemy
+        //enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X + 200, ENEMY_POSITION_Y + 500), HERO_SIZE)); // the enemy
 
         heroUI = new PlayerUI(hero);
     }

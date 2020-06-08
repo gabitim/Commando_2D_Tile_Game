@@ -1,6 +1,7 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
+import com.commando.game.states.levels.LevelManager;
 import com.commando.game.states.menuOptions.Settings;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
@@ -47,7 +48,7 @@ public class MenuState extends GameState {
         buttonQuit.addHoverImage(buttonQuit.createButton("QUIT", imageHover, font, buttonQuit.getWidth(), buttonQuit.getHeight(), 32, 20));
 
         buttonStart.addEvent(event ->
-        { gameStateManager.pop(MENU); gameStateManager.add(PLAY); PlayState.pause = false; } );
+        { gameStateManager.pop(MENU); gameStateManager.add(LEVELS); LevelManager.pause = false; } );
 
         //buttonLoadGame.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(LOAD); } );
         buttonSettings.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(SETTINGS); } );

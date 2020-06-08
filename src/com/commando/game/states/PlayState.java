@@ -11,10 +11,14 @@ import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.hub.Types;
 
+import static com.commando.game.util.hub.Define.*;
+import static com.commando.game.states.GameStateManager.*;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.util.ArrayList;
 
-import static com.commando.game.states.GameStateManager.*;
+
 
 /**
  * @author Timofti Gabriel
@@ -40,12 +44,13 @@ public class PlayState extends GameState {
 
 
     private Hero hero;
-    private Enemy enemy;
+    private ArrayList<Enemy> enemies = new ArrayList<>();
     private TileManager tileManager;
     private PlayerUI heroUI;
 
     public static Vector2d map; // for camera
     public static boolean pause = false;
+
 
     public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
@@ -55,7 +60,9 @@ public class PlayState extends GameState {
 
         tileManager = new TileManager(CURRENT_MAP); // my map
         hero = new Hero(new SpriteSheet(CURRENT_HERO, CURRENT_HERO_SIZE, CURRENT_HERO_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), HERO_SIZE); // the hero
-        enemy = new Enemy(new SpriteSheet("resources\\entity\\enemy\\Skeleton.png", 32, 32), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE); // the enemy
+        enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE)); // the enemy
+        enemies.add( new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X + 200, ENEMY_POSITION_Y + 300), HERO_SIZE)); // the enemy
+
         heroUI = new PlayerUI(hero);
     }
 
@@ -63,10 +70,18 @@ public class PlayState extends GameState {
     @Override
     public void update() {
         Vector2d.setWorldVar(map.x, map.y); //camera movement
-        hero.update(enemy, pause);
 
-        if (!enemy.getDeath())
-            enemy.update(hero, pause);
+        hero.update(enemies, pause);
+
+        for (int i = 0; i < enemies.size(); i++) {
+
+            if (!enemies.get(i).getDeath()) {
+                enemies.get(i).update(hero, pause);
+            } else {
+                enemies.remove(enemies.get(i));
+                enemies.add(new Enemy(new SpriteSheet(Types.MOB_SKELETON, MOB_SIZE, MOB_SIZE), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), HERO_SIZE)); // the enemy
+            }
+        }
         heroUI.update();
     }
 
@@ -99,10 +114,11 @@ public class PlayState extends GameState {
 
             //the FPS counter
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
-
             hero.render(graphics);
-            if (!enemy.getDeath())
-                enemy.render(graphics);
+            for(Enemy enemy : enemies) {
+                if (!enemy.getDeath())
+                    enemy.render(graphics);
+                }
             heroUI.render(graphics);
         }
     }

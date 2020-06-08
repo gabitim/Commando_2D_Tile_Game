@@ -1,4 +1,4 @@
-package com.commando.game.states.MenuOptions;
+package com.commando.game.states.menuOptions;
 
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.GUI.Button;

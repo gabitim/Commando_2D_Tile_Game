@@ -51,12 +51,14 @@ public class Hero extends Entity {
         return position;
     }
 
-    public void update(Enemy enemy, boolean pause) {
+    public void update(ArrayList<Enemy> enemies, boolean pause) {
         if (!pause) {
             super.update();
 
-            if (attack && directHitBounds.collides(enemy.getBounds())) {
-                System.out.println("I've been hit");
+            for (Enemy enemy : enemies) {
+                if (attack && directHitBounds.collides(enemy.getBounds())) {
+                    System.out.println("I've been hit");
+                }
             }
 
             setHealth(health , 0);
@@ -68,7 +70,9 @@ public class Hero extends Entity {
                 if (fired) {
                     for(Bullet bullet : bullets) {
                         if(!bullet.isHit())
-                            bullet.update(enemy);
+                            for (Enemy enemy : enemies) {
+                                bullet.update(enemy);
+                            }
                     }
                 }
 

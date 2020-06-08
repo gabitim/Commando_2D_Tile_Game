@@ -1,11 +1,10 @@
-package com.commando.game.states.MenuOptions;
+package com.commando.game.states.menuOptions;
 
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.GUI.Button;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.GameState;
 import com.commando.game.states.GameStateManager;
-import com.commando.game.util.hub.Define;
 import com.commando.game.util.hub.Types;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;

@@ -57,7 +57,7 @@ public class Enemy extends Entity {
     public void update(Hero hero, boolean pause) {
 
         if(!pause) {
-            //move(hero);
+            move(hero);
             super.update();
 
             if(!fallen) {
@@ -107,6 +107,14 @@ public class Enemy extends Entity {
             graphics.drawOval((int) (detect.getPosition().getWorldVar().x), (int) (detect.getPosition().getWorldVar().y), radius, radius);
 
             graphics.drawImage(animation.getImage().image, (int) (position.getWorldVar().x), (int) (position.getWorldVar().y), size, size, null);
+
+            //life bar
+            graphics.setColor(Color.RED);
+            graphics.fillRect((int)(position.getWorldVar().x + bounds.getxOffSet()+ 7), (int)(position.getWorldVar().y - 5), 24, 5 );
+
+            //at first green is full but then decreases
+            graphics.setColor(Color.GREEN);
+            graphics.fillRect((int)(position.getWorldVar().x + bounds.getxOffSet() + 7), (int)(position.getWorldVar().y - 5), (int)(24 * healthPercent), 5);
         }
     }
 

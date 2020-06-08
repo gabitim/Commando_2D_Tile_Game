@@ -2,10 +2,10 @@ package com.commando.game.states;
 
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.SpriteSheet;
-import com.commando.game.states.MenuOptions.Help;
-import com.commando.game.states.MenuOptions.LoadGame;
-import com.commando.game.states.MenuOptions.SaveGame;
-import com.commando.game.states.MenuOptions.Settings;
+import com.commando.game.states.menuOptions.Help;
+import com.commando.game.states.menuOptions.LoadGame;
+import com.commando.game.states.menuOptions.SaveGame;
+import com.commando.game.states.menuOptions.Settings;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;

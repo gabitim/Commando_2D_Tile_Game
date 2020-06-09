@@ -1,10 +1,12 @@
 package com.commando.game.states;
 
 import com.commando.game.GamePanel;
+import com.commando.game.states.levels.LevelManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.graphics.GUI.Button;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.TileCollision;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.security.cert.CertPathValidatorException;
 
 import static com.commando.game.states.GameStateManager.*;
+import static com.commando.game.states.PlayState.canPassPlayState;
+import static com.commando.game.states.levels.LevelManager.canPassLevel;
 
 /**
  * @author Timofti Gabriel
@@ -44,7 +48,13 @@ public class PauseState extends GameState {
 
 
         buttonResume.addEvent(event -> { PlayState.pause = false; gameStateManager.pop(PAUSE);  } );
-        buttonMenu.addEvent( event -> { gameStateManager.pop(LEVELS); gameStateManager.pop(PAUSE); gameStateManager.add(MENU); } );
+        buttonMenu.addEvent( event -> {
+            PlayState.canPassPlayState = false;
+            LevelManager.canPassLevel = false;
+            TileCollision.timePassed = 0;
+            gameStateManager.pop(LEVELS);
+            gameStateManager.pop(PAUSE);
+            gameStateManager.add(MENU); } );
         buttonSaveGame.addEvent(event -> { gameStateManager.add(SAVE);  });
         buttonExit.addEvent(event -> { System.exit(0); } );
     }

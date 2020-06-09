@@ -11,17 +11,14 @@ import java.awt.image.BufferedImage;
 /**
  * @author Timofti Gabriel
  */
-public class SolidCollideBlock extends Block {
+public class SolidFallingBlock extends Block {
 
-    public SolidCollideBlock(Sprite image, Vector2d position, int width, int height) {
+    public SolidFallingBlock(Sprite image, Vector2d position, int width, int height) {
         super(image, position, width, height);
     }
 
     @Override
     public boolean update(AABB player) {
-
-        System.out.println(" I am falling in water");
-
         return false;
     }
 

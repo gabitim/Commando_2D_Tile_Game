@@ -24,16 +24,17 @@ public class LevelManager extends GameState {
     public static int CURRENT_LEVEL;
 
     public static PlayState playState;
-
     public static boolean pause = true;
+
+    public static boolean canPassLevel = false;
 
     public LevelManager(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
 
         levels = new Level[3];
 
-        CURRENT_LEVEL = 1;
-        levels[LEVEL2] = new Level2(this, gameStateManager);
+        CURRENT_LEVEL = 0;
+        levels[LEVEL1] = new Level1(this, gameStateManager);
         PlayState.pause = false;
     }
 
@@ -67,10 +68,10 @@ public class LevelManager extends GameState {
     }
 
     @Override
-    public void update() {
+    public void update() throws ParserConfigurationException {
         for(int i = 0; i < levels.length; i++){
             if(levels[i] != null) {
-                levels[i].update();
+                levels[i].update(canPassLevel);
             }
         }
     }

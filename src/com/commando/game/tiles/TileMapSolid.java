@@ -2,8 +2,9 @@ package com.commando.game.tiles;
 
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.tiles.blocks.Block;
+import com.commando.game.tiles.blocks.SolidNextLevelBlock;
 import com.commando.game.tiles.blocks.SolidObjectBlock;
-import com.commando.game.tiles.blocks.SolidCollideBlock;
+import com.commando.game.tiles.blocks.SolidFallingBlock;
 import com.commando.game.util.Vector2d;
 
 import static com.commando.game.util.hub.Define.*;
@@ -26,8 +27,18 @@ public class TileMapSolid extends TileMap {
         for(int i = 0; i < (width * height); i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
             if (temp != 0) {
-                if(temp == DEATH) {
-                    tempBlock = new SolidCollideBlock(  // first collision type ( will produce death block )
+
+                if(temp == NEXT_LEVEL) {
+                    tempBlock = new SolidNextLevelBlock(  // next level block
+                            spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
+                            new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
+                            tileWidth,
+                            tileHeight
+                    );
+                }
+
+                else if(temp == DEATH) {
+                    tempBlock = new SolidFallingBlock(  // first collision type ( will produce death block )
                             spriteSheet.getSprite((int)((temp - 1) % tileColumns) , (int) ((temp - 1) / tileColumns) ) ,
                             new Vector2d((int)((i % width) * tileWidth), (int)((i / height) * tileHeight) ) ,
                             tileWidth,

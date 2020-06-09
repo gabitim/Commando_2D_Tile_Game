@@ -13,6 +13,7 @@ import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.TileCollision;
 import com.commando.game.util.hub.Types;
 import javafx.util.Pair;
 
@@ -57,6 +58,8 @@ public class PlayState extends GameState {
 
     public static Vector2d map; // for camera
     public static boolean pause = false;
+
+    public static boolean canPassPlayState = false;
 
 
     public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
@@ -124,7 +127,14 @@ public class PlayState extends GameState {
             tileManager.render(graphics);
 
             //the FPS counter
+            SpriteSheet.drawArray(graphics, "SCORE: " + Hero.totalDamage, new Vector2d(GamePanel.width - 180, 660), 24, 12);
+            SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 180, 690), 24, 12);
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
+            if(canPassPlayState) {
+                SpriteSheet.drawArray(graphics, "DON'T MOVE " + (5 - TileCollision.timePassed / 1000) , new Vector2d(80, 600), 24, 24);
+            }
+
+
             hero.render(graphics);
             for(Enemy enemy : enemies) {
                 if (!enemy.getDeath())

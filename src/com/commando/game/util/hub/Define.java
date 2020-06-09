@@ -47,6 +47,7 @@ public class Define {
     //map
     public static final int WATER = 392;
     public static final int DEATH = 122;
+    public static final int NEXT_LEVEL = 978;
 
 
 

@@ -17,7 +17,7 @@ public abstract class GameState {
         this.gameStateManager = gameStateManager;
     }
 
-    public abstract void update();
+    public abstract void update() throws ParserConfigurationException;
     public abstract void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException;
     public abstract void render(Graphics2D graphics);
 }

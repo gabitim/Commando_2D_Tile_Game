@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
         gameStateManager = new GameStateManager(graphics);
     }
 
-    public void update() {
+    public void update() throws ParserConfigurationException {
          gameStateManager.update();
     }
 
@@ -111,7 +111,11 @@ public class GamePanel extends JPanel implements Runnable{
             double now = System.nanoTime();
             int updateCount = 0;
             while (( (now - lastUpdateTime) > TIME_BEFORE_UPDATE) && (updateCount < UPDATES_BEFORE_RENDER) ){
-                update();
+                try {
+                    update();
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     input(mouse, key);

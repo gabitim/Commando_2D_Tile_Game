@@ -25,6 +25,8 @@ public class Hero extends Entity {
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private static boolean fired = false;
 
+    public static int totalDamage = 0;
+
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
         acceleration = 2f;

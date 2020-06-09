@@ -114,7 +114,7 @@ public class GameStateManager {
         add(state);
     }
 
-    public void update() {
+    public void update() throws ParserConfigurationException {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].update();

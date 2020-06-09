@@ -2,6 +2,7 @@ package com.commando.game.entity.heroItems;
 
 import com.commando.game.entity.GameObject;
 import com.commando.game.entity.caracters.Enemy;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 
@@ -38,6 +39,7 @@ public class Bullet extends Projectile {
             System.out.println(enemy.getHealth());
             hit = true;
             enemy.setHealth(-YELLOW_BULLET_DAMAGE);
+            Hero.totalDamage += YELLOW_BULLET_DAMAGE;
         }
     }
 

@@ -20,7 +20,7 @@ public abstract class Level {
 
     public abstract void init();
     public abstract Enemy initOneEnemy();
-    public abstract void update();
+    public abstract void update(boolean canPassToNext) throws ParserConfigurationException;
     public abstract void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException;
     public abstract void render(Graphics2D graphics);
 }

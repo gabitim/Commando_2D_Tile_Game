@@ -1,6 +1,8 @@
 package com.commando.game.states.levels;
 
 import com.commando.game.entity.caracters.Enemy;
+import com.commando.game.entity.caracters.enemyTypes.MobDwarf;
+import com.commando.game.entity.caracters.enemyTypes.MobGirl;
 import com.commando.game.entity.caracters.enemyTypes.MobGoblin;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.GameStateManager;
@@ -8,6 +10,7 @@ import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.TileCollision;
 import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,6 +18,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.commando.game.states.PlayState.*;
+import static com.commando.game.states.levels.LevelManager.*;
 import static com.commando.game.util.hub.Define.*;
 
 /**
@@ -37,8 +41,8 @@ public class Level2 extends Level {
 
     @Override
     public void init() {
-        this.enemies.add(new MobGoblin(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE));
-        this.enemies.add(new MobGoblin(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1300), ENTITY_SIZE));
+        this.enemies.add(new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE));
+        this.enemies.add(new MobGoblin(new SpriteSheet(Types.MOB_GOBLIN, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1300), ENTITY_SIZE));
     }
 
     @Override
@@ -47,21 +51,32 @@ public class Level2 extends Level {
         switch (lastMobType) {
             case 0: {
                 lastMobType = 1;
-                return new MobGoblin(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE);
+                return new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE);
             }
 
             case 1: {
                 lastMobType = 0;
-                return new MobGoblin(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1300), ENTITY_SIZE);
+                return new MobGoblin(new SpriteSheet(Types.MOB_GOBLIN, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1450), ENTITY_SIZE);
             }
 
-            default: return new MobGoblin(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), ENTITY_SIZE);
+            default: return new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X, ENEMY_POSITION_Y), ENTITY_SIZE);
         }
 
     }
 
     @Override
-    public void update() {
+    public void update(boolean canPassToNext) throws ParserConfigurationException {
+        canPassPlayState = canPassToNext;
+
+        if ((5 - TileCollision.timePassed / 1000) == 0) {
+            CURRENT_LEVEL = 2;
+            PlayState.canPassPlayState = false;
+            LevelManager.canPassLevel = false;
+            TileCollision.timePassed = 0;
+            levelManager.pop(LEVEL2);
+            levelManager.add(LEVEL3);
+        }
+
         LevelManager.playState.update();
     }
 

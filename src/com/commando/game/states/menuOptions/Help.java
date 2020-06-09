@@ -14,6 +14,7 @@ import static com.commando.game.states.GameStateManager.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 /**
  * @author Timofti Gabriel
@@ -44,7 +45,7 @@ public class Help extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         buttonBack.input(mouse, key);
     }
 

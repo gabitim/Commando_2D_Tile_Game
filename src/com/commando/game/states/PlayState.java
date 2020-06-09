@@ -18,6 +18,7 @@ import static com.commando.game.states.GameStateManager.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -100,7 +101,7 @@ public class PlayState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         //System.out.println( mouse.getX() + ", " + mouse.getY());
 
         key.escape.tick();

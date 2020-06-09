@@ -11,7 +11,7 @@ import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * @author Timofti Gabriel
@@ -40,10 +40,7 @@ public class GameStateManager {
     public static SpriteSheet button;
     public static Graphics2D graphics;
 
-    public double currentTime;
-    public double oldTime = 0;
-
-    public GameStateManager(Graphics2D graphics) throws ParserConfigurationException {
+    public GameStateManager(Graphics2D graphics) throws SQLException {
         GameStateManager.graphics = graphics;
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
@@ -71,7 +68,7 @@ public class GameStateManager {
         states[state] = null;
     }
 
-    public void add(int state) throws ParserConfigurationException {
+    public void add(int state) throws ParserConfigurationException, SQLException {
         if(states[state] != null) return;
 
         if(state == LEVELS) {
@@ -108,16 +105,16 @@ public class GameStateManager {
         }
     }
 
-    public void addAndpop(int state) throws ParserConfigurationException {
+    public void addAndpop(int state) throws ParserConfigurationException, SQLException {
        addAndpop(state, 0);
     }
 
-    public void addAndpop(int state, int remove) throws ParserConfigurationException {
+    public void addAndpop(int state, int remove) throws ParserConfigurationException, SQLException {
         pop(remove);
         add(state);
     }
 
-    public void update() throws ParserConfigurationException {
+    public void update() throws ParserConfigurationException, SQLException {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].update();
@@ -125,7 +122,7 @@ public class GameStateManager {
         }
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].input(mouse, key);
@@ -136,7 +133,7 @@ public class GameStateManager {
     }
 
 
-    public void render(Graphics2D graphics) {
+    public void render(Graphics2D graphics) throws SQLException {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].render(graphics);

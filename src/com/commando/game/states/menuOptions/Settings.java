@@ -13,6 +13,7 @@ import com.commando.game.util.Vector2d;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 import static com.commando.game.states.GameStateManager.*;
 import static com.commando.game.util.hub.Define.*;
@@ -75,7 +76,7 @@ public class Settings extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         buttonBack.input(mouse, key);
         buttonMapPlains.input(mouse, key);
         buttonMapDesert.input(mouse, key);

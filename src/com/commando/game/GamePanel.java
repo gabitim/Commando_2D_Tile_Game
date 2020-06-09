@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 /**
  * @author Timofti Gabriel
@@ -54,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
         graphics = (Graphics2D)image.getGraphics();
     }
 
-    public void init() throws ParserConfigurationException {
+    public void init() throws ParserConfigurationException, SQLException {
         running = true;
 
         initGraphics();
@@ -65,15 +66,15 @@ public class GamePanel extends JPanel implements Runnable{
         gameStateManager = new GameStateManager(graphics);
     }
 
-    public void update() throws ParserConfigurationException {
+    public void update() throws ParserConfigurationException, SQLException {
          gameStateManager.update();
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         gameStateManager.input(mouse, key);
     }
 
-    public void render() {
+    public void render() throws SQLException {
         if( graphics!= null) {
             gameStateManager.render(graphics);
         }
@@ -89,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void run() {
         try {
             init();
-        } catch (ParserConfigurationException e) {
+        } catch (ParserConfigurationException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -113,13 +114,13 @@ public class GamePanel extends JPanel implements Runnable{
             while (( (now - lastUpdateTime) > TIME_BEFORE_UPDATE) && (updateCount < UPDATES_BEFORE_RENDER) ){
                 try {
                     update();
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | SQLException e) {
                     e.printStackTrace();
                 }
 
                 try {
                     input(mouse, key);
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | SQLException e) {
                     e.printStackTrace();
                 }
 
@@ -133,10 +134,14 @@ public class GamePanel extends JPanel implements Runnable{
 
             try {
                 input(mouse, key);
-            } catch (ParserConfigurationException e) {
+            } catch (ParserConfigurationException | SQLException e) {
                 e.printStackTrace();
             }
-            render();
+            try {
+                render();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             draw();
 
             lastRenderTime = now;

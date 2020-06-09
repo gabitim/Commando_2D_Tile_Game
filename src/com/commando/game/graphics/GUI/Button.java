@@ -20,6 +20,7 @@ import java.awt.Image;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Button {
@@ -231,7 +232,7 @@ public class Button {
         hovering = true;
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException{
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         if(bounds.inside(mouse.getX(), mouse.getY())) {
             //System.out.println("isInside" + mouse.getX() + " " + mouse.getY());
             if(canHover && !hovering) {

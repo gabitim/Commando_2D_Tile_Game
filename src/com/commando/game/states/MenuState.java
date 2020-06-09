@@ -13,6 +13,7 @@ import com.commando.game.graphics.GUI.Button;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 import static com.commando.game.states.GameStateManager.*;
 
@@ -76,7 +77,7 @@ public class MenuState extends GameState {
     public void update() { }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         buttonStart.input(mouse, key);
         buttonLoadGame.input(mouse, key);
         buttonSettings.input(mouse, key);

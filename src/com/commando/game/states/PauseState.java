@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.security.cert.CertPathValidatorException;
+import java.sql.SQLException;
 
 import static com.commando.game.states.GameStateManager.*;
 import static com.commando.game.states.PlayState.canPassPlayState;
@@ -65,7 +66,7 @@ public class PauseState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         buttonResume.input(mouse, key);
         buttonSaveGame.input(mouse, key);
         buttonExit.input(mouse, key);

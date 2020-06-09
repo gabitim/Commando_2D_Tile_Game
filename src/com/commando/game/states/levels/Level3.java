@@ -15,6 +15,7 @@ import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.commando.game.states.GameStateManager.*;
@@ -75,7 +76,7 @@ public class Level3 extends Level {
     public void update(boolean canPassToNext) throws ParserConfigurationException {
         canPassPlayState = canPassToNext;
 
-        System.out.println("level"+ (CURRENT_LEVEL+1) + (5 - TileCollision.timePassed / 1000));
+        //System.out.println("level"+ (CURRENT_LEVEL+1) + (5 - TileCollision.timePassed / 1000));
         if ((5 - TileCollision.timePassed / 1000) == 0) {
             win = true;
             PlayState.canPassPlayState = false;
@@ -88,7 +89,7 @@ public class Level3 extends Level {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         LevelManager.playState.input(mouse, key);
     }
 

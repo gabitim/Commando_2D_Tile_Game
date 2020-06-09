@@ -8,10 +8,14 @@ import com.commando.game.states.GameStateManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.hub.Database;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.commando.game.states.GameStateManager.*;
 
@@ -23,7 +27,11 @@ public class LeaderBoard extends GameState {
 
     private Font font;
 
-    public LeaderBoard(GameStateManager gameStateManager) {
+    ArrayList<Integer> allScores;
+
+    int noOfScores;
+
+    public LeaderBoard(GameStateManager gameStateManager) throws SQLException {
         super(gameStateManager);
 
         font = new Font("resources\\font\\font.png", Font.BOLD, 48);
@@ -35,6 +43,14 @@ public class LeaderBoard extends GameState {
         buttonBack.addHoverImage(buttonBack.createButton("BACK", imageHover, font, buttonBack.getWidth(), buttonBack.getHeight(), 32, 20));
 
         buttonBack.addEvent(event -> { gameStateManager.pop(LEADER_BOARD); gameStateManager.add(MENU);});
+
+        Database database = new Database();
+        allScores = database.loadScore();
+        allScores.sort(Collections.reverseOrder());
+
+        for (Integer i : allScores) {
+            System.out.println(i);
+        }
     }
 
     @Override
@@ -43,7 +59,7 @@ public class LeaderBoard extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         buttonBack.input(mouse, key);
     }
 
@@ -52,6 +68,21 @@ public class LeaderBoard extends GameState {
 
         Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\HelpCover.jpg");
         graphics.drawImage(menuCover, 0,0, GamePanel.width, GamePanel.height, null);
+
+        SpriteSheet.drawArray(graphics, "Rank" , new Vector2d(   120, 150), 40, 25);
+        SpriteSheet.drawArray(graphics, "Score" , new Vector2d(   260, 150), 40, 25);
+
+        if (allScores. size() < 10) {
+            noOfScores = allScores.size();
+        }
+        else {
+            noOfScores = 10;
+        }
+        for (int i = 0; i < noOfScores; i++) {
+            SpriteSheet.drawArray(graphics, i+1 + "      " + allScores.get(i), new Vector2d( 120, (200 + 40 * i)), 30, 20);
+
+        }
+
 
         buttonBack.render(graphics);
     }

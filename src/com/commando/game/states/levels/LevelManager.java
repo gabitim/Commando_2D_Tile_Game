@@ -10,6 +10,7 @@ import com.commando.game.util.collision.TileCollision;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.sql.SQLException;
 
 import static com.commando.game.states.GameStateManager.*;
 
@@ -36,6 +37,8 @@ public class LevelManager extends GameState {
     public static int noOfLives;
     public static int totalDamage;
 
+    public static double timeOfStart;
+
     public LevelManager(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
 
@@ -50,7 +53,7 @@ public class LevelManager extends GameState {
         CURRENT_LEVEL = LEVEL1;
         PlayState.pause = false;
         levels[LEVEL1] = new Level1(this, gameStateManager);
-
+        timeOfStart = System.currentTimeMillis();
     }
 
     public static Enemy getEnemyByLevel(int level) {
@@ -89,7 +92,7 @@ public class LevelManager extends GameState {
     }
 
     @Override
-    public void update() throws ParserConfigurationException {
+    public void update() throws ParserConfigurationException, SQLException {
         if(lose) {
             gameStateManager.pop(LEVELS);
             gameStateManager.add(LOSE);
@@ -108,7 +111,7 @@ public class LevelManager extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
         for(int i = 0; i < levels.length; i++){
             if(levels[i] != null) {
                 levels[i].input(mouse, key);

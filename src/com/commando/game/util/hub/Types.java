@@ -1,5 +1,7 @@
 package com.commando.game.util.hub;
 
+import java.sql.SQLException;
+
 /**
  * @author Timofti Gabriel
  */
@@ -18,24 +20,26 @@ public class Types {
     public static String MOB_SKELETON;
 
 
-    public static void loadPaths( ) {
+    public static void loadPaths( ) throws SQLException {
+
+        Database database = new Database();
 
         String queryMap = "SELECT Path FROM Map WHERE Name= ?";
         String queryHero = "SELECT Path FROM Hero WHERE Name= ?";
         String queryEnemy = "SELECT Path FROM Mob WHERE Name= ?";
 
-        MAP_PLAINS = Database.query(queryMap, "MAP_PLAINS");
-        MAP_DESERT = Database.query(queryMap, "MAP_DESERT");
+        MAP_PLAINS = database.queryPath(queryMap, "MAP_PLAINS");
+        MAP_DESERT = database.queryPath(queryMap, "MAP_DESERT");
 
-        CHARACTER_VILLAGER = Database.query(queryHero, "CHARACTER_VILLAGER");
-        CHARACTER_WIZARD = Database.query(queryHero, "CHARACTER_WIZARD");
+        CHARACTER_VILLAGER = database.queryPath(queryHero, "CHARACTER_VILLAGER");
+        CHARACTER_WIZARD = database.queryPath(queryHero, "CHARACTER_WIZARD");
 
-        MOB_DWARF = Database.query(queryEnemy, "MOB_DWARF");
-        MOB_GOBLIN = Database.query(queryEnemy, "MOB_GOBLIN");
-        MOB_GIRL = Database.query(queryEnemy, "MOB_GIRL");
-        MOB_MINOTAUR = Database.query(queryEnemy, "MOB_MINOTAUR");
-        MOB_ORC = Database.query(queryEnemy, "MOB_ORC");
-        MOB_SKELETON = Database.query(queryEnemy, "MOB_SKELETON");
+        MOB_DWARF = database.queryPath(queryEnemy, "MOB_DWARF");
+        MOB_GOBLIN = database.queryPath(queryEnemy, "MOB_GOBLIN");
+        MOB_GIRL = database.queryPath(queryEnemy, "MOB_GIRL");
+        MOB_MINOTAUR = database.queryPath(queryEnemy, "MOB_MINOTAUR");
+        MOB_ORC = database.queryPath(queryEnemy, "MOB_ORC");
+        MOB_SKELETON = database.queryPath(queryEnemy, "MOB_SKELETON");
     }
 
 }

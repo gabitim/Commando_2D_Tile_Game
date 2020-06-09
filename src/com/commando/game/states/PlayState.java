@@ -127,8 +127,8 @@ public class PlayState extends GameState {
             tileManager.render(graphics);
 
             //the FPS counter
-            SpriteSheet.drawArray(graphics, "SCORE: " + Hero.totalDamage, new Vector2d(GamePanel.width - 180, 660), 24, 12);
-            SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 180, 690), 24, 12);
+            SpriteSheet.drawArray(graphics, "DAMAGE: " + Hero.totalDamage, new Vector2d(GamePanel.width - 200, 660), 24, 15);
+            SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 200, 690), 24, 15);
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
             if(canPassPlayState) {
                 SpriteSheet.drawArray(graphics, "NEXT LEVEL IN  " + (5 - TileCollision.timePassed / 1000) , new Vector2d(80, 560), 40, 28);

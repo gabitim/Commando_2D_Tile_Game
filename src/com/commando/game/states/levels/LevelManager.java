@@ -10,6 +10,9 @@ import com.commando.game.util.MouseHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
+import static com.commando.game.states.GameStateManager.LEVELS;
+import static com.commando.game.states.GameStateManager.LOSE;
+
 /**
  * @author Timofti Gabriel
  */
@@ -27,9 +30,17 @@ public class LevelManager extends GameState {
     public static boolean pause = true;
 
     public static boolean canPassLevel = false;
+    public static boolean lose = false;
+
+    public static int noOfLives;
+    public static int totalDamage;
 
     public LevelManager(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
+
+        lose = false;
+        noOfLives = 4;
+        totalDamage = 0;
 
         levels = new Level[3];
 
@@ -75,6 +86,11 @@ public class LevelManager extends GameState {
 
     @Override
     public void update() throws ParserConfigurationException {
+        if(lose) {
+            gameStateManager.pop(LEVELS);
+            gameStateManager.add(LOSE);
+        }
+
         for(int i = 0; i < levels.length; i++){
             if(levels[i] != null) {
                 levels[i].update(canPassLevel);

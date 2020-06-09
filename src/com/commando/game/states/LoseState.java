@@ -1,10 +1,14 @@
 package com.commando.game.states;
 
+import com.commando.game.GamePanel;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.GUI.Button;
+import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -44,16 +48,19 @@ public class LoseState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) {
-        key.escape.tick();
-
-        if(key.escape._down) {
-            gameStateManager.pop(PAUSE);
-        }
+    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException {
+        buttonMenu.input(mouse, key);
+        buttonPlayAgain.input(mouse, key);
     }
 
     @Override
     public void render(Graphics2D g) {
+        Image cover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\LoseCover.jpg");
+        graphics.drawImage(cover, 0,0, GamePanel.width, GamePanel.height, null);
 
+        SpriteSheet.drawArray(graphics, "YOU DIED !", new Vector2d( GamePanel.width / 2 - 200, GamePanel.height / 2 - 150), 80, 50);
+
+        buttonMenu.render(graphics);
+        buttonPlayAgain.render(graphics);
     }
 }

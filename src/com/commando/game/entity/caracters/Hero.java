@@ -5,6 +5,7 @@ import com.commando.game.entity.heroItems.Bullet;
 import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.PlayState;
+import com.commando.game.states.levels.LevelManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -26,11 +27,11 @@ public class Hero extends Entity {
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private static boolean fired = false;
 
-    public static int totalDamage = 0;
+    public static int totalDamage;
 
     Image lifeIcon;
     SpriteSheet lifeSprite;
-    int lifeIconStartPosition = GamePanel.width - 180;
+    int lifeIconStartPosition = GamePanel.width - 200;
 
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
@@ -46,10 +47,11 @@ public class Hero extends Entity {
 
         health = HERO_LIFE;
         maxHealth = HERO_LIFE;
-        noOfLifes = 4;
 
         lifeSprite = new SpriteSheet("resources\\gui\\items.png");
 
+        totalDamage = LevelManager.totalDamage;
+        noOfLifes = LevelManager.noOfLives;
     }
 
     @Override
@@ -242,6 +244,9 @@ public class Hero extends Entity {
         System.out.println("Reseting Player... ");
 
         noOfLifes--;
+        if(noOfLifes == 0) {
+            LevelManager.lose = true;
+        }
         position.x = PlayState.MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X;
         PlayState.map.x = 0;
 

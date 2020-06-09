@@ -1,6 +1,7 @@
 package com.commando.game.states.levels;
 
 import com.commando.game.entity.caracters.Enemy;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.entity.caracters.enemyTypes.MobDwarf;
 import com.commando.game.entity.caracters.enemyTypes.MobGirl;
 import com.commando.game.entity.caracters.enemyTypes.MobGoblin;
@@ -69,6 +70,7 @@ public class Level2 extends Level {
         canPassPlayState = canPassToNext;
 
         if ((5 - TileCollision.timePassed / 1000) == 0) {
+            noOfLives = Hero.noOfLifes;
             CURRENT_LEVEL = 2;
             PlayState.canPassPlayState = false;
             LevelManager.canPassLevel = false;

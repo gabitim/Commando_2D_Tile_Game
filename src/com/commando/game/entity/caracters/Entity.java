@@ -54,7 +54,7 @@ public abstract class Entity extends GameObject {
     protected AABB directHitBounds;
     protected AABB bounds;
 
-    protected int noOfLifes;
+    public static int noOfLifes = 4;
     protected int health;
     protected int maxHealth;
     protected float healthPercent = 1;
@@ -123,6 +123,7 @@ public abstract class Entity extends GameObject {
 
         healthPercent = (float)health / (float)maxHealth;
     }
+
 
     public boolean getDeath() { return dead; }
     public int getHealth() { return health; }

@@ -57,8 +57,8 @@ public class WinState extends GameState {
 
     @Override
     public void render(Graphics2D g) {
-        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\WinStateCover1.png");
-        graphics.drawImage(menuCover, 0,0, GamePanel.width, GamePanel.height, null);
+        Image cover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\WinStateCover1.png");
+        graphics.drawImage(cover, 0,0, GamePanel.width, GamePanel.height, null);
 
         SpriteSheet.drawArray(graphics, "YOU WON !", new Vector2d( GamePanel.width / 2 - 200, GamePanel.height / 2 - 150), 80, 50);
         SpriteSheet.drawArray(graphics, "YOUR SCORE: " + Hero.totalDamage, new Vector2d( GamePanel.width / 2 - 180, GamePanel.height / 2 - 30), 50, 30);

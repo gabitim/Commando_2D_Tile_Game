@@ -6,6 +6,7 @@ import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.TileCollision;
 
 import java.awt.*;
+import java.io.IOException;
 
 public abstract class GameObject {
 
@@ -24,7 +25,7 @@ public abstract class GameObject {
     public Animation getAnimation() { return animation; }
 
     public abstract void update();
-    public abstract void render(Graphics2D graphics);
+    public abstract void render(Graphics2D graphics) throws IOException;
 
     public static Vector2d add(Vector2d one, Vector2d two) {
         Vector2d third = new Vector2d();

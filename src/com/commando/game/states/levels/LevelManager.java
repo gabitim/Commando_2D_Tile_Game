@@ -33,13 +33,19 @@ public class LevelManager extends GameState {
 
         levels = new Level[3];
 
-        CURRENT_LEVEL = 0;
+        CURRENT_LEVEL = LEVEL1;
         levels[LEVEL1] = new Level1(this, gameStateManager);
         PlayState.pause = false;
     }
 
     public static Enemy getEnemyByLevel(int level) {
-        return levels[level].initOneEnemy();
+        try {
+            return levels[level].initOneEnemy();
+        }
+        catch (Exception e) {
+            System.out.println("ERROR IN LEVEL MANAGER -> ENEMY CREATION ");
+            return levels[level].initOneEnemy();
+        }
     }
 
     public boolean isLevelActive(int level) { return levels[level] != null; }

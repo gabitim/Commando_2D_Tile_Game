@@ -85,7 +85,7 @@ public class Settings extends GameState {
 
     @Override
     public void render(Graphics2D graphics) {
-        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\Help_bg1.jpg");
+        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\HelpCover.jpg");
         graphics.drawImage(menuCover, 0,0, GamePanel.width, GamePanel.height, null);
 
         SpriteSheet.drawArray(graphics, "SELECT A MAP", new Vector2d( 100, 100), 40, 40);

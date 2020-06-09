@@ -41,7 +41,7 @@ public class Level2 extends Level {
 
     @Override
     public void init() {
-        this.enemies.add(new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE));
+        this.enemies.add(new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 1000), ENTITY_SIZE));
         this.enemies.add(new MobGoblin(new SpriteSheet(Types.MOB_GOBLIN, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1300), ENTITY_SIZE));
     }
 
@@ -51,7 +51,7 @@ public class Level2 extends Level {
         switch (lastMobType) {
             case 0: {
                 lastMobType = 1;
-                return new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE);
+                return new MobDwarf(new SpriteSheet(Types.MOB_DWARF, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 1000), ENTITY_SIZE);
             }
 
             case 1: {

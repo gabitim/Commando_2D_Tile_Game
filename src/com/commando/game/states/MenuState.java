@@ -77,7 +77,7 @@ public class MenuState extends GameState {
     public void render(Graphics2D graphics) {
         graphics.setColor(Color.cyan);
         graphics.fillRect(0,0,GamePanel.width, GamePanel.height);
-        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\menuCover2.gif");
+        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\MenuCover.gif");
         graphics.drawImage(menuCover, 0,0, GamePanel.width, GamePanel.height, null);
 
         buttonStart.render(graphics);

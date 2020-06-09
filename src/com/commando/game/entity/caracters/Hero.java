@@ -1,5 +1,6 @@
 package com.commando.game.entity.caracters;
 
+import com.commando.game.GamePanel;
 import com.commando.game.entity.heroItems.Bullet;
 import com.commando.game.entity.GameObjectID;
 import com.commando.game.graphics.SpriteSheet;
@@ -27,6 +28,10 @@ public class Hero extends Entity {
 
     public static int totalDamage = 0;
 
+    Image lifeIcon;
+    SpriteSheet lifeSprite;
+    int lifeIconStartPosition = GamePanel.width - 180;
+
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
         acceleration = 2f;
@@ -41,6 +46,10 @@ public class Hero extends Entity {
 
         health = HERO_LIFE;
         maxHealth = HERO_LIFE;
+        noOfLifes = 4;
+
+        lifeSprite = new SpriteSheet("resources\\gui\\items.png");
+
     }
 
     @Override
@@ -93,7 +102,6 @@ public class Hero extends Entity {
                     speed_x = 0;
                     speed_y = 0;
                     fallen = false;
-
                 }
             }
         }
@@ -101,13 +109,6 @@ public class Hero extends Entity {
 
     @Override
     public void render(Graphics2D graphics) {
-        graphics.setColor(Color.GREEN);
-        graphics.drawRect(
-                (int)(position.getWorldVar().x + bounds.getxOffSet()),
-                (int)(position.getWorldVar().y + bounds.getyOffSet()),
-                (int)bounds.getWidth(),
-                (int)bounds.getHeight()
-        );
 
         if (attack) {
             graphics.setColor(Color.CYAN);
@@ -119,7 +120,16 @@ public class Hero extends Entity {
             ) ;
         }
 
+        //render the life icons
+        for(int i = 0; i < noOfLifes; i++) {
+            lifeIcon = lifeSprite.getSubImage(0, 32, 16, 16);
+            graphics.drawImage(lifeIcon, lifeIconStartPosition + i * 40, GamePanel.height - 100, 40, 40, null);
+        }
+
+        //render the hero
         graphics.drawImage(animation.getImage().image, (int)(position.getWorldVar().x), (int)(position.getWorldVar().y), size, size, null );
+
+        //render the bullets
         if(fired) {
             for(Bullet bullet : bullets) {
                 if(!bullet.isHit())
@@ -231,6 +241,7 @@ public class Hero extends Entity {
     public void resetPosition() {
         System.out.println("Reseting Player... ");
 
+        noOfLifes--;
         position.x = PlayState.MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X;
         PlayState.map.x = 0;
 

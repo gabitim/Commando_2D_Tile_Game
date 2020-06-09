@@ -52,7 +52,7 @@ public class Help extends GameState {
     public void render(Graphics2D graphics) {
         //graphics.setColor(Color.cyan);
         //graphics.fillRect(0,0, GamePanel.width, GamePanel.height);
-        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\Help_bg1.jpg");
+        Image menuCover = Toolkit.getDefaultToolkit().getImage("resources\\covers\\HelpCover.jpg");
         graphics.drawImage(menuCover, 0,0, GamePanel.width, GamePanel.height, null);
 
         buttonBack.render(graphics);

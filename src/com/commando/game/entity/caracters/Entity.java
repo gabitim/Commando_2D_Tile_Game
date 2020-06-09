@@ -14,6 +14,7 @@ import static com.commando.game.util.hub.Define.BASIC_DAMAGE;
 import static com.commando.game.util.hub.Define.BASIC_DEFENSE;
 
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * @author Timofti Gabriel
@@ -53,6 +54,7 @@ public abstract class Entity extends GameObject {
     protected AABB directHitBounds;
     protected AABB bounds;
 
+    protected int noOfLifes;
     protected int health;
     protected int maxHealth;
     protected float healthPercent = 1;
@@ -169,7 +171,7 @@ public abstract class Entity extends GameObject {
         animation.update();
     }
 
-    public abstract void render(Graphics2D g);
+    public abstract void render(Graphics2D g) throws IOException;
 
     public void input(KeyHandler key, MouseHandler mouse) {  }
 

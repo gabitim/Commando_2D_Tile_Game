@@ -56,7 +56,7 @@ public class Sprite {
         this.image = image;
         this.width = image.getWidth();
         this.height = image.getHeight();
-        this.originalPixels = image.getRGB(0,0, width, height, originalPixels,0, width);
+        this.originalPixels = image.getRGB(0, 0, width, height, originalPixels, 0, width);
         this.pixels = originalPixels;
     }
 

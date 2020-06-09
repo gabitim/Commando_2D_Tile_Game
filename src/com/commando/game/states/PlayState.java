@@ -3,29 +3,23 @@ package com.commando.game.states;
 import com.commando.game.GamePanel;
 import com.commando.game.entity.caracters.Enemy;
 import com.commando.game.entity.caracters.Hero;
-import com.commando.game.entity.caracters.enemyTypes.MobSkeleton;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.graphics.playerUI.PlayerUI;
-import com.commando.game.states.levels.Level;
-import com.commando.game.states.levels.Level1;
 import com.commando.game.states.levels.LevelManager;
 import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.TileCollision;
-import com.commando.game.util.hub.Types;
-import javafx.util.Pair;
+
 
 import static com.commando.game.util.hub.Define.*;
 import static com.commando.game.states.GameStateManager.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 
 
 /**
@@ -81,20 +75,26 @@ public class PlayState extends GameState {
 
     @Override
     public void update() {
+
         Vector2d.setWorldVar(map.x, map.y); //camera movement
 
         hero.update(enemies, pause);
 
-        for (int i = 0; i < enemies.size(); i++) {
+        try {
+            for (int i = 0; i < enemies.size(); i++) {
 
-            if (!enemies.get(i).getDeath()) {
-                enemies.get(i).update(hero, pause);
-            } else {
-                enemies.remove(enemies.get(i));
-                currentLevel = LevelManager.CURRENT_LEVEL;
-                System.out.println(currentLevel);
-                enemies.add(LevelManager.getEnemyByLevel(currentLevel));
+                if (!enemies.get(i).getDeath()) {
+                    enemies.get(i).update(hero, pause);
+                } else {
+                    enemies.remove(enemies.get(i));
+                    currentLevel = LevelManager.CURRENT_LEVEL;
+                    System.out.println(currentLevel);
+                    enemies.add(LevelManager.getEnemyByLevel(currentLevel));
+                }
             }
+        }
+        catch (Exception e) {
+            System.out.println("ERROR IN PLAYSTATE UPDATE ENEMIES");
         }
         heroUI.update();
     }
@@ -131,7 +131,7 @@ public class PlayState extends GameState {
             SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 180, 690), 24, 12);
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
             if(canPassPlayState) {
-                SpriteSheet.drawArray(graphics, "DON'T MOVE " + (5 - TileCollision.timePassed / 1000) , new Vector2d(80, 600), 24, 24);
+                SpriteSheet.drawArray(graphics, "NEXT LEVEL IN  " + (5 - TileCollision.timePassed / 1000) , new Vector2d(80, 560), 40, 28);
             }
 
 

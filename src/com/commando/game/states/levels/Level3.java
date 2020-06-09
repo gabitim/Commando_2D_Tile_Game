@@ -10,14 +10,15 @@ import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.collision.TileCollision;
 import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.commando.game.states.PlayState.ENEMY_POSITION_X;
-import static com.commando.game.states.PlayState.ENEMY_POSITION_Y;
+import static com.commando.game.states.GameStateManager.*;
+import static com.commando.game.states.PlayState.*;
 import static com.commando.game.util.hub.Define.*;
 
 /**
@@ -31,21 +32,24 @@ public class Level3 extends Level {
 
     private boolean canPassToNext = false;
 
+    private GameStateManager gameStateManager;
+
     public Level3(LevelManager levelManager, GameStateManager gameStateManager) throws ParserConfigurationException {
         super(levelManager);
+        this.gameStateManager = gameStateManager;
 
         init();
 
         LevelManager.playState = new PlayState(gameStateManager);
         LevelManager.playState.init(enemies);
+
     }
 
     @Override
     public void init() {
         this.enemies.add(new MobGirl(new SpriteSheet(Types.MOB_GIRL, MOB_GIRL_SPRITE_SIZE, MOB_GIRL_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1000, ENEMY_POSITION_Y + 950), ENTITY_SIZE));
-        this.enemies.add(new MobSkeleton(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE));
+        this.enemies.add(new MobSkeleton(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 1000), ENTITY_SIZE));
         this.enemies.add(new MobOrc(new SpriteSheet(Types.MOB_ORC, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 700, ENEMY_POSITION_Y + 1300), ENTITY_SIZE));
-
     }
 
     @Override
@@ -58,7 +62,7 @@ public class Level3 extends Level {
 
             case 1: {
                 lastMobType = 2;
-                return new MobSkeleton(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 800), ENTITY_SIZE);
+                return new MobSkeleton(new SpriteSheet(Types.MOB_SKELETON, MOB_SPRITE_SIZE, MOB_SPRITE_SIZE), new Vector2d(ENEMY_POSITION_X + 1200, ENEMY_POSITION_Y + 1000), ENTITY_SIZE);
             }
 
             case 2: {
@@ -71,8 +75,17 @@ public class Level3 extends Level {
     }
 
     @Override
-    public void update(boolean canPassToNext) {
-        this.canPassToNext = canPassToNext;
+    public void update(boolean canPassToNext) throws ParserConfigurationException {
+        canPassPlayState = canPassToNext;
+
+        if ((5 - TileCollision.timePassed / 1000) == 0) {
+            PlayState.canPassPlayState = false;
+            LevelManager.canPassLevel = false;
+            TileCollision.timePassed = 0;
+            gameStateManager.pop(LEVELS);
+            gameStateManager.add(WIN);
+        }
+
         LevelManager.playState.update();
     }
 

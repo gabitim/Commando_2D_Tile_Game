@@ -25,8 +25,8 @@ public class SolidFallingBlock extends Block {
     @Override
     public void render(Graphics2D graphics) {
         super.render(graphics);
-        graphics.setColor(Color.GREEN);
-        graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width, height);
+        /*graphics.setColor(Color.GREEN);
+        graphics.drawRect((int)position.getWorldVar().x, (int)position.getWorldVar().y, width, height);*/
     }
 
     public boolean isInside(AABB player) {

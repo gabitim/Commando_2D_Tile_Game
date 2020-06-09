@@ -16,7 +16,7 @@ public class Define {
     public static final int WIZARD_HERO_SPRITE_SIZE = 64;
 
     //projectile
-    public static final int BULLET_SPEED = 10;
+    public static final int BULLET_SPEED = 7;
     public static final int BASIC_PROJECTILE_SPEED = 10;
     public static final int YELLOW_BULLET_DAMAGE = 25;
 

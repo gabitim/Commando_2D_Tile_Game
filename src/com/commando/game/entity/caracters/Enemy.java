@@ -90,22 +90,23 @@ public abstract class Enemy extends Entity {
     @Override
     public void render(Graphics2D graphics) {
         if(!getDeath()) {
-            graphics.setColor(Color.RED);
+            /*graphics.setColor(Color.RED);
             graphics.drawRect((int) (position.getWorldVar().x + bounds.getxOffSet()),
                     (int) (position.getWorldVar().y + bounds.getyOffSet()),
                     (int) bounds.getWidth(),
                     (int) bounds.getHeight()
-            );
+            );*/
 
-            graphics.setColor(Color.YELLOW);
+            /*graphics.setColor(Color.YELLOW);
             graphics.drawOval((int) (position.getWorldVar().x + damageBounds.getxOffSet()),
                     (int) (position.getWorldVar().y + damageBounds.getyOffSet()),
                     (int) damageBounds.getWidth(),
                     (int) damageBounds.getHeight()
-            );
+            );*/
 
-            graphics.setColor(Color.RED);
+            /*graphics.setColor(Color.RED);
             graphics.drawOval((int) (detect.getPosition().getWorldVar().x), (int) (detect.getPosition().getWorldVar().y), radius, radius);
+            */
 
             graphics.drawImage(animation.getImage().image, (int) (position.getWorldVar().x), (int) (position.getWorldVar().y), size, size, null);
 

@@ -14,6 +14,7 @@ import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * @author Timofti Gabriel

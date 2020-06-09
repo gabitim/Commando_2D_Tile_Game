@@ -69,9 +69,11 @@ public class Level2 extends Level {
     public void update(boolean canPassToNext) throws ParserConfigurationException {
         canPassPlayState = canPassToNext;
 
+        System.out.println("level"+ (CURRENT_LEVEL+1) + (5 - TileCollision.timePassed / 1000));
         if ((5 - TileCollision.timePassed / 1000) == 0) {
             noOfLives = Hero.noOfLifes;
-            CURRENT_LEVEL = 2;
+            totalDamage = Hero.totalDamage;
+            CURRENT_LEVEL = LEVEL3;
             PlayState.canPassPlayState = false;
             LevelManager.canPassLevel = false;
             TileCollision.timePassed = 0;

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import static com.commando.game.states.GameStateManager.*;
 import static com.commando.game.states.PlayState.*;
+import static com.commando.game.states.levels.LevelManager.*;
 import static com.commando.game.util.hub.Define.*;
 
 /**
@@ -30,13 +31,9 @@ public class Level3 extends Level {
 
     private int lastMobType = 0;
 
-    private boolean canPassToNext = false;
-
-    private GameStateManager gameStateManager;
 
     public Level3(LevelManager levelManager, GameStateManager gameStateManager) throws ParserConfigurationException {
         super(levelManager);
-        this.gameStateManager = gameStateManager;
 
         init();
 
@@ -78,12 +75,13 @@ public class Level3 extends Level {
     public void update(boolean canPassToNext) throws ParserConfigurationException {
         canPassPlayState = canPassToNext;
 
+        System.out.println("level"+ (CURRENT_LEVEL+1) + (5 - TileCollision.timePassed / 1000));
         if ((5 - TileCollision.timePassed / 1000) == 0) {
+            win = true;
             PlayState.canPassPlayState = false;
             LevelManager.canPassLevel = false;
             TileCollision.timePassed = 0;
-            gameStateManager.pop(LEVELS);
-            gameStateManager.add(WIN);
+            levelManager.pop(LEVEL3);
         }
 
         LevelManager.playState.update();

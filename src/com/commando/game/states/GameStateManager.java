@@ -3,10 +3,7 @@ package com.commando.game.states;
 import com.commando.game.GamePanel;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.levels.LevelManager;
-import com.commando.game.states.menuOptions.Help;
-import com.commando.game.states.menuOptions.LoadGame;
-import com.commando.game.states.menuOptions.SaveGame;
-import com.commando.game.states.menuOptions.Settings;
+import com.commando.game.states.menuOptions.*;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
@@ -36,6 +33,7 @@ public class GameStateManager {
     public static final int SETTINGS = 6;
     public static final int HELP = 7;
     public static final int SAVE = 8;
+    public static final int LEADER_BOARD = 9;
 
 
     public static com.commando.game.graphics.Font font;
@@ -50,7 +48,7 @@ public class GameStateManager {
         map = new Vector2d(GamePanel.width, GamePanel.height);
         Vector2d.setWorldVar(map.x, map.y);
 
-        states = new GameState[9];
+        states = new GameState[10];
 
         Types.loadPaths(); // we load all the paths
         font = new com.commando.game.graphics.Font("resources\\font\\font.png", 10, 10); //  my font
@@ -103,6 +101,10 @@ public class GameStateManager {
         }
         if(state == SAVE) {
             states[SAVE] = new SaveGame(this);
+        }
+
+        if(state == LEADER_BOARD) {
+            states[LEADER_BOARD] = new LeaderBoard(this);
         }
     }
 

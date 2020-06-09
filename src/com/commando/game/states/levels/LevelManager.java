@@ -6,12 +6,12 @@ import com.commando.game.states.GameStateManager;
 import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
+import com.commando.game.util.collision.TileCollision;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
-import static com.commando.game.states.GameStateManager.LEVELS;
-import static com.commando.game.states.GameStateManager.LOSE;
+import static com.commando.game.states.GameStateManager.*;
 
 /**
  * @author Timofti Gabriel
@@ -31,6 +31,7 @@ public class LevelManager extends GameState {
 
     public static boolean canPassLevel = false;
     public static boolean lose = false;
+    public static boolean win = false;
 
     public static int noOfLives;
     public static int totalDamage;
@@ -38,15 +39,18 @@ public class LevelManager extends GameState {
     public LevelManager(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
 
+        win = false;
         lose = false;
         noOfLives = 4;
         totalDamage = 0;
+        TileCollision.timePassed = 0;
 
         levels = new Level[3];
 
         CURRENT_LEVEL = LEVEL1;
-        levels[LEVEL1] = new Level1(this, gameStateManager);
         PlayState.pause = false;
+        levels[LEVEL1] = new Level1(this, gameStateManager);
+
     }
 
     public static Enemy getEnemyByLevel(int level) {
@@ -89,6 +93,11 @@ public class LevelManager extends GameState {
         if(lose) {
             gameStateManager.pop(LEVELS);
             gameStateManager.add(LOSE);
+        }
+
+        if(win) {
+            gameStateManager.pop(LEVELS);
+            gameStateManager.add(WIN);
         }
 
         for(int i = 0; i < levels.length; i++){

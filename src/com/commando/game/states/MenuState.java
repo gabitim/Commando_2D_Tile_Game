@@ -58,10 +58,9 @@ public class MenuState extends GameState {
         buttonLeaderBoard.addHoverImage(buttonLeaderBoard.createButton("LEADER BOARD", imageHover, fontSmall, buttonLeaderBoard.getWidth(), buttonLeaderBoard.getHeight(), 32, 20));
 
 
-        buttonStart.addEvent(event ->
-        { gameStateManager.pop(MENU); gameStateManager.add(LEVELS); LevelManager.pause = false; } );
+        buttonStart.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(LEVELS); LevelManager.pause = false; } );
 
-        //buttonLoadGame.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(LOAD); } );
+        buttonLoadGame.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(LOAD); } );
         buttonSettings.addEvent( event -> { gameStateManager.pop(MENU); gameStateManager.add(SETTINGS); } );
         buttonHelp.addEvent(event -> { gameStateManager.pop(MENU); gameStateManager.add(HELP); });
 

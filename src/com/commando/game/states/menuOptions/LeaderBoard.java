@@ -23,7 +23,7 @@ import static com.commando.game.states.GameStateManager.*;
  * @author Timofti Gabriel
  */
 public class LeaderBoard extends GameState {
-    private com.commando.game.graphics.GUI.Button buttonBack;
+    private Button buttonBack;
 
     private Font font;
 

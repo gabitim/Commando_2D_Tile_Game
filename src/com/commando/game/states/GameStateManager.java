@@ -7,6 +7,7 @@ import com.commando.game.states.menuOptions.*;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.hub.DataForLoad;
 import com.commando.game.util.hub.Types;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +18,9 @@ import java.sql.SQLException;
  * @author Timofti Gabriel
  */
 public class GameStateManager {
+
+    private DataForLoad dataForLoad;
+    private boolean loadGame = false;
 
     private GameState states[];
 
@@ -56,6 +60,11 @@ public class GameStateManager {
         states[MENU] = new MenuState(this);
     }
 
+    public void setDataForLoad(DataForLoad dataForLoad) {
+        this.dataForLoad = dataForLoad;
+        loadGame = true;
+    }
+
     public GameState getState(int state) {
         return states[state];
     }
@@ -72,7 +81,12 @@ public class GameStateManager {
         if(states[state] != null) return;
 
         if(state == LEVELS) {
-            states[LEVELS] = new LevelManager(this);
+            System.out.println(loadGame);
+            if(loadGame) {
+                states[LEVELS] = new LevelManager(this, dataForLoad);
+            } else {
+                states[LEVELS] = new LevelManager(this);
+            }
         }
         if(state == MENU) {
             states[MENU] = new MenuState(this);

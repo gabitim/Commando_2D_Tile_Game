@@ -11,4 +11,7 @@ public class MobDwarf extends Enemy {
     public MobDwarf(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
     }
+
+    @Override
+    public String toString() { return "MobDwarf"; }
 }

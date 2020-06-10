@@ -46,8 +46,8 @@ public class PlayState extends GameState {
     public static final int ENEMY_POSITION_X = MIDDLE_OF_MAP_X + SPAWN_POSITION_OFFSET_X +  250;
     public static final int ENEMY_POSITION_Y = MIDDLE_OF_MAP_Y + SPAWN_POSITION_OFFSET_Y +  250;
 
-    private Hero hero;
-    private ArrayList<Enemy> enemies;
+    public Hero hero;
+    public ArrayList<Enemy> enemies;
     private TileManager tileManager;
     private PlayerUI heroUI;
 

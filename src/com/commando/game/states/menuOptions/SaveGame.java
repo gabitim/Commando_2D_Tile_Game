@@ -1,19 +1,27 @@
 package com.commando.game.states.menuOptions;
 
 import com.commando.game.GamePanel;
+import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.GUI.Button;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.states.GameState;
 import com.commando.game.states.GameStateManager;
 import com.commando.game.states.PlayState;
+import com.commando.game.states.levels.Level;
+import com.commando.game.states.levels.LevelManager;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.Vector2d;
+import com.commando.game.util.hub.Database;
 
+import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.commando.game.states.GameStateManager.*;
 
@@ -28,6 +36,10 @@ public class SaveGame extends GameState {
     private Font font;
 
     private boolean isActive;
+    String saveName;
+    String enemyInfo = "";
+
+    double currentTime;
 
     public SaveGame(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -45,12 +57,48 @@ public class SaveGame extends GameState {
         buttonSave.addHoverImage(buttonSave.createButton("SAVE GAME", imageHover, font, buttonSave.getWidth(), buttonSave.getHeight(), 32, 20));
 
         buttonBack.addEvent(event -> { isActive = false; render(graphics); gameStateManager.pop(SAVE); });
-        buttonSave.addEvent( event -> {  } );
+        buttonSave.addEvent( event -> {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime date = LocalDateTime.now();
+            saveName = "Save " + dateTimeFormatter.format(date);
+
+            Database database = new Database();
+            System.out.println(getEnemyInfo());
+
+            currentTime = System.currentTimeMillis();
+
+            database.saveState(
+                    saveName,
+                    LevelManager.CURRENT_LEVEL,
+                    LevelManager.playState.hero.getHealth(),
+                    (int)LevelManager.playState.hero.getPosition().x,
+                    (int)LevelManager.playState.hero.getPosition().y,
+                    LevelManager.playState.hero.getNoOfLifes(),
+                    getEnemyInfo(),
+                    Hero.totalDamage,
+                    (int)((currentTime - LevelManager.timeOfStart ) / 1000)
+                    );
+        } );
+
+
+    }
+
+    private String getEnemyInfo() {
+        enemyInfo = "";
+        for (int i = 0; i < LevelManager.playState.enemies.size(); i++) {
+            enemyInfo += i + ";"
+                    + LevelManager.playState.enemies.get(i).toString() + ";"
+                    + LevelManager.playState.enemies.get(i).getHealth() + ";"
+                    + (int)LevelManager.playState.enemies.get(i).getPosition().x + ";"
+                    + (int)LevelManager.playState.enemies.get(i).getPosition().y + ";\n" ;
+        }
+
+        return enemyInfo;
     }
 
     @Override
     public void update() {
-        System.out.println("SAVE");
+
     }
 
     @Override

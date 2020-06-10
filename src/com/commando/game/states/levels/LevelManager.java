@@ -7,6 +7,7 @@ import com.commando.game.states.PlayState;
 import com.commando.game.util.KeyHandler;
 import com.commando.game.util.MouseHandler;
 import com.commando.game.util.collision.TileCollision;
+import com.commando.game.util.hub.DataForLoad;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
@@ -19,11 +20,14 @@ import static com.commando.game.states.GameStateManager.*;
  */
 public class LevelManager extends GameState {
 
+    private DataForLoad dataForLoad;
+
     private static Level levels[];
 
     public static final int LEVEL1 = 0;
     public static final int LEVEL2 = 1;
     public static final int LEVEL3 = 2;
+    public static final int CUSTOM_LEVEL = 3;
 
     public static int CURRENT_LEVEL;
 
@@ -48,12 +52,30 @@ public class LevelManager extends GameState {
         totalDamage = 0;
         TileCollision.timePassed = 0;
 
-        levels = new Level[3];
+        levels = new Level[4];
 
         CURRENT_LEVEL = LEVEL1;
         PlayState.pause = false;
-        levels[LEVEL1] = new Level1(this, gameStateManager);
+        add(CURRENT_LEVEL);
         timeOfStart = System.currentTimeMillis();
+    }
+
+    public LevelManager(GameStateManager gameStateManager, DataForLoad dataForLoad) throws ParserConfigurationException {
+        super(gameStateManager);
+        this.dataForLoad = dataForLoad;
+
+        win = false;
+        lose = false;
+        noOfLives = dataForLoad.getNoOfLifes();
+        totalDamage = dataForLoad.getTotalDamage();
+        TileCollision.timePassed = 0;
+
+        levels = new Level[4];
+
+        CURRENT_LEVEL = CUSTOM_LEVEL;
+        PlayState.pause = false;
+        add(CURRENT_LEVEL);
+        timeOfStart = dataForLoad.getTimePassed();
     }
 
     public static Enemy getEnemyByLevel(int level) {
@@ -83,6 +105,10 @@ public class LevelManager extends GameState {
 
         if (level == LEVEL3 ) {
             levels[LEVEL3] = new Level3(this, gameStateManager);
+        }
+
+        if(level == CUSTOM_LEVEL) {
+            levels[CUSTOM_LEVEL] = new CustomLevel(this, gameStateManager, dataForLoad);
         }
     }
 

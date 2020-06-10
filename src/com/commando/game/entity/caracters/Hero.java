@@ -64,6 +64,10 @@ public class Hero extends Entity {
         return position;
     }
 
+    public int getNoOfLifes() {
+        return noOfLifes;
+    }
+
     public void update(ArrayList<Enemy> enemies, boolean pause) {
         if (!pause) {
             super.update();

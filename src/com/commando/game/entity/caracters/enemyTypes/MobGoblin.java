@@ -10,4 +10,7 @@ public class MobGoblin extends MobSkeleton {
     public MobGoblin(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
     }
+
+    @Override
+    public String toString() { return "MobGoblin"; }
 }

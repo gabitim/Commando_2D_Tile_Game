@@ -13,4 +13,6 @@ public class MobSkeleton extends Enemy {
         super(spriteSheet, origin, size);
     }
 
+    @Override
+    public String toString() { return "MobSkeleton"; }
 }

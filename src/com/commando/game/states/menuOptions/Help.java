@@ -63,5 +63,6 @@ public class Help extends GameState {
         SpriteSheet.drawArray(graphics, "YOU CAN SHOOT BULLETS AND USE YOUR SPECIAL ABILITY WHEN PRESS SPACE", new Vector2d( 50, 290), 20, 15);
         SpriteSheet.drawArray(graphics, "EVERYONE WILL TRY TO STOP YOU AND THERE ARE ALSO TRAPS ALONG THE WAY! ", new Vector2d( 50, 330), 20, 15);
         SpriteSheet.drawArray(graphics, "     GOOD LUCK ! ", new Vector2d( 50, 390), 25, 20);
+        SpriteSheet.drawArray(graphics, " by TIMOFTI GABRIEL ", new Vector2d( 50, GamePanel.height - 100), 25, 20);
     }
 }

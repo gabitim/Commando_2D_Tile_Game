@@ -232,7 +232,7 @@ public class Button {
         hovering = true;
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         if(bounds.inside(mouse.getX(), mouse.getY())) {
             //System.out.println("isInside" + mouse.getX() + " " + mouse.getY());
             if(canHover && !hovering) {

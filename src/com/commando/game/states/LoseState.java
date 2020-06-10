@@ -59,7 +59,7 @@ public class LoseState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonMenu.input(mouse, key);
         buttonPlayAgain.input(mouse, key);
     }

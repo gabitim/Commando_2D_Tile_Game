@@ -83,7 +83,7 @@ public class LoadGame extends GameState {
     public void update() {  }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonBack.input(mouse, key);
 
         for(int i = 0; i < supportedNoOfSaves; i++) {

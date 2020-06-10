@@ -76,7 +76,7 @@ public class MenuState extends GameState {
     public void update() { }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonStart.input(mouse, key);
         buttonLoadGame.input(mouse, key);
         buttonSettings.input(mouse, key);

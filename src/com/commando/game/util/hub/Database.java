@@ -106,7 +106,8 @@ public class Database {
         return this.allScores;
     }
 
-    public void saveState(String name, int level, int heroLife, int x_Pos_Hero, int y_Pos_Hero, int noOfLifes, String enemyInfo, int totalDamage, int timePassed) throws SQLException {
+    public void saveState(String name, int level, int heroLife, int x_Pos_Hero, int y_Pos_Hero, int noOfLifes, String enemyInfo, int totalDamage, int timePassed,
+                    String mapType, String heroType, int heroSize, int mapX, int mapY ) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -116,8 +117,8 @@ public class Database {
             connection = DriverManager.getConnection("jdbc:sqlite:CommandoDB.db");
             connection.setAutoCommit(false);
 
-            String sql = "INSERT INTO Saves (Name, Level, HeroLife, x_Pos_Hero, y_Pos_Hero, NoOfLifes, EnemyInfo, TotalDamage, TimePassed)" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+            String sql = "INSERT INTO Saves (Name, Level, HeroLife, x_Pos_Hero, y_Pos_Hero, NoOfLifes, EnemyInfo, TotalDamage, TimePassed, MapType, HeroType, HeroSize, MapX, MapY)" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
             try {
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, name);
@@ -129,12 +130,17 @@ public class Database {
                 preparedStatement.setString(7, enemyInfo);
                 preparedStatement.setInt(8, totalDamage);
                 preparedStatement.setInt(9, timePassed);
+                preparedStatement.setString(10, mapType);
+                preparedStatement.setString(11, heroType);
+                preparedStatement.setInt(12, heroSize);
+                preparedStatement.setInt(13, mapX);
+                preparedStatement.setInt(14, mapY);
 
                 preparedStatement.executeUpdate();
                 connection.commit();
             }
             catch (SQLException e) {
-                System.out.println("Error writing to DB + \n");
+                System.out.println("Error writing to DB saveState \n");
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -166,8 +172,13 @@ public class Database {
                 String enemyInfo = rs.getString("EnemyInfo");
                 int totalDamage = rs.getInt("TotalDamage");
                 int timePassed = rs.getInt("TimePassed");
+                String mapType = rs.getString("MapType");
+                String heroType = rs.getString("HeroType");
+                int heroSize = rs.getInt("HeroSize");
+                int mapX = rs.getInt("MapX");
+                int mapY = rs.getInt("MapY");
 
-                DataForLoad dataForLoad = new DataForLoad(name, level, heroLife, x_Pos_Hero, y_Pos_Hero, noOfLifes, enemyInfo, totalDamage, timePassed);
+                DataForLoad dataForLoad = new DataForLoad(name, level, heroLife, x_Pos_Hero, y_Pos_Hero, noOfLifes, enemyInfo, totalDamage, timePassed, mapType, heroType, heroSize, mapX, mapY);
                 savedStates.add(dataForLoad);
             }
             rs.close();

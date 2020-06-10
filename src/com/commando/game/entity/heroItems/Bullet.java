@@ -45,7 +45,6 @@ public class Bullet extends Projectile {
 
     public void render(Graphics2D graphics) {
 
-
         if(!hit) { //if the bullet
             Vector2d positionAux = GameObject.add(position, speed);
             graphics.setColor(Color.YELLOW);

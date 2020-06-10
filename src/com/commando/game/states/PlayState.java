@@ -5,6 +5,7 @@ import com.commando.game.entity.caracters.Enemy;
 import com.commando.game.entity.caracters.Hero;
 import com.commando.game.graphics.SpriteSheet;
 import com.commando.game.graphics.playerUI.PlayerUI;
+import com.commando.game.states.levels.CustomLevel;
 import com.commando.game.states.levels.LevelManager;
 import com.commando.game.tiles.TileManager;
 import com.commando.game.util.KeyHandler;
@@ -34,8 +35,8 @@ public class PlayState extends GameState {
     public static String CURRENT_HERO;
     public static int CURRENT_HERO_SIZE;
 
-    public static final int SPAWN_POSITION_OFFSET_X = 350;
-    public static final int SPAWN_POSITION_OFFSET_Y = 550;
+    public static int SPAWN_POSITION_OFFSET_X = 350;
+    public static int SPAWN_POSITION_OFFSET_Y = 550;
 
     public static final int MIDDLE_OF_MAP_X = (GamePanel.width / 2) - 32;
     public static final int MIDDLE_OF_MAP_Y = (GamePanel.height / 2) - 32;
@@ -56,28 +57,56 @@ public class PlayState extends GameState {
 
     public static boolean canPassPlayState = false;
 
-
     public PlayState(GameStateManager gameStateManager) throws ParserConfigurationException {
         super(gameStateManager);
 
         map = new Vector2d(); //create the map
+        resetLoadOffSetCamera();
         Vector2d.setWorldVar(map.x, map.y); // for camera movement
+
 
         tileManager = new TileManager(CURRENT_MAP); // my map
         hero = new Hero(new SpriteSheet(CURRENT_HERO, CURRENT_HERO_SIZE, CURRENT_HERO_SIZE), new Vector2d(HERO_SPAWN_POSITION_X, HERO_SPAWN_POSITION_Y), ENTITY_SIZE); // the hero
         heroUI = new PlayerUI(hero);
+    }
+
+    public PlayState(GameStateManager gameStateManager, String loadMap ,int loadHealth, int loadXPos, int loadYPos, String loadHeroType, int loadHeroSize, int loadMapX, int loadMapY)  throws ParserConfigurationException{
+        super(gameStateManager);
+
+        map = new Vector2d();
+        resetLoadOffSetCamera();
+        setLoadOffsetCamera(loadMapX, loadMapY);
+        Vector2d.setWorldVar(map.x , map.y );
+
+        tileManager = new TileManager(loadMap);
+        hero = new Hero(new SpriteSheet(loadHeroType, loadHeroSize, loadHeroSize), new Vector2d(loadXPos, loadYPos), ENTITY_SIZE);
+        hero.setHealth(loadHealth, 0);
+        hero.setLoadMap(loadMapX, loadMapY);
+        heroUI = new PlayerUI(hero);
+    }
+
+    private void setLoadOffsetCamera(int x, int y) {
+        SPAWN_POSITION_OFFSET_X += x;
+        SPAWN_POSITION_OFFSET_Y += y;
 
     }
+    private void resetLoadOffSetCamera() { SPAWN_POSITION_OFFSET_X = 350; SPAWN_POSITION_OFFSET_Y = 550;}
+
+    public double getMapX() { return map.x; }
+    public double getMapY() { return map.y; }
+    public String getCurrentMap() { return CURRENT_MAP; }
+    public String getCurrentHero() { return CURRENT_HERO; }
+    public int getCurrentHeroSize() { return CURRENT_HERO_SIZE; }
 
     public void init(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-
     @Override
     public void update() {
 
         Vector2d.setWorldVar(map.x, map.y); //camera movement
+        //System.out.println(map.x + ", " + map.y);
 
         hero.update(enemies, pause);
 
@@ -101,7 +130,7 @@ public class PlayState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         //System.out.println( mouse.getX() + ", " + mouse.getY());
 
         key.escape.tick();
@@ -129,7 +158,12 @@ public class PlayState extends GameState {
 
             //the FPS counter
             SpriteSheet.drawArray(graphics, "DAMAGE: " + Hero.totalDamage, new Vector2d(GamePanel.width - 200, 660), 24, 15);
-            SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 200, 690), 24, 15);
+            //curent level
+            if(LevelManager.CURRENT_LEVEL == 3) {
+                SpriteSheet.drawArray(graphics, "LEVEL: " + (CustomLevel.levelFromLoad + 1), new Vector2d(GamePanel.width - 200, 690), 24, 15);
+            }else{
+                SpriteSheet.drawArray(graphics, "LEVEL: " + (LevelManager.CURRENT_LEVEL + 1), new Vector2d(GamePanel.width - 200, 690), 24, 15);
+            }
             SpriteSheet.drawArray(graphics, GamePanel.oldFrameCount + " FPS", new Vector2d(GamePanel.width - 100, 20), 12, 12);
             if(canPassPlayState) {
                 SpriteSheet.drawArray(graphics, "NEXT LEVEL IN  " + (5 - TileCollision.timePassed / 1000) , new Vector2d(80, 560), 40, 28);

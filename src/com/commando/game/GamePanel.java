@@ -66,11 +66,11 @@ public class GamePanel extends JPanel implements Runnable{
         gameStateManager = new GameStateManager(graphics);
     }
 
-    public void update() throws ParserConfigurationException, SQLException {
+    public void update() throws Exception {
          gameStateManager.update();
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         gameStateManager.input(mouse, key);
     }
 
@@ -116,11 +116,13 @@ public class GamePanel extends JPanel implements Runnable{
                     update();
                 } catch (ParserConfigurationException | SQLException e) {
                     e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 try {
                     input(mouse, key);
-                } catch (ParserConfigurationException | SQLException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -134,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             try {
                 input(mouse, key);
-            } catch (ParserConfigurationException | SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             try {

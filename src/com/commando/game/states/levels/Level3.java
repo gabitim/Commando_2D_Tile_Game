@@ -89,7 +89,7 @@ public class Level3 extends Level {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         LevelManager.playState.input(mouse, key);
     }
 

@@ -63,7 +63,7 @@ public class WinState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonMenu.input(mouse, key);
         buttonPlayAgain.input(mouse, key);
     }
@@ -74,7 +74,7 @@ public class WinState extends GameState {
         graphics.drawImage(cover, 0,0, GamePanel.width, GamePanel.height, null);
 
         SpriteSheet.drawArray(graphics, "YOU WON !", new Vector2d( GamePanel.width / 2 - 200, GamePanel.height / 2 - 150), 80, 50);
-        SpriteSheet.drawArray(graphics, "YOUR SCORE: " + finalScore, new Vector2d( GamePanel.width / 2 - 180, GamePanel.height / 2 - 30), 50, 30);
+        SpriteSheet.drawArray(graphics, "YOUR SCORE: " + Hero.totalDamage, new Vector2d( GamePanel.width / 2 - 180, GamePanel.height / 2 - 30), 50, 30);
 
         buttonMenu.render(graphics);
         buttonPlayAgain.render(graphics);

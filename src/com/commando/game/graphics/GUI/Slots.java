@@ -76,7 +76,7 @@ public class Slots {
         }
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         button.input(mouse, key);
 
         if(showChildren) {

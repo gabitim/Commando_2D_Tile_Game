@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static com.commando.game.states.PlayState.*;
 import static com.commando.game.util.hub.Define.HERO_LIFE;
+import static com.commando.game.util.hub.Define.VILLAGER_DAMAGE;
 
 /**
  * @author Timofti Gabriel
@@ -33,6 +34,9 @@ public class Hero extends Entity {
     SpriteSheet lifeSprite;
     int lifeIconStartPosition = GamePanel.width - 200;
 
+    private int loadMapX = 0; // when we offset the map, we need to cancel offsetting the mouse, for firing bullets
+    private int loadMapY = 0;
+
     public Hero(SpriteSheet spriteSheet, Vector2d origin, int size) {
         super(spriteSheet, origin, size);
         acceleration = 2f;
@@ -47,12 +51,15 @@ public class Hero extends Entity {
 
         health = HERO_LIFE;
         maxHealth = HERO_LIFE;
+        damage = VILLAGER_DAMAGE;
 
         lifeSprite = new SpriteSheet("resources\\gui\\items.png");
 
         totalDamage = LevelManager.totalDamage;
         noOfLifes = LevelManager.noOfLives;
     }
+
+    public void setLoadMap(int x, int y) { this.loadMapX = x; this.loadMapY = y;}
 
     @Override
     public GameObjectID getId() {
@@ -74,7 +81,7 @@ public class Hero extends Entity {
 
             for (Enemy enemy : enemies) {
                 if (attack && directHitBounds.collides(enemy.getBounds())) {
-                    System.out.println("I've been hit");
+                    enemy.setHealth(-100);
                 }
             }
 
@@ -213,8 +220,8 @@ public class Hero extends Entity {
                     currentTime = System.currentTimeMillis();
 
                     if ( currentTime - oldTime > 100) {
-                        bullets.add(new Bullet(10, new Vector2d(position.x + 40, position.y + 32),
-                                new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X, mouse.getY() + SPAWN_POSITION_OFFSET_Y)));
+                        bullets.add(new Bullet(10, new Vector2d((position.x) + 40, position.y + 32),
+                                new Vector2d(mouse.getX() + SPAWN_POSITION_OFFSET_X - loadMapX, mouse.getY() + SPAWN_POSITION_OFFSET_Y - loadMapY)));
                         fired = true;
 
                         oldTime = System.currentTimeMillis();

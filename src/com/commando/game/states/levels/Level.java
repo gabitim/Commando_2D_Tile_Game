@@ -19,9 +19,9 @@ public abstract class Level {
         this.levelManager = levelManager;
     }
 
-    public abstract void init();
+    public abstract void init() throws Exception;
     public abstract Enemy initOneEnemy();
-    public abstract void update(boolean canPassToNext) throws ParserConfigurationException;
-    public abstract void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException;
+    public abstract void update(boolean canPassToNext) throws Exception;
+    public abstract void input(MouseHandler mouse, KeyHandler key) throws Exception;
     public abstract void render(Graphics2D graphics);
 }

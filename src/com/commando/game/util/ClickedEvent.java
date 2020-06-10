@@ -7,5 +7,5 @@ import java.sql.SQLException;
  * @author Timofti Gabriel
  */
 public interface ClickedEvent {
-    void action(int MouseButton) throws ParserConfigurationException, SQLException;
+    void action(int MouseButton) throws Exception;
 }

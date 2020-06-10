@@ -43,7 +43,7 @@ public class LevelManager extends GameState {
 
     public static double timeOfStart;
 
-    public LevelManager(GameStateManager gameStateManager) throws ParserConfigurationException {
+    public LevelManager(GameStateManager gameStateManager) throws Exception {
         super(gameStateManager);
 
         win = false;
@@ -60,7 +60,7 @@ public class LevelManager extends GameState {
         timeOfStart = System.currentTimeMillis();
     }
 
-    public LevelManager(GameStateManager gameStateManager, DataForLoad dataForLoad) throws ParserConfigurationException {
+    public LevelManager(GameStateManager gameStateManager, DataForLoad dataForLoad) throws Exception {
         super(gameStateManager);
         this.dataForLoad = dataForLoad;
 
@@ -80,6 +80,7 @@ public class LevelManager extends GameState {
 
     public static Enemy getEnemyByLevel(int level) {
         try {
+            System.out.println(level);
             return levels[level].initOneEnemy();
         }
         catch (Exception e) {
@@ -92,7 +93,7 @@ public class LevelManager extends GameState {
 
     public void pop(int level) { levels[level] = null; }
 
-    public void add(int level) throws ParserConfigurationException {
+    public void add(int level) throws Exception {
         if(levels[level] != null ) return;
 
         if (level == LEVEL1 ) {
@@ -112,13 +113,13 @@ public class LevelManager extends GameState {
         }
     }
 
-    public void addAndPop(int level, int remove) throws ParserConfigurationException {
+    public void addAndPop(int level, int remove) throws Exception {
         add(level);
         pop(remove);
     }
 
     @Override
-    public void update() throws ParserConfigurationException, SQLException {
+    public void update() throws Exception {
         if(lose) {
             gameStateManager.pop(LEVELS);
             gameStateManager.add(LOSE);
@@ -137,7 +138,7 @@ public class LevelManager extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         for(int i = 0; i < levels.length; i++){
             if(levels[i] != null) {
                 levels[i].input(mouse, key);

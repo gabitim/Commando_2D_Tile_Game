@@ -6,7 +6,8 @@ package com.commando.game.util.hub;
 public class Define {
     //entity
     public static final int BASIC_DEFENSE = 100;
-    public static final int BASIC_DAMAGE = 1;
+    public static final int VILLAGER_DAMAGE = 70;
+    public static final int WIZARD_DAMAGE = 100;
 
     public static final int ENTITY_SIZE = 64;
 

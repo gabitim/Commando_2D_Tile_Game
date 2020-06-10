@@ -10,8 +10,7 @@ import com.commando.game.util.Vector2d;
 import com.commando.game.util.collision.AABB;
 import com.commando.game.util.collision.TileCollision;
 
-import static com.commando.game.util.hub.Define.BASIC_DAMAGE;
-import static com.commando.game.util.hub.Define.BASIC_DEFENSE;
+import static com.commando.game.util.hub.Define.*;
 
 import java.awt.*;
 import java.io.IOException;
@@ -59,7 +58,7 @@ public abstract class Entity extends GameObject {
     protected int maxHealth;
     protected float healthPercent = 1;
     protected int defense = BASIC_DEFENSE;
-    protected double damage = BASIC_DAMAGE;
+    protected double damage;
 
     public Entity(SpriteSheet spriteSheet, Vector2d origin, int size) {
         this.spriteSheet = spriteSheet;

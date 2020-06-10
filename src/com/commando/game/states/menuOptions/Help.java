@@ -45,7 +45,7 @@ public class Help extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonBack.input(mouse, key);
     }
 
@@ -59,6 +59,9 @@ public class Help extends GameState {
         buttonBack.render(graphics);
 
         SpriteSheet.drawArray(graphics, "INSTRUCTIONS", new Vector2d( 100, 100), 25, 25);
-
+        SpriteSheet.drawArray(graphics, "FIND THE PORTAL TO THE NEXT LEVEL", new Vector2d( 50, 250), 20, 15);
+        SpriteSheet.drawArray(graphics, "YOU CAN SHOOT BULLETS AND USE YOUR SPECIAL ABILITY WHEN PRESS SPACE", new Vector2d( 50, 290), 20, 15);
+        SpriteSheet.drawArray(graphics, "EVERYONE WILL TRY TO STOP YOU AND THERE ARE ALSO TRAPS ALONG THE WAY! ", new Vector2d( 50, 330), 20, 15);
+        SpriteSheet.drawArray(graphics, "     GOOD LUCK ! ", new Vector2d( 50, 390), 25, 20);
     }
 }

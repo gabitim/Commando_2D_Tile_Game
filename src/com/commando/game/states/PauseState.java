@@ -53,6 +53,7 @@ public class PauseState extends GameState {
             PlayState.canPassPlayState = false;
             LevelManager.canPassLevel = false;
             TileCollision.timePassed = 0;
+            gameStateManager.setLoadGame(false);
             gameStateManager.pop(LEVELS);
             gameStateManager.pop(PAUSE);
             gameStateManager.add(MENU); } );
@@ -66,7 +67,7 @@ public class PauseState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonResume.input(mouse, key);
         buttonSaveGame.input(mouse, key);
         buttonExit.input(mouse, key);

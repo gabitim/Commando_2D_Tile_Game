@@ -60,6 +60,7 @@ public class GameStateManager {
         states[MENU] = new MenuState(this);
     }
 
+    public void setLoadGame(boolean b) { loadGame = b; }
     public void setDataForLoad(DataForLoad dataForLoad) {
         this.dataForLoad = dataForLoad;
         loadGame = true;
@@ -77,11 +78,11 @@ public class GameStateManager {
         states[state] = null;
     }
 
-    public void add(int state) throws ParserConfigurationException, SQLException {
+    public void add(int state) throws Exception {
         if(states[state] != null) return;
 
         if(state == LEVELS) {
-            System.out.println(loadGame);
+            System.out.println("LOAD SAVED STATE: " + loadGame);
             if(loadGame) {
                 states[LEVELS] = new LevelManager(this, dataForLoad);
             } else {
@@ -119,16 +120,16 @@ public class GameStateManager {
         }
     }
 
-    public void addAndpop(int state) throws ParserConfigurationException, SQLException {
+    public void addAndpop(int state) throws Exception {
        addAndpop(state, 0);
     }
 
-    public void addAndpop(int state, int remove) throws ParserConfigurationException, SQLException {
+    public void addAndpop(int state, int remove) throws Exception {
         pop(remove);
         add(state);
     }
 
-    public void update() throws ParserConfigurationException, SQLException {
+    public void update() throws Exception {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].update();
@@ -136,7 +137,7 @@ public class GameStateManager {
         }
     }
 
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         for(int i = 0; i < states.length; i++){
             if(states[i] != null) {
                 states[i].input(mouse, key);

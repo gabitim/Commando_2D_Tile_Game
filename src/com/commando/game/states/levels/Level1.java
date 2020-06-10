@@ -47,7 +47,7 @@ public class Level1 extends Level {
     }
 
     @Override
-    public void update(boolean canPassToNext) throws ParserConfigurationException {
+    public void update(boolean canPassToNext) throws Exception {
         canPassPlayState = canPassToNext;
 
         //System.out.println("level"+ (CURRENT_LEVEL+1) + (5 - TileCollision.timePassed / 1000));
@@ -66,7 +66,7 @@ public class Level1 extends Level {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         LevelManager.playState.input(mouse, key);
     }
 

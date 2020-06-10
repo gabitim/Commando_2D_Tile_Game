@@ -76,7 +76,12 @@ public class SaveGame extends GameState {
                     LevelManager.playState.hero.getNoOfLifes(),
                     getEnemyInfo(),
                     Hero.totalDamage,
-                    (int)((currentTime - LevelManager.timeOfStart ) / 1000)
+                    (int)((currentTime - LevelManager.timeOfStart ) / 1000),
+                    LevelManager.playState.getCurrentMap(),
+                    LevelManager.playState.getCurrentHero(),
+                    LevelManager.playState.getCurrentHeroSize(),
+                    (int)LevelManager.playState.getMapX(),
+                    (int)LevelManager.playState.getMapY()
                     );
         } );
 
@@ -102,7 +107,7 @@ public class SaveGame extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonBack.input(mouse, key);
         buttonSave.input(mouse, key);
     }

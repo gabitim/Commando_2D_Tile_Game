@@ -76,7 +76,7 @@ public class Settings extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouse, KeyHandler key) throws ParserConfigurationException, SQLException {
+    public void input(MouseHandler mouse, KeyHandler key) throws Exception {
         buttonBack.input(mouse, key);
         buttonMapPlains.input(mouse, key);
         buttonMapDesert.input(mouse, key);

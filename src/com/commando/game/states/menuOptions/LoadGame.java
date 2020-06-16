@@ -44,7 +44,7 @@ public class LoadGame extends GameState {
         BufferedImage imageHover = GameStateManager.button.getSubImage(0, 29, 122, 28);
 
         Database database = new Database();
-        savedStates = database.loadState();
+        savedStates = database.loadState(); // we separate creation of data object from its use
         Collections.reverse(savedStates);
 
         if(savedStates.size() < 10) {

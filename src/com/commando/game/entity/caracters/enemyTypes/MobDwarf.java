@@ -12,6 +12,7 @@ public class MobDwarf extends Enemy {
         super(spriteSheet, origin, size);
     }
 
+
     @Override
     public String toString() { return "MobDwarf"; }
 }

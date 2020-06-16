@@ -1,5 +1,6 @@
 
 
+
 # Commando_2D_Tile_Game
 
 Commando is a top-down game where your goal is to pass all the levels and gather as much damage points as possible. 
@@ -17,8 +18,11 @@ Are you up to the challange?
  - install mysql driver [link](https://jar-download.com/artifacts/org.xerial/sqlite-jdbc/3.8.11.2/source-code)
  - configure classpath for driver: 
  ![](images/mySqlDriverInstall.png "Configure")
+ - make resource folder a source folder in Project Settings : 
+ ![](images/projectSettings.png "Configure")
  
 ## GamePlay
+Short video with the game [here](https://www.youtube.com/watch?v=9zPPF9I7Lrw)
 
 ![](images/CommandoGame.png "Layout")
 
